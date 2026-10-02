@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SPLITS8 — iPhone + Apple Watch 구간 기록</title>
+<meta name="description" content="런, 스테이션, Roxzone까지. 워치를 한 번 밀면 다음 구간이 기록됩니다. Every split, from your wrist.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SPLITS8 — Every split, from your wrist">
+<meta property="og:description" content="Split tracker for iPhone + Apple Watch. Runs, stations and Roxzone.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ctext x='32' y='47' font-family='Arial,Helvetica,sans-serif' font-size='44' font-weight='900' text-anchor='middle' fill='%23ffe600'%3E8%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* 배치: 검정과 밝은 바탕이 번갈아 나오는 넓은 구역, 구역마다 큰 제목 하나와 기기 하나 */
+:root {
+  color-scheme: dark;
+  --black: #000000;
+  --ink: #0c0c0b;
+  --paper: #f4f4ef;
+  --card: #17170f;
+  --line-d: #2b2b26;
+  --line-l: #dcdcd2;
+  --fg-d: #f6f6f1;
+  --sub-d: #a3a399;
+  --fg-l: #10100c;
+  --sub-l: #5c5c52;
+  --yellow: #ffe600;
+  --yellow-ink: #1a1700;
+  --av-green: #34c759;
+  --av-blue: #4aa3ff;
+  --av-sand: #d9d2b8;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+  --h1: clamp(40px, 8.2vw, 88px);
+  --h2: clamp(32px, 5.6vw, 60px);
+  --lead: clamp(17px, 2.1vw, 22px);
+  --gutter: 20px;
+}
+* { box-sizing: border-box; }
+body { background: var(--black); color: var(--fg-d); font-family: var(--font); font-size: 17px; line-height: 1.6;
+       word-break: keep-all; overflow-wrap: anywhere; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:root[data-l="en"] .ko { display: none !important; }
+:root:not([data-l="en"]) .en { display: none !important; }
+
+/* 위쪽 메뉴 */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(0,0,0,.72);
+       -webkit-backdrop-filter: saturate(160%) blur(18px); backdrop-filter: saturate(160%) blur(18px);
+       border-bottom: 1px solid var(--line-d); }
+.nav-in { max-width: 1080px; margin: 0 auto; padding: 0 var(--gutter); height: 52px; display: flex; align-items: center; gap: 18px; }
+.logo { font-weight: 900; letter-spacing: .01em; font-size: 18px; text-decoration: none; }
+.logo b { color: var(--yellow); }
+.nav-links { display: flex; gap: 20px; margin-left: 10px; font-size: 14px; color: var(--sub-d); }
+.nav-links a { text-decoration: none; }
+.nav-links a:hover, .nav-links a:focus-visible { color: var(--fg-d); }
+.nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.lang { display: flex; border: 1px solid var(--line-d); border-radius: 999px; overflow: hidden; }
+.lang button { font: inherit; font-size: 12px; font-weight: 700; padding: 5px 10px; border: 0; background: transparent; color: var(--sub-d); cursor: pointer; }
+.lang button[aria-pressed="true"] { background: var(--fg-d); color: var(--black); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-weight: 700;
+       background: var(--yellow); color: var(--yellow-ink); border-radius: 999px; padding: 13px 24px; font-size: 17px; }
+.btn.small { padding: 7px 14px; font-size: 13px; }
+.btn:focus-visible, .lang button:focus-visible, a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+@media (max-width: 720px) { .nav-links { display: none; } }
+
+/* 구역 */
+section { padding-block: clamp(64px, 10vw, 128px); }
+.in { max-width: 1080px; margin: 0 auto; padding-inline: var(--gutter); }
+.dark { background: var(--black); color: var(--fg-d); }
+.ink { background: var(--ink); color: var(--fg-d); }
+.light { background: var(--paper); color: var(--fg-l); }
+.light .sub { color: var(--sub-l); }
+.sub { color: var(--sub-d); }
+.eyebrow { font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--yellow); margin: 0 0 14px; }
+.light .eyebrow { color: var(--sub-l); }
+h1, h2, h3 { margin: 0; text-wrap: balance; letter-spacing: -.03em; font-weight: 900; }
+h1 { font-size: var(--h1); line-height: 1.04; }
+h2 { font-size: var(--h2); line-height: 1.08; }
+.ko h1, h1.ko, h1 .ko { line-height: 1.14; letter-spacing: -.04em; }
+h2.ko, h2 .ko { line-height: 1.18; letter-spacing: -.04em; }
+.lead { font-size: var(--lead); line-height: 1.5; max-width: 34em; margin: 20px 0 0; }
+
+/* 첫 화면 */
+.hero { text-align: center; padding-block: clamp(56px, 8vw, 96px) 0; overflow: hidden;
+        background: radial-gradient(90% 60% at 50% 100%, rgba(255,230,0,.20), rgba(255,230,0,0) 70%), var(--black); }
+.hero .lead { margin-inline: auto; }
+.hero .cta { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.note { font-size: 13px; color: var(--sub-d); }
+.hero-devices { margin-top: clamp(40px, 6vw, 72px); display: flex; justify-content: center; align-items: flex-end; gap: clamp(14px, 4vw, 48px); }
+.hero-devices .phone { margin-bottom: -18%; }
+.hero-devices .watch { margin-bottom: clamp(30px, 6vw, 70px); }
+
+/* 기기 모양 (직접 그린 일반 모양) */
+.phone { --w: clamp(200px, 56vw, 300px); width: var(--w); flex: none; position: relative; padding: calc(var(--w) * .032);
+         border-radius: calc(var(--w) * .165); background: linear-gradient(145deg, #3b3b3d, #141415 40%, #060606);
+         box-shadow: inset 0 0 0 1.5px #55555a, 0 40px 90px rgba(0,0,0,.55); }
+.phone img { display: block; width: 100%; height: auto; aspect-ratio: 1206 / 2622; object-fit: cover; object-position: top;
+             border-radius: calc(var(--w) * .135); background: #000; }
+.phone::before { content: ""; position: absolute; left: 50%; top: calc(var(--w) * .058); transform: translateX(-50%);
+                 width: 29%; height: calc(var(--w) * .078); border-radius: 999px; background: #000; z-index: 1; }
+.phone.cut img { aspect-ratio: 1206 / 2100; }
+.watch { --w: clamp(120px, 30vw, 190px); width: var(--w); flex: none; position: relative; }
+.watch .case { position: relative; z-index: 1; padding: calc(var(--w) * .075); border-radius: calc(var(--w) * .27);
+               background: linear-gradient(145deg, #4a4a4d, #1a1a1b 45%, #050505); box-shadow: inset 0 0 0 1.5px #5a5a5f, 0 30px 60px rgba(0,0,0,.5); }
+.watch .case img { display: block; width: 100%; height: auto; aspect-ratio: 416 / 496; border-radius: calc(var(--w) * .2); background: #000; }
+.watch .case::after { content: ""; position: absolute; right: calc(var(--w) * -.035); top: 26%; width: calc(var(--w) * .05); height: 15%;
+                      border-radius: 4px; background: linear-gradient(90deg, #2a2a2c, #5c5c61); }
+.watch .band { position: absolute; left: 16%; right: 16%; height: 34%; background: linear-gradient(180deg, #1d1d1f, #0b0b0b); z-index: 0; }
+.watch .band.top { top: -22%; border-radius: 18px 18px 0 0; }
+.watch .band.bot { bottom: -22%; border-radius: 0 0 18px 18px; background: linear-gradient(0deg, #1d1d1f, #0b0b0b); }
+.watch.pad { margin-block: calc(var(--w) * .28); }
+
+/* 기능 구역: 글 + 기기 */
+.feat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 80px); align-items: center; }
+.feat .art { display: flex; justify-content: center; align-items: center; gap: clamp(12px, 3vw, 28px); }
+.feat.flip .copy { order: 2; }
+.feat ul { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 17px; }
+.feat li { padding-left: 18px; position: relative; }
+.feat li::before { content: ""; position: absolute; left: 0; top: .62em; width: 7px; height: 7px; border-radius: 50%; background: var(--yellow); }
+.light .feat li::before { background: var(--fg-l); }
+@media (max-width: 760px) {
+  .feat { grid-template-columns: minmax(0, 1fr); }
+  .feat.flip .copy { order: 0; }
+}
+
+/* 손동작 표 */
+.gest { margin-top: 26px; display: grid; gap: 1px; background: var(--line-d); border: 1px solid var(--line-d); border-radius: 16px; overflow: hidden; max-width: 30em; }
+.gest div { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 12px; padding: 13px 16px; background: var(--card); font-size: 16px; }
+.gest b { font-weight: 700; }
+.gest span { color: var(--sub-d); }
+
+/* 작은 기능 묶음 */
+.grid6 { margin-top: clamp(32px, 5vw, 56px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line-l);
+         border: 1px solid var(--line-l); border-radius: 22px; overflow: hidden; }
+.grid6 div { background: var(--paper); padding: 24px 22px; }
+.grid6 h3 { font-size: 20px; letter-spacing: -.02em; font-weight: 700; margin-bottom: 6px; }
+.grid6 p { margin: 0; color: var(--sub-l); font-size: 16px; line-height: 1.5; }
+@media (max-width: 820px) { .grid6 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .grid6 { grid-template-columns: minmax(0, 1fr); } }
+
+/* 친구 순위 예시 카드 */
+.board { width: min(100%, 390px); background: var(--ink); color: var(--fg-d); border-radius: 30px; padding: 22px 20px 20px;
+         box-shadow: 0 34px 80px rgba(20,20,0,.28); }
+.board-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.board-title { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--sub-d); }
+.demo { font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--sub-d); border: 1px solid var(--line-d); border-radius: 999px; padding: 2px 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.chips span { font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 9px; background: #23231d; color: var(--sub-d); }
+.chips .on { background: var(--yellow); color: var(--yellow-ink); }
+.rows { margin-top: 16px; display: grid; gap: 6px; }
+.row { display: grid; grid-template-columns: 22px 38px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 16px; background: var(--card); }
+.row i { font-style: normal; font-weight: 700; color: var(--sub-d); font-variant-numeric: tabular-nums; text-align: center; }
+.row span { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row em { font-style: normal; font-weight: 700; font-size: 19px; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.row.me { background: var(--yellow); color: var(--yellow-ink); }
+.row.me i { color: var(--yellow-ink); }
+.row.me span { font-weight: 700; }
+.av { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 15px; color: #0b0b0b; }
+.a1 { background: #0b0b0b; color: var(--yellow); }
+.a2 { background: var(--av-green); }
+.a3 { background: var(--av-blue); }
+.a4 { background: var(--av-sand); }
+.gap { margin: 14px 2px 0; font-size: 14px; color: var(--sub-d); }
+
+/* 실제 공유 그림 */
+.shot { margin: 0; flex: none; width: clamp(190px, 52vw, 300px); }
+.shot img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 24px;
+            box-shadow: 0 0 0 1px var(--line-d), 0 40px 90px rgba(0,0,0,.6); }
+.shot figcaption { margin-top: 12px; font-size: 13px; color: var(--sub-d); text-align: center; }
+h2 + .grid6 { margin-top: clamp(28px, 4vw, 44px); }
+
+/* 사용법 */
+.steps { margin: clamp(32px, 5vw, 56px) 0 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 0; border-top: 1px solid var(--line-d); }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 8px 16px; padding: 26px 0; border-bottom: 1px solid var(--line-d); }
+.steps li::before { content: counter(s); font-size: 44px; font-weight: 900; line-height: 1; color: var(--yellow); font-variant-numeric: tabular-nums; letter-spacing: -.04em; }
+.steps h3 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+.steps p { margin: 6px 0 0; color: var(--sub-d); max-width: 40em; }
+.tip { margin-top: 26px; padding: 18px 20px; border-radius: 16px; background: var(--card); border: 1px solid var(--line-d); max-width: 44em; }
+.tip p { margin: 0; }
+
+/* 업데이트 소식 */
+.log { margin-top: clamp(28px, 4vw, 48px); display: grid; gap: 0; border-top: 1px solid var(--line-l); }
+.log article { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 8px 24px; padding: 24px 0; border-bottom: 1px solid var(--line-l); }
+.log .ver { font-weight: 900; font-size: 22px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.log .when { display: block; font-size: 14px; color: var(--sub-l); font-weight: 500; letter-spacing: 0; margin-top: 2px; }
+.log ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.new { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; background: var(--fg-l); color: var(--yellow); padding: 3px 8px; border-radius: 999px; vertical-align: middle; margin-left: 8px; }
+@media (max-width: 620px) { .log article { grid-template-columns: minmax(0, 1fr); } }
+
+/* 문의 */
+.contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; margin-top: clamp(28px, 4vw, 48px); }
+.contact .box { background: var(--card); border: 1px solid var(--line-d); border-radius: 22px; padding: 26px 24px; }
+.contact h3 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+.contact p { margin: 8px 0 0; color: var(--sub-d); }
+.mail { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.mail code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 16px; background: #000; border: 1px solid var(--line-d); padding: 9px 12px; border-radius: 10px; user-select: all; }
+.ghost { font: inherit; font-size: 14px; font-weight: 700; color: var(--fg-d); background: transparent; border: 1px solid var(--sub-d); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.soon { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--yellow); border: 1px solid var(--yellow); padding: 3px 9px; border-radius: 999px; margin-bottom: 12px; }
+@media (max-width: 720px) { .contact { grid-template-columns: minmax(0, 1fr); } }
+
+.last { text-align: center; }
+.last .lead { margin-inline: auto; }
+.last .btn { margin-top: 28px; }
+footer { background: var(--black); border-top: 1px solid var(--line-d); color: var(--sub-d); font-size: 13px; padding-block: 28px 40px; }
+footer p { margin: 4px 0; }
+.foot-links { margin-bottom: 10px !important; font-size: 14px; }
+.foot-links a { color: var(--fg-d); }
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="nav-in">
+    <a class="logo" href="#top">SPLITS<b>8</b></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#features"><span class="ko">기능</span><span class="en">Features</span></a>
+      <a href="#friends"><span class="ko">친구</span><span class="en">Friends</span></a>
+      <a href="#how"><span class="ko">사용법</span><span class="en">How to use</span></a>
+      <a href="#updates"><span class="ko">업데이트</span><span class="en">Updates</span></a>
+      <a href="#contact"><span class="ko">문의</span><span class="en">Contact</span></a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" id="lang-ko" aria-pressed="true">한</button>
+        <button type="button" id="lang-en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn small" href="https://testflight.apple.com/join/X7UUKPSy" target="_blank" rel="noopener"><span class="ko">베타 받기</span><span class="en">Get the beta</span></a>
+    </div>
+  </div>
+</div>
+
+<section class="hero" id="top">
+  <div class="in">
+    <p class="eyebrow"><span class="ko">iPhone + Apple Watch 구간 기록 앱</span><span class="en">Split tracker for iPhone + Apple Watch</span></p>
+    <h1><span class="ko">모든 구간을<br>손목에서.</span><span class="en">Every split,<br>from your wrist.</span></h1>
+    <p class="lead sub">
+      <span class="ko">런, 스테이션, Roxzone까지. 워치를 한 번 밀면 다음 구간이 기록됩니다.</span>
+      <span class="en">Runs, stations and Roxzone. One swipe on your watch logs the next segment.</span>
+    </p>
+    <div class="cta">
+      <a class="btn" href="https://testflight.apple.com/join/X7UUKPSy" target="_blank" rel="noopener"><span class="ko">TestFlight로 베타 받기</span><span class="en">Get the beta on TestFlight</span></a>
+      <span class="note"><span class="ko">무료 · iOS 17, watchOS 10 이상</span><span class="en">Free · iOS 17 and watchOS 10 or later</span></span>
+    </div>
+    <div class="hero-devices">
+      <div class="watch"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_live.webp" alt="Apple Watch: Sled Push 구간 진행 화면" width="416" height="496"></div></div>
+      <div class="phone cut"><img src="img/p_sim.webp" alt="iPhone: 풀 시뮬레이션 기록 그래프 화면" width="540" height="1174"></div>
+    </div>
+  </div>
+</section>
+
+<section class="light" id="features">
+  <div class="in feat">
+    <div class="copy">
+      <p class="eyebrow">Apple Watch</p>
+      <h2><span class="ko">밀면,<br>다음 구간.</span><span class="en">Swipe.<br>Next segment.</span></h2>
+      <p class="lead sub">
+        <span class="ko">운동 중에는 화면을 들여다볼 틈이 없습니다. 그래서 조작을 하나로 줄였습니다.</span>
+        <span class="en">Mid-workout there is no time to look at a screen. So there is only one move to remember.</span>
+      </p>
+      <ul>
+        <li><span class="ko">왼쪽으로 밀기 또는 손가락 두 번 톡톡(watchOS 11 이상): 다음 구간</span><span class="en">Swipe left, or double tap your fingers (watchOS 11 or later): next segment</span></li>
+        <li><span class="ko">오른쪽으로 밀기: 일시정지와 종료</span><span class="en">Swipe right: pause and end</span></li>
+        <li><span class="ko">지금 구간 시간, 총 시간, 다음 구간이 한 화면에</span><span class="en">Current split, total time and what comes next on one screen</span></li>
+      </ul>
+    </div>
+    <div class="art">
+      <div class="watch pad"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_live.webp" alt="워치 운동 중 화면" width="416" height="496"></div></div>
+      <div class="watch pad"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_confirm.webp" alt="워치 트레이닝 시작 화면" width="416" height="496"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="in feat flip">
+    <div class="copy">
+      <p class="eyebrow"><span class="ko">트레이닝</span><span class="en">Training</span></p>
+      <h2><span class="ko">내 운동은<br>내가 짭니다.</span><span class="en">Build the session<br>you want.</span></h2>
+      <p class="lead sub">
+        <span class="ko">런 거리와 스테이션을 누르는 순서대로 쌓입니다. 저장하면 워치 목록에 바로 나옵니다.</span>
+        <span class="en">Tap run distances and stations in the order you want. Save, and it shows up on your watch.</span>
+      </p>
+      <ul>
+        <li><span class="ko">한 세트에 16구간까지, 세트 반복</span><span class="en">Up to 16 segments per set, repeat sets</span></li>
+        <li><span class="ko">스테이션 8종: SkiErg, Sled Push, Sled Pull, BBJ, Row, Carry, Lunges, Wall Balls</span><span class="en">Eight stations: SkiErg, Sled Push, Sled Pull, BBJ, Row, Carry, Lunges, Wall Balls</span></li>
+        <li><span class="ko">HIIT와 러닝도 한 번에 시작</span><span class="en">HIIT and running start in one tap too</span></li>
+      </ul>
+    </div>
+    <div class="art">
+      <div class="phone"><img src="img/p_build.webp" alt="새 트레이닝 만들기 화면" width="540" height="1174"></div>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="in feat">
+    <div class="copy">
+      <p class="eyebrow"><span class="ko">풀 시뮬레이션 · 레이스</span><span class="en">Full simulation · Race</span></p>
+      <h2><span class="ko">8번의 런,<br>8개의 스테이션.</span><span class="en">Eight runs.<br>Eight stations.</span></h2>
+      <p class="lead sub">
+        <span class="ko">대회와 같은 순서로 처음부터 끝까지. 목표 기록보다 얼마나 앞서는지 구간마다 보여 줍니다.</span>
+        <span class="en">The full race order, start to finish. Each segment shows how far ahead of your goal you are.</span>
+      </p>
+      <ul>
+        <li><span class="ko">Roxzone(이동 구간)을 따로 재기</span><span class="en">Time Roxzone transitions separately</span></li>
+        <li><span class="ko">목표 기록 또는 지난 기록과 비교</span><span class="en">Compare against a goal or your last result</span></li>
+        <li><span class="ko">대회 날짜를 넣으면 달력에 표시</span><span class="en">Add your race date and see it on the calendar</span></li>
+      </ul>
+    </div>
+    <div class="art">
+      <div class="phone"><img src="img/p_race.webp" alt="레이스 목표 기록 화면" width="540" height="1174"></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="in feat flip">
+    <div class="copy">
+      <p class="eyebrow"><span class="ko">기록</span><span class="en">Results</span></p>
+      <h2><span class="ko">어디서 느려졌는지<br>바로 보입니다.</span><span class="en">See exactly where<br>you slowed down.</span></h2>
+      <p class="lead sub">
+        <span class="ko">구간별 시간, 심박수, 런 페이스를 한 화면에서 봅니다.</span>
+        <span class="en">Split times, heart rate and run pace in one place.</span>
+      </p>
+      <ul>
+        <li><span class="ko">런 피로도: 어떤 스테이션 뒤의 1km가 가장 느린지</span><span class="en">Run fatigue: which station costs you the most on the next 1 km</span></li>
+        <li><span class="ko">심박 구간별 머문 시간</span><span class="en">Time in each heart rate zone</span></li>
+        <li><span class="ko">기록마다 운동한 시간대와 동네 이름</span><span class="en">Time of day and neighborhood on every record</span></li>
+      </ul>
+    </div>
+    <div class="art">
+      <div class="phone"><img src="img/p_detail.webp" alt="기록 상세 화면" width="540" height="1174"></div>
+      <div class="phone" style="--w: clamp(150px, 30vw, 230px)"><img src="img/p_splits.webp" alt="구간별 시간 목록" width="540" height="1174"></div>
+    </div>
+  </div>
+</section>
+
+<section class="light" id="friends">
+  <div class="in feat">
+    <div class="copy">
+      <p class="eyebrow"><span class="ko">친구</span><span class="en">Friends</span></p>
+      <h2><span class="ko">친구 기록을<br>따라잡으세요.</span><span class="en">Chase your<br>friends' times.</span></h2>
+      <p class="lead sub">
+        <span class="ko">닉네임으로 친구를 찾아 서로 추가하면, 기록이 나란히 놓입니다.</span>
+        <span class="en">Find friends by nickname. Once you add each other, your results line up side by side.</span>
+      </p>
+      <ul>
+        <li><span class="ko">풀 시뮬레이션, 레이스, 스테이션별 순위</span><span class="en">Rankings for Full Simulation, races and every station</span></li>
+        <li><span class="ko">친구를 고르면 그 기록이 내 목표가 됩니다</span><span class="en">Pick a friend and their time becomes your target</span></li>
+        <li><span class="ko">같이 뛴 파트너를 기록에 남기기</span><span class="en">Tag the partner you trained with</span></li>
+        <li><span class="ko">누가 볼지는 내가 정합니다: 친구만, 전체 공개, 나만 보기</span><span class="en">You decide who sees your results: friends, public or only you</span></li>
+      </ul>
+    </div>
+    <div class="art">
+      <div class="board" role="img" aria-label="친구 순위 예시">
+        <div class="board-head">
+          <span class="board-title"><span class="ko">친구 순위</span><span class="en">Friends ranking</span></span>
+          <span class="demo"><span class="ko">예시</span><span class="en">EXAMPLE</span></span>
+        </div>
+        <div class="chips"><span class="on">Full Sim</span><span>Race</span><span>Sled Push</span><span>Wall Balls</span></div>
+        <div class="rows">
+          <div class="row"><i>1</i><b class="av a2">M</b><span>@mina_fit</span><em>1:12:48</em></div>
+          <div class="row me"><i>2</i><b class="av a1">N</b><span><span class="ko">나</span><span class="en">You</span></span><em>1:15:03</em></div>
+          <div class="row"><i>3</i><b class="av a3">T</b><span>@taeho88</span><em>1:16:20</em></div>
+          <div class="row"><i>4</i><b class="av a4">J</b><span>@runner_j</span><em>1:19:02</em></div>
+        </div>
+        <p class="gap"><span class="ko">1위까지 2분 15초</span><span class="en">2:15 behind first place</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="share">
+  <div class="in feat flip">
+    <div class="copy">
+      <p class="eyebrow"><span class="ko">공유</span><span class="en">Share</span></p>
+      <h2><span class="ko">기록을<br>한 장으로.</span><span class="en">Your result,<br>on one card.</span></h2>
+      <p class="lead sub">
+        <span class="ko">운동 사진을 고르면 그 위에 기록이 올라갑니다. 그대로 SNS에 올리면 됩니다.</span>
+        <span class="en">Pick a workout photo and your result is laid over it. Post it as it is.</span>
+      </p>
+      <ul>
+        <li><span class="ko">모양 세 가지: 포스터, 티켓, 블록</span><span class="en">Three styles: poster, ticket, block</span></li>
+        <li><span class="ko">스토리(9:16)와 게시물(4:5) 크기</span><span class="en">Story (9:16) and post (4:5) sizes</span></li>
+        <li><span class="ko">구간 시간, 글자 색, 흑백 사진을 켜고 끄기</span><span class="en">Toggle split times, text color and black-and-white photo</span></li>
+      </ul>
+    </div>
+    <div class="art">
+      <figure class="shot">
+        <img src="img/share_real.webp" alt="앱으로 만든 공유 그림: 운동 사진 위에 총 시간 17:31과 구간 기록" width="720" height="1280">
+        <figcaption><span class="ko">앱으로 만든 실제 공유 그림</span><span class="en">A real card made with the app</span></figcaption>
+      </figure>
+      <div class="phone" style="--w: clamp(130px, 26vw, 200px)"><img src="img/p_share.webp" alt="공유 그림 만들기 화면" width="540" height="1174"></div>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="in">
+    <p class="eyebrow"><span class="ko">그리고</span><span class="en">And more</span></p>
+    <h2><span class="ko">이것도 됩니다.</span><span class="en">Also inside.</span></h2>
+    <div class="grid6">
+      <div><h3>HIIT</h3><p><span class="ko">라운드를 원하는 만큼. 밀 때마다 한 라운드가 기록됩니다.</span><span class="en">As many rounds as you want. Each swipe logs one.</span></p></div>
+      <div><h3><span class="ko">러닝</span><span class="en">Running</span></h3><p><span class="ko">3, 5, 10, 21K 또는 자유. 1km마다 자동으로 나눕니다. 실외는 달린 길이 지도에 남습니다.</span><span class="en">3, 5, 10, 21K or free. Auto splits every 1 km. Outdoor runs keep a route map.</span></p></div>
+      <div><h3><span class="ko">달력</span><span class="en">Calendar</span></h3><p><span class="ko">운동한 날, 계획한 날, 대회 날을 한눈에 봅니다.</span><span class="en">Days trained, days planned and race day at a glance.</span></p></div>
+      <div><h3><span class="ko">건강 앱</span><span class="en">Apple Health</span></h3><p><span class="ko">운동이 건강 앱에 저장됩니다. 심박수는 내 기기에만 남습니다.</span><span class="en">Workouts are saved to Health. Heart rate stays on your device.</span></p></div>
+      <div><h3><span class="ko">아이폰만으로도</span><span class="en">iPhone only works too</span></h3><p><span class="ko">워치가 없어도 아이폰에서 바로 시작할 수 있습니다.</span><span class="en">No watch? Start the workout right on your iPhone.</span></p></div>
+      <div><h3><span class="ko">가입 없이도</span><span class="en">No account needed</span></h3><p><span class="ko">기록만 할 때는 가입하지 않아도 됩니다.</span><span class="en">You can track without signing up.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ink" id="how">
+  <div class="in">
+    <p class="eyebrow"><span class="ko">사용법</span><span class="en">How to use</span></p>
+    <h2><span class="ko">다섯 단계면<br>됩니다.</span><span class="en">Five steps<br>to your first split.</span></h2>
+    <ol class="steps">
+      <li><div>
+        <h3><span class="ko">TestFlight로 설치</span><span class="en">Install with TestFlight</span></h3>
+        <p><span class="ko">아이폰에 TestFlight 앱을 먼저 받고, 이 페이지의 "베타 받기"를 누릅니다. 초대 코드는 필요 없습니다. 카카오톡에서 열었다면 Safari로 다시 열어 주세요.</span><span class="en">Install the TestFlight app on your iPhone, then tap "Get the beta" on this page. No invite code is needed.</span></p>
+      </div></li>
+      <li><div>
+        <h3><span class="ko">워치에도 설치</span><span class="en">Add it to your watch</span></h3>
+        <p><span class="ko">아이폰의 Watch 앱을 열고 목록에서 SPLITS8의 "설치"를 누릅니다. 워치가 없으면 아이폰만으로도 기록할 수 있습니다.</span><span class="en">Open the Watch app on your iPhone and tap Install next to SPLITS8. No watch? You can track from the iPhone alone.</span></p>
+      </div></li>
+      <li><div>
+        <h3><span class="ko">운동 고르기</span><span class="en">Pick a workout</span></h3>
+        <p><span class="ko">트레이닝을 새로 만들거나, 풀 시뮬레이션이나 레이스를 고릅니다.</span><span class="en">Build a training, or choose Full Simulation or Race.</span></p>
+      </div></li>
+      <li><div>
+        <h3><span class="ko">워치에서 시작</span><span class="en">Start on the watch</span></h3>
+        <p><span class="ko">구간이 끝날 때마다 왼쪽으로 밉니다. 멈추거나 끝낼 때는 오른쪽으로 밉니다.</span><span class="en">Swipe left each time a segment ends. Swipe right to pause or end.</span></p>
+      </div></li>
+      <li><div>
+        <h3><span class="ko">아이폰에서 기록 보기</span><span class="en">Review on iPhone</span></h3>
+        <p><span class="ko">운동이 끝나면 기록이 아이폰으로 넘어옵니다. 구간별 시간을 보고, 그림으로 공유합니다.</span><span class="en">When you finish, the result moves to your iPhone. Check each split and share it as an image.</span></p>
+      </div></li>
+    </ol>
+    <div class="gest" role="table" aria-label="Watch gestures">
+      <div role="row"><b role="cell"><span class="ko">왼쪽으로 밀기</span><span class="en">Swipe left</span></b><span role="cell"><span class="ko">다음 구간</span><span class="en">Next segment</span></span></div>
+      <div role="row"><b role="cell"><span class="ko">손가락 두 번 톡톡</span><span class="en">Double tap</span></b><span role="cell"><span class="ko">다음 구간 (watchOS 11 이상)</span><span class="en">Next segment (watchOS 11 or later)</span></span></div>
+      <div role="row"><b role="cell"><span class="ko">오른쪽으로 밀기</span><span class="en">Swipe right</span></b><span role="cell"><span class="ko">일시정지 · 종료</span><span class="en">Pause · End</span></span></div>
+    </div>
+    <div class="tip"><p>
+      <span class="ko"><b>친구와 비교하려면</b> 설정에서 이메일로 가입하고 닉네임을 정합니다. 서로 친구로 추가하면 기록과 순위가 보입니다.</span>
+      <span class="en"><b>To compare with friends,</b> sign up with your email in Settings and pick a nickname. Once you both add each other, you see each other's results and rankings.</span>
+    </p></div>
+  </div>
+</section>
+
+<section class="light" id="updates">
+  <div class="in">
+    <p class="eyebrow"><span class="ko">업데이트 소식</span><span class="en">Updates</span></p>
+    <h2><span class="ko">빌드마다<br>바뀐 것.</span><span class="en">What changed<br>in each build.</span></h2>
+    <div class="log">
+      <article>
+        <div class="ver">1.0.0 (17)<span class="new">NEW</span><span class="when">2026.10.02</span></div>
+        <ul>
+          <li><span class="ko">트레이닝 만들기 화면의 취소·저장 버튼을 맨 위에 고정했습니다. 가끔 안 눌리던 문제도 함께 고쳤습니다.</span><span class="en">Cancel and Save now stay pinned at the top of the training builder, and no longer fail to respond.</span></li>
+          <li><span class="ko">카드를 천천히 밀 때 화면이 잘못 열리던 문제를 고쳤습니다. 삭제 지점까지 밀면 진동으로 알려 줍니다.</span><span class="en">Fixed cards opening by mistake on a slow swipe. A tap of haptic tells you when Delete is ready.</span></li>
+          <li><span class="ko">워치의 종료·일시정지·다음 버튼을 새로 그렸고, 글자가 시계와 겹치던 곳을 고쳤습니다.</span><span class="en">Redrawn End, Pause and Next buttons on the watch, and fixed text overlapping the clock.</span></li>
+          <li><span class="ko">설정에 홈페이지와 개인정보처리방침 링크를 넣었습니다.</span><span class="en">Added Website and Privacy Policy links in Settings.</span></li>
+        </ul>
+      </article>
+      <article>
+        <div class="ver">1.0.0 (16)<span class="when">2026.10.01</span></div>
+        <ul>
+          <li><span class="ko">트레이닝이 많을 때 스크롤이 안 되던 문제를 고쳤습니다.</span><span class="en">Fixed scrolling when you have many trainings.</span></li>
+          <li><span class="ko">공유 화면의 "이미지 저장"이 사진 앱에 저장되지 않던 문제를 고쳤습니다.</span><span class="en">Fixed "Save image" not saving to Photos.</span></li>
+          <li><span class="ko">홈 달력 위의 모드 버튼을 없앴습니다.</span><span class="en">Removed the mode buttons above the Home calendar.</span></li>
+        </ul>
+      </article>
+      <article>
+        <div class="ver">1.0.0 (15)<span class="when">2026.10.01</span></div>
+        <ul>
+          <li><span class="ko">HIIT와 러닝을 추가했습니다. 실외 러닝은 달린 길이 지도에 남습니다.</span><span class="en">Added HIIT and Running. Outdoor runs keep a route map.</span></li>
+          <li><span class="ko">모든 기록에 운동한 시간대와 동네 이름이 나옵니다.</span><span class="en">Every record now shows the time of day and neighborhood.</span></li>
+          <li><span class="ko">워치 글자를 키웠습니다.</span><span class="en">Larger text on the watch.</span></li>
+          <li><span class="ko">트레이닝 만들기 버튼을 누르면 진동과 숫자로 알려 줍니다.</span><span class="en">Builder buttons now respond with a tap and a count.</span></li>
+        </ul>
+      </article>
+      <article>
+        <div class="ver">1.0.0 (14)<span class="when">2026.10.01</span></div>
+        <ul>
+          <li><span class="ko">트레이닝 카드를 밀어서 지울 수 있습니다.</span><span class="en">Swipe a training card to delete it.</span></li>
+          <li><span class="ko">중간에 끝낸 기록과 너무 짧은 기록은 최고 기록에서 뺍니다.</span><span class="en">Unfinished and too-short results no longer count as personal bests.</span></li>
+          <li><span class="ko">프로필 사진과 친구 사진을 누르면 크게 보입니다.</span><span class="en">Tap a profile or friend photo to see it large.</span></li>
+          <li><span class="ko">아이폰 글자 크기를 정리했습니다.</span><span class="en">Tidied text sizes on iPhone.</span></li>
+        </ul>
+      </article>
+      <article>
+        <div class="ver">1.0.0 (12)</div>
+        <ul>
+          <li><span class="ko">한국어와 영어를 지원합니다.</span><span class="en">Korean and English.</span></li>
+          <li><span class="ko">대회 날이 달력에 깃발로 표시됩니다.</span><span class="en">Race day shows as a flag on the calendar.</span></li>
+        </ul>
+      </article>
+      <article>
+        <div class="ver">1.0.0 (10)</div>
+        <ul>
+          <li><span class="ko">새 디자인, 달력, 운동 예약, 더블 파트너, 아이폰에서 시작, 런 피로도.</span><span class="en">New design, calendar, planned workouts, doubles partner, start on iPhone, run fatigue.</span></li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="ink" id="contact">
+  <div class="in">
+    <p class="eyebrow"><span class="ko">문의 · 요청</span><span class="en">Contact · Requests</span></p>
+    <h2><span class="ko">고칠 것과 바라는 것을<br>알려 주세요.</span><span class="en">Tell us what is broken<br>and what you want.</span></h2>
+    <div class="contact">
+      <div class="box">
+        <h3><span class="ko">이메일</span><span class="en">Email</span></h3>
+        <p><span class="ko">버그, 기능 요청, 무엇이든 보내 주세요.</span><span class="en">Bugs, feature requests, anything.</span></p>
+        <div class="mail"><code id="mail">nkssi1981@gmail.com</code><button class="ghost" type="button" id="copy"><span class="ko">복사</span><span class="en">Copy</span></button></div>
+      </div>
+      <div class="box">
+        <span class="soon"><span class="ko">준비 중</span><span class="en">COMING SOON</span></span>
+        <h3><span class="ko">게시판</span><span class="en">Board</span></h3>
+        <p><span class="ko">문의와 요청 글을 올리고 답을 볼 수 있는 게시판을 만들고 있습니다.</span><span class="en">A board for questions and requests is on the way.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark last">
+  <div class="in">
+    <h2><span class="ko">호랑이는 죽어서 가죽을 남기고,<br>하이록서는 기록을 남긴다.</span><span class="en">Start with your<br>next session.</span></h2>
+    <p class="lead sub"><span class="ko">당신의 기록, SPLITS8에.</span><span class="en">Free during the beta. Try it and tell us what you think.</span></p>
+    <a class="btn" href="https://testflight.apple.com/join/X7UUKPSy" target="_blank" rel="noopener"><span class="ko">TestFlight로 베타 받기</span><span class="en">Get the beta on TestFlight</span></a>
+    <p class="note ko" style="margin-top:14px">베타 기간에는 무료입니다. 써 보고 의견을 보내 주세요.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="in">
+    <p class="foot-links"><a href="privacy.html"><span class="ko">개인정보처리방침</span><span class="en">Privacy Policy</span></a></p>
+    <p><span class="ko">SPLITS8은 HYROX 공식 앱이 아닙니다. HYROX는 해당 권리자의 상표입니다.</span><span class="en">SPLITS8 is not an official HYROX app. HYROX is a trademark of its respective owner.</span></p>
+    <p><span class="ko">Apple Watch, iPhone, TestFlight는 Apple Inc.의 상표입니다. 화면은 개발 중인 버전이며 바뀔 수 있습니다.</span><span class="en">Apple Watch, iPhone and TestFlight are trademarks of Apple Inc. Screens show a version in development and may change.</span></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement, ko = document.getElementById('lang-ko'), en = document.getElementById('lang-en');
+  function set(l, save) {
+    root.setAttribute('data-l', l);
+    ko.setAttribute('aria-pressed', l === 'ko');
+    en.setAttribute('aria-pressed', l === 'en');
+    if (save) { try { localStorage.setItem('lang', l); } catch (e) {} }
+    document.documentElement.lang = l;
+  }
+  var saved = (location.search.match(/[?&]lang=(ko|en)/) || [])[1] || null;
+  if (!saved) { try { saved = localStorage.getItem('lang'); } catch (e) {} }
+  set(saved === 'ko' || saved === 'en' ? saved : ((navigator.language || 'ko').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en'), false);
+  ko.addEventListener('click', function () { set('ko', true); });
+  en.addEventListener('click', function () { set('en', true); });
+
+  var copy = document.getElementById('copy'), mail = document.getElementById('mail');
+  copy.addEventListener('click', function () {
+    var done = function () { var k = copy.querySelector('.ko'), e = copy.querySelector('.en'); k.textContent = '복사됨'; e.textContent = 'Copied';
+      setTimeout(function () { k.textContent = '복사'; e.textContent = 'Copy'; }, 1600); };
+    var pick = function () { var r = document.createRange(); r.selectNodeContents(mail); var s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(mail.textContent).then(done, pick); } else { pick(); }
+  });
+})();
+</script>
+</body>
+</html>

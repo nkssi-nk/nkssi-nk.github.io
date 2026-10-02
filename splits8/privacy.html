@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPLITS8 — 개인정보처리방침 / Privacy Policy</title>
+<style>
+  :root { --bg:#ffffff; --fg:#111111; --sub:#5b5b60; --line:#e3e3e6; --card:#f5f5f7; --accent:#8a7400; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0b0b0c; --fg:#f2f2f3; --sub:#a0a0a6; --line:#2a2a2e; --card:#17171a; --accent:#ffe600; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font-family:-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", "Malgun Gothic", sans-serif;
+         font-size:17px; line-height:1.65; -webkit-text-size-adjust:100%; word-break:keep-all; overflow-wrap:anywhere; }
+  main { max-width:720px; margin:0 auto; padding:28px 20px 64px; }
+  header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
+  .brand { font-weight:800; letter-spacing:.02em; font-size:20px; }
+  .brand b { color:var(--accent); }
+  .lang { display:flex; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .lang button { font:inherit; font-size:14px; font-weight:600; padding:7px 14px; border:0; background:transparent;
+                 color:var(--sub); cursor:pointer; }
+  .lang button[aria-pressed="true"] { background:var(--fg); color:var(--bg); }
+  h1 { font-size:30px; line-height:1.25; margin:18px 0 4px; }
+  .date { color:var(--sub); font-size:14px; margin:0 0 22px; }
+  h2 { font-size:20px; margin:34px 0 8px; padding-top:18px; border-top:1px solid var(--line); }
+  p { margin:8px 0; }
+  ul { margin:8px 0; padding-left:22px; }
+  li { margin:4px 0; }
+  .box { background:var(--card); border-radius:14px; padding:14px 18px; margin:14px 0; }
+  .box p:first-child, .box ul:first-child { margin-top:0; }
+  .box p:last-child, .box ul:last-child { margin-bottom:0; }
+  .scroll { overflow-x:auto; }
+  table { border-collapse:collapse; width:100%; font-size:15px; margin:10px 0; }
+  th, td { text-align:left; vertical-align:top; padding:9px 10px; border-bottom:1px solid var(--line); }
+  th { color:var(--sub); font-weight:600; font-size:13px; white-space:nowrap; }
+  a { color:inherit; }
+  footer { margin-top:40px; padding-top:18px; border-top:1px solid var(--line); color:var(--sub); font-size:14px; }
+  [data-lang] { display:none; }
+  html[lang="ko"] [data-lang="ko"], html[lang="en"] [data-lang="en"] { display:block; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <a class="brand" href="./" style="text-decoration:none">SPLITS<b>8</b></a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" id="b-ko" aria-pressed="true">한국어</button>
+      <button type="button" id="b-en" aria-pressed="false">English</button>
+    </div>
+  </header>
+
+  <!-- ===================== 한국어 ===================== -->
+  <section data-lang="ko">
+    <h1>개인정보처리방침</h1>
+    <p class="date">시행일: 2026년 10월 2일</p>
+
+    <div class="box">
+      <p><strong>짧게 말하면</strong></p>
+      <ul>
+        <li>가입하지 않아도 앱을 쓸 수 있습니다. 이때는 아무것도 서버로 보내지 않습니다.</li>
+        <li>가입하면 이메일, 닉네임, 프로필 사진, 운동 기록 요약(시간)만 서버에 저장합니다.</li>
+        <li>심박수, 위치, 달린 경로는 내 기기에만 있고 서버로 보내지 않습니다.</li>
+        <li>광고가 없고, 추적하지 않으며, 정보를 팔지 않습니다.</li>
+        <li>앱 안에서 언제든지 계정을 지울 수 있습니다.</li>
+      </ul>
+    </div>
+
+    <h2>1. 누가 운영하나요</h2>
+    <p>SPLITS8은 개인 개발자가 만들어 운영하는 운동 기록 앱입니다(아이폰, 애플워치). 이 문서에서 "저희"는 SPLITS8 운영자를 말합니다.</p>
+    <p>문의: <a href="mailto:nkssi1981@gmail.com">nkssi1981@gmail.com</a></p>
+
+    <h2>2. 서버에 저장하는 정보 (가입한 경우만)</h2>
+    <div class="scroll">
+    <table>
+      <tr><th>정보</th><th>내용</th><th>쓰는 곳</th></tr>
+      <tr><td>이메일</td><td>가입할 때 적은 이메일 주소. Apple로 로그인하면 Apple이 알려 주는 이메일(가린 이메일일 수 있음)과 계정 식별값</td><td>로그인, 인증 코드 보내기</td></tr>
+      <tr><td>닉네임</td><td>직접 정한 이름</td><td>친구 찾기, 순위표</td></tr>
+      <tr><td>프로필 사진</td><td>직접 올린 사진 (선택)</td><td>친구 목록, 순위표</td></tr>
+      <tr><td>디비전, 공개 범위</td><td>앱에서 고른 값</td><td>기록 비교, 누가 볼 수 있는지 결정</td></tr>
+      <tr><td>운동 기록 요약</td><td>종류(트레이닝·풀 시뮬레이션·레이스), 날짜, 총 시간, 구간별 시간, Roxzone 합계</td><td>친구 비교, 순위표</td></tr>
+      <tr><td>친구 관계</td><td>누구와 친구인지</td><td>친구 목록</td></tr>
+    </table>
+    </div>
+    <p>비밀번호는 받지 않습니다. 이메일로 보내는 인증 코드나 Apple 로그인으로 들어옵니다.</p>
+
+    <h2>3. 내 기기에만 있는 정보</h2>
+    <p>아래 정보는 아이폰과 애플워치에만 저장하고, 저희 서버로 보내지 않습니다.</p>
+    <ul>
+      <li><strong>건강 정보:</strong> 심박수, 칼로리, 운동 내용. 허락하신 경우에만 Apple 건강 앱에서 읽고, 운동을 건강 앱에 저장합니다. 건강 정보는 광고나 마케팅에 쓰지 않고 누구에게도 넘기지 않습니다.</li>
+      <li><strong>위치:</strong> 허락하신 경우에만 씁니다. 운동을 시작할 때 동네 이름(예: "성수동, 서울")을 한 번 확인하고, 실외 러닝은 달린 경로를 기록합니다. 동네 이름으로 바꾸는 일은 Apple의 지도 서비스가 합니다.</li>
+      <li><strong>나이, 최대 심박수, 목표 기록, 대회 일정, 직접 만든 트레이닝.</strong></li>
+      <li><strong>사진 보관함:</strong> 공유 그림을 저장할 때 "추가"만 합니다. 보관함에 있는 사진을 읽지 않습니다. 프로필 사진은 직접 고른 한 장만 받습니다.</li>
+    </ul>
+    <p>기기 정보는 사용하시는 iCloud·기기 백업 설정에 따라 Apple 백업에 들어갈 수 있습니다.</p>
+
+    <h2>4. 누가 내 정보를 볼 수 있나요</h2>
+    <ul>
+      <li><strong>닉네임, 프로필 사진, 디비전:</strong> 가입한 다른 사용자가 닉네임으로 찾을 수 있습니다. 공개 범위를 "나만 보기"로 하면 검색과 순위표에 나오지 않습니다.</li>
+      <li><strong>운동 기록 요약:</strong> 공개 범위에 따라 다릅니다.
+        <ul>
+          <li>친구 (기본값): 서로 친구가 된 사람만 기록과 순위를 봅니다.</li>
+          <li>전체 공개: 닉네임을 아는 가입자는 누구나 기록을 볼 수 있습니다.</li>
+          <li>나만 보기: 본인만 봅니다. 친구 순위표에도 나오지 않습니다.</li>
+        </ul>
+      </li>
+      <li><strong>순위표:</strong> 나와 내 친구들 사이의 순위만 보여 줍니다.</li>
+      <li><strong>프로필 사진 파일:</strong> 사진 주소를 아는 사람은 누구나 열 수 있는 방식으로 저장됩니다. 얼굴이 나오는 것이 싫으시면 다른 그림을 쓰시거나 올리지 않으셔도 됩니다.</li>
+      <li><strong>이메일:</strong> 다른 사용자에게 보이지 않습니다.</li>
+    </ul>
+
+    <h2>5. 다른 회사에 맡기는 일</h2>
+    <p>정보를 팔거나 광고 회사에 넘기지 않습니다. 광고·분석·추적 도구를 앱에 넣지 않았습니다. 다만 앱을 운영하려고 아래 회사의 서비스를 씁니다.</p>
+    <div class="scroll">
+    <table>
+      <tr><th>회사</th><th>맡기는 일</th><th>넘어가는 정보</th></tr>
+      <tr><td>Supabase, Inc.</td><td>서버, 로그인, 저장</td><td>2번의 정보 전부</td></tr>
+      <tr><td>Google LLC (Gmail)</td><td>인증 코드 메일 보내기</td><td>이메일 주소</td></tr>
+      <tr><td>Apple Inc.</td><td>Apple로 로그인, TestFlight 베타 배포, 건강 앱, 지도</td><td>Apple 정책에 따름</td></tr>
+    </table>
+    </div>
+    <p>이 회사들의 서버는 한국 밖(미국 등)에 있을 수 있습니다. 가입하시면 2번의 정보가 인터넷(암호화된 연결)을 통해 그곳으로 옮겨져 저장됩니다. 원하지 않으시면 가입하지 않고 앱을 쓰실 수 있습니다.</p>
+    <p>베타(TestFlight)로 쓰시는 동안에는 Apple이 오류 기록과 사용 정보를 모아 저희에게 보여 줄 수 있습니다. 의견을 보내실 때 적은 내용과 화면 사진도 저희가 받습니다.</p>
+    <p>법에 따라 꼭 내야 하는 경우가 아니면 다른 곳에 정보를 주지 않습니다.</p>
+
+    <h2>6. 언제까지 보관하나요</h2>
+    <ul>
+      <li>계정을 지우실 때까지 보관합니다.</li>
+      <li>계정을 지우면 이메일, 닉네임, 친구 관계, 서버에 올린 기록이 서버에서 바로 지워집니다. 서버 백업에 남은 것은 백업 주기에 따라 지워집니다.</li>
+      <li>기기에 있는 기록은 앱을 지우면 함께 지워집니다. 건강 앱에 저장한 운동은 건강 앱에서 따로 지우셔야 합니다.</li>
+    </ul>
+
+    <h2>7. 내가 할 수 있는 것</h2>
+    <ul>
+      <li><strong>계정 삭제:</strong> 앱 → 설정 → 프로필 → 계정 삭제</li>
+      <li><strong>고치기:</strong> 닉네임, 사진, 디비전, 공개 범위는 앱에서 바로 바꿀 수 있습니다.</li>
+      <li><strong>기록 삭제:</strong> 기록을 지우면 서버에 올린 요약도 함께 지워집니다.</li>
+      <li><strong>권한 끄기:</strong> 건강, 위치, 사진 권한은 아이폰 설정에서 언제든지 끌 수 있습니다.</li>
+      <li><strong>보기·받기·지우기 요청:</strong> 위 이메일로 보내 주시면 30일 안에 답합니다.</li>
+    </ul>
+    <p>사는 곳의 법(한국 개인정보 보호법, 유럽 GDPR, 미국 캘리포니아 법 등)이 주는 권리가 더 있으면 그 권리도 똑같이 쓰실 수 있습니다. 한국에서는 개인정보침해신고센터(국번 없이 118)에 도움을 청하실 수 있습니다.</p>
+
+    <h2>8. 어린이</h2>
+    <p>이 앱은 만 14세 미만 어린이를 위한 앱이 아닙니다. 어린이의 정보를 알면서 모으지 않습니다. 어린이가 가입한 것을 알게 되면 계정을 지웁니다.</p>
+
+    <h2>9. 정보를 지키는 방법</h2>
+    <ul>
+      <li>앱과 서버 사이의 연결은 암호화(HTTPS)합니다.</li>
+      <li>서버에는 본인만 자기 정보를 고칠 수 있는 접근 규칙을 걸어 두었습니다.</li>
+      <li>비밀번호를 저장하지 않습니다.</li>
+    </ul>
+    <p>어떤 방법도 완벽하지는 않습니다. 문제가 생기면 법에 따라 알려 드리겠습니다.</p>
+
+    <h2>10. 바뀌면 알려 드립니다</h2>
+    <p>이 문서가 바뀌면 이 페이지의 시행일을 고칩니다. 크게 바뀌면 앱이나 이메일로 알려 드립니다.</p>
+
+    <h2>11. 문의</h2>
+    <p>개인정보 담당: SPLITS8 운영자 · <a href="mailto:nkssi1981@gmail.com">nkssi1981@gmail.com</a></p>
+
+    <footer>SPLITS8은 HYROX 공식 앱이 아닙니다. HYROX는 해당 권리자의 상표입니다.</footer>
+  </section>
+
+  <!-- ===================== English ===================== -->
+  <section data-lang="en">
+    <h1>Privacy Policy</h1>
+    <p class="date">Effective: October 2, 2026</p>
+
+    <div class="box">
+      <p><strong>In short</strong></p>
+      <ul>
+        <li>You can use the app without an account. In that case nothing is sent to our server.</li>
+        <li>If you sign up, we store only your email, nickname, profile photo and workout summaries (times).</li>
+        <li>Heart rate, location and running routes stay on your device. They are not sent to our server.</li>
+        <li>No ads, no tracking, and we do not sell your data.</li>
+        <li>You can delete your account in the app at any time.</li>
+      </ul>
+    </div>
+
+    <h2>1. Who we are</h2>
+    <p>SPLITS8 is a workout split tracker for iPhone and Apple Watch, made and run by an individual developer. "We" in this policy means the operator of SPLITS8.</p>
+    <p>Contact: <a href="mailto:nkssi1981@gmail.com">nkssi1981@gmail.com</a></p>
+
+    <h2>2. What we store on our server (only if you sign up)</h2>
+    <div class="scroll">
+    <table>
+      <tr><th>Data</th><th>Details</th><th>Used for</th></tr>
+      <tr><td>Email</td><td>The address you sign up with. With Sign in with Apple: the email Apple gives us (it may be a hidden relay address) and an account identifier</td><td>Sign-in, sending the verification code</td></tr>
+      <tr><td>Nickname</td><td>The name you choose</td><td>Finding friends, leaderboards</td></tr>
+      <tr><td>Profile photo</td><td>A photo you upload (optional)</td><td>Friend lists, leaderboards</td></tr>
+      <tr><td>Division, visibility</td><td>Values you pick in the app</td><td>Comparing results, deciding who can see them</td></tr>
+      <tr><td>Workout summaries</td><td>Type (training, full simulation, race), date, total time, split times, Roxzone total</td><td>Friend comparison, leaderboards</td></tr>
+      <tr><td>Friend connections</td><td>Who you are friends with</td><td>Friend list</td></tr>
+    </table>
+    </div>
+    <p>We never ask for a password. You sign in with an emailed code or with Sign in with Apple.</p>
+
+    <h2>3. What stays on your device</h2>
+    <p>The following is stored only on your iPhone and Apple Watch and is not sent to our server.</p>
+    <ul>
+      <li><strong>Health data:</strong> heart rate, calories and workout details. With your permission, the app reads these from Apple Health and saves your workouts to Apple Health. Health data is never used for advertising or marketing and is never shared with anyone.</li>
+      <li><strong>Location:</strong> used only with your permission. When a workout starts, the app looks up the neighborhood name once (for example "Seongsu-dong, Seoul"), and outdoor runs record your route. The name lookup is done by Apple's map service.</li>
+      <li><strong>Age, max heart rate, goal times, race plans and the trainings you build.</strong></li>
+      <li><strong>Photo library:</strong> the app only adds share images. It does not read your library. For a profile photo, it receives only the one picture you pick.</li>
+    </ul>
+    <p>On-device data may be included in your iCloud or device backups, depending on your own Apple settings.</p>
+
+    <h2>4. Who can see your data</h2>
+    <ul>
+      <li><strong>Nickname, profile photo, division:</strong> other signed-up users can find you by nickname. If you set visibility to "Only me", you do not appear in search or on leaderboards.</li>
+      <li><strong>Workout summaries:</strong> this depends on your visibility setting.
+        <ul>
+          <li>Friends (default): only people you are mutual friends with can see your records and rankings.</li>
+          <li>Public: any signed-up user who knows your nickname can see your records.</li>
+          <li>Only me: only you. You do not appear on friends' leaderboards.</li>
+        </ul>
+      </li>
+      <li><strong>Leaderboards:</strong> they show rankings only among you and your friends.</li>
+      <li><strong>Profile photo file:</strong> it is stored so that anyone who has its web address can open it. If you prefer not to show your face, use another image or skip the photo.</li>
+      <li><strong>Email:</strong> never shown to other users.</li>
+    </ul>
+
+    <h2>5. Service providers</h2>
+    <p>We do not sell your data or give it to advertisers. The app contains no advertising, analytics or tracking tools. To run the app we use these providers:</p>
+    <div class="scroll">
+    <table>
+      <tr><th>Company</th><th>What they do</th><th>Data involved</th></tr>
+      <tr><td>Supabase, Inc.</td><td>Server, sign-in, storage</td><td>Everything in section 2</td></tr>
+      <tr><td>Google LLC (Gmail)</td><td>Sending the verification code email</td><td>Email address</td></tr>
+      <tr><td>Apple Inc.</td><td>Sign in with Apple, TestFlight beta distribution, Apple Health, maps</td><td>Under Apple's own policies</td></tr>
+    </table>
+    </div>
+    <p>These providers' servers may be located outside your country (for example in the United States). If you sign up, the data in section 2 is sent there over an encrypted connection and stored there. If you do not want this, you can use the app without an account.</p>
+    <p>While you use the beta through TestFlight, Apple may collect crash logs and usage information and show them to us. If you send feedback, we receive what you wrote and any screenshot you attach.</p>
+    <p>We do not disclose your data to anyone else unless the law requires it.</p>
+
+    <h2>6. How long we keep it</h2>
+    <ul>
+      <li>Until you delete your account.</li>
+      <li>When you delete your account, your email, nickname, friend connections and uploaded records are removed from the server right away. Copies in server backups are removed as the backups expire.</li>
+      <li>On-device records are removed when you delete the app. Workouts saved to Apple Health must be deleted in the Health app.</li>
+    </ul>
+
+    <h2>7. Your choices and rights</h2>
+    <ul>
+      <li><strong>Delete your account:</strong> app → Settings → Profile → Delete account</li>
+      <li><strong>Edit:</strong> change your nickname, photo, division and visibility in the app at any time.</li>
+      <li><strong>Delete a record:</strong> deleting a record also removes its summary from the server.</li>
+      <li><strong>Permissions:</strong> turn off Health, Location or Photos access in iPhone Settings at any time.</li>
+      <li><strong>Access, copy or deletion requests:</strong> email us and we will answer within 30 days.</li>
+    </ul>
+    <p>If the law where you live (for example the GDPR in Europe, California law in the United States, or Korea's Personal Information Protection Act) gives you more rights, you have those rights as well, including the right to complain to your local data protection authority. We do not sell or share personal information for advertising.</p>
+
+    <h2>8. Children</h2>
+    <p>SPLITS8 is not intended for children under 14 (under 13 in the United States, or the higher age your country sets). We do not knowingly collect their data. If we learn that a child has signed up, we delete the account.</p>
+
+    <h2>9. Security</h2>
+    <ul>
+      <li>Connections between the app and the server are encrypted (HTTPS).</li>
+      <li>Server access rules allow only you to change your own data.</li>
+      <li>We do not store passwords.</li>
+    </ul>
+    <p>No method is perfect. If something goes wrong, we will tell you as the law requires.</p>
+
+    <h2>10. Changes</h2>
+    <p>If this policy changes, we update the effective date on this page. For major changes we will tell you in the app or by email.</p>
+
+    <h2>11. Contact</h2>
+    <p>Privacy contact: SPLITS8 operator · <a href="mailto:nkssi1981@gmail.com">nkssi1981@gmail.com</a></p>
+
+    <footer>SPLITS8 is not an official HYROX app. HYROX is a trademark of its respective owner.</footer>
+  </section>
+</main>
+
+<script>
+  (function () {
+    var ko = document.getElementById('b-ko'), en = document.getElementById('b-en');
+    function set(l) {
+      document.documentElement.lang = l;
+      ko.setAttribute('aria-pressed', l === 'ko');
+      en.setAttribute('aria-pressed', l === 'en');
+      document.title = l === 'ko' ? 'SPLITS8 — 개인정보처리방침' : 'SPLITS8 — Privacy Policy';
+    }
+    ko.addEventListener('click', function () { set('ko'); });
+    en.addEventListener('click', function () { set('en'); });
+    var q = (location.search.match(/[?&]lang=(ko|en)/) || [])[1];
+    set(q || ((navigator.language || 'ko').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en'));
+  })();
+</script>
+</body>
+</html>
