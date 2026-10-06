@@ -169,8 +169,9 @@ h2.ko, h2 .ko { line-height: 1.18; letter-spacing: -.04em; }
 .pft { background: radial-gradient(70% 50% at 28% 0%, rgba(255,200,60,.17), rgba(255,200,60,0) 70%), var(--black); }
 .medals { margin-top: 28px; display: grid; gap: 10px; }
 .medals > div { display: flex; align-items: center; gap: 14px; font-size: 19px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
-.medal { display: inline-flex; align-items: center; justify-content: center; gap: 7px; flex: none; width: 116px; height: 34px; border-radius: 11px;
-         font-size: 15px; font-weight: 900; letter-spacing: .04em; color: #201600; }
+/* 점은 왼쪽 같은 자리에 고정(세 뱃지의 점이 한 줄로 맞음), 글자는 남은 칸 가운데 */
+.medal { display: inline-grid; grid-template-columns: 15px minmax(0, 1fr); align-items: center; gap: 4px; flex: none; width: 120px; height: 34px;
+         padding: 0 10px 0 12px; border-radius: 11px; text-align: center; font-size: 15px; font-weight: 900; letter-spacing: .04em; color: #201600; }
 .medal::before { content: ""; width: 15px; height: 15px; border-radius: 50%; background: rgba(0,0,0,.28); box-shadow: inset 0 0 0 2.5px rgba(255,255,255,.55); }
 .medal.g { background: linear-gradient(135deg, #ffe08a, #c9981e); }
 .medal.s { background: linear-gradient(135deg, #eef1f4, #9098a1); color: #15181c; }
@@ -345,7 +346,7 @@ footer p { margin: 4px 0; }
       </p>
       <div class="medals" role="list">
         <div role="listitem"><span class="medal g">GOLD</span><span><span class="ko">22:00 미만</span><span class="en">Under 22:00</span></span></div>
-        <div role="listitem"><span class="medal s">SILVER</span><span>22:00 – 26:00</span></div>
+        <div role="listitem"><span class="medal s">SILVER</span><span><span class="ko">26:00 이내</span><span class="en">Within 26:00</span></span></div>
         <div role="listitem"><span class="medal b">BRONZE</span><span><span class="ko">26:00 초과</span><span class="en">Over 26:00</span></span></div>
       </div>
       <ul>
