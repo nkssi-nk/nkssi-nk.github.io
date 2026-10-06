@@ -165,11 +165,31 @@ h2.ko, h2 .ko { line-height: 1.18; letter-spacing: -.04em; }
 .a4 { background: var(--av-sand); }
 .gap { margin: 14px 2px 0; font-size: 14px; color: var(--sub-d); }
 
-/* 실제 공유 그림 */
-.shot { margin: 0; flex: none; width: clamp(190px, 52vw, 300px); }
-.shot img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 16; object-fit: cover; border-radius: 24px;
-            box-shadow: 0 0 0 1px var(--line-d), 0 40px 90px rgba(0,0,0,.6); }
-.shot figcaption { margin-top: 12px; font-size: 13px; color: var(--sub-d); text-align: center; }
+/* PFT: 금빛이 살짝 도는 검정 바탕 + 등급 뱃지 */
+.pft { background: radial-gradient(70% 50% at 28% 0%, rgba(255,200,60,.17), rgba(255,200,60,0) 70%), var(--black); }
+.medals { margin-top: 28px; display: grid; gap: 10px; }
+.medals > div { display: flex; align-items: center; gap: 14px; font-size: 19px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.medal { display: inline-flex; align-items: center; justify-content: center; gap: 7px; flex: none; width: 116px; height: 34px; border-radius: 11px;
+         font-size: 15px; font-weight: 900; letter-spacing: .04em; color: #201600; }
+.medal::before { content: ""; width: 15px; height: 15px; border-radius: 50%; background: rgba(0,0,0,.28); box-shadow: inset 0 0 0 2.5px rgba(255,255,255,.55); }
+.medal.g { background: linear-gradient(135deg, #ffe08a, #c9981e); }
+.medal.s { background: linear-gradient(135deg, #eef1f4, #9098a1); color: #15181c; }
+.medal.b { background: linear-gradient(135deg, #e8a66e, #9a5a28); color: #1d0f04; }
+.pft .note { margin: 18px 0 0; }
+
+/* 바탕이 바뀐 구역용 */
+.dark .board { box-shadow: 0 0 0 1px var(--line-d), 0 34px 80px rgba(0,0,0,.6); }
+.dark .grid6 { background: var(--line-d); border-color: var(--line-d); }
+.dark .grid6 div { background: var(--ink); }
+.dark .grid6 p { color: var(--sub-d); }
+.light .steps { border-top-color: var(--line-l); }
+.light .steps li { border-bottom-color: var(--line-l); }
+.light .steps li::before { color: var(--fg-l); }
+.light .steps p { color: var(--sub-l); }
+.light .gest { background: var(--line-l); border-color: var(--line-l); }
+.light .gest div { background: #fbfbf8; }
+.light .gest span { color: var(--sub-l); }
+.light .tip { background: #fbfbf8; border-color: var(--line-l); }
 h2 + .grid6 { margin-top: clamp(28px, 4vw, 44px); }
 
 /* 사용법 */
@@ -216,6 +236,7 @@ footer p { margin: 4px 0; }
     <a class="logo" href="#top">SPLITS<b>8</b></a>
     <nav class="nav-links" aria-label="Sections">
       <a href="#features"><span class="ko">기능</span><span class="en">Features</span></a>
+      <a href="#pft">PFT</a>
       <a href="#friends"><span class="ko">친구</span><span class="en">Friends</span></a>
       <a href="#how"><span class="ko">사용법</span><span class="en">How to use</span></a>
       <a href="#contact"><span class="ko">문의</span><span class="en">Contact</span></a>
@@ -313,8 +334,36 @@ footer p { margin: 4px 0; }
   </div>
 </section>
 
-<section class="dark">
+<section class="dark pft" id="pft">
   <div class="in feat flip">
+    <div class="copy">
+      <p class="eyebrow"><span class="ko">PFT · 체력 테스트</span><span class="en">PFT · Fitness test</span></p>
+      <h2><span class="ko">22분 안에 끝내면,<br>골드.</span><span class="en">Finish under 22:00.<br>Go Gold.</span></h2>
+      <p class="lead sub">
+        <span class="ko">6가지 종목을 쉬지 않고 이어서 합니다. 총 시간에 따라 골드, 실버, 브론즈 뱃지를 받습니다.</span>
+        <span class="en">Six movements back to back, no rest. Your total time earns a Gold, Silver or Bronze badge.</span>
+      </p>
+      <div class="medals" role="list">
+        <div role="listitem"><span class="medal g">GOLD</span><span><span class="ko">22:00 미만</span><span class="en">Under 22:00</span></span></div>
+        <div role="listitem"><span class="medal s">SILVER</span><span>22:00 – 26:00</span></div>
+        <div role="listitem"><span class="medal b">BRONZE</span><span><span class="ko">26:00 초과</span><span class="en">Over 26:00</span></span></div>
+      </div>
+      <ul>
+        <li><span class="ko">런 1 km → 버피 브로드 점프 50 → 런지 100 → 로잉 1 km → 푸시업 30 → 월볼 100</span><span class="en">Run 1 km → 50 burpee broad jumps → 100 lunges → row 1 km → 30 push-ups → 100 wall balls</span></li>
+        <li><span class="ko">받은 뱃지는 홈 화면의 내 아이디 옆에 붙습니다</span><span class="en">Your badge sits next to your name on the Home screen</span></li>
+        <li><span class="ko">워치에서 PFT를 누르면 바로 시작. 아이폰만으로도 할 수 있습니다</span><span class="en">Tap PFT on your watch to start, or run it from the iPhone alone</span></li>
+      </ul>
+      <p class="note"><span class="ko">등급은 SPLITS8 자체 기준이며 HYROX 공식 기록이 아닙니다.</span><span class="en">Grades are SPLITS8's own guide, not an official HYROX result.</span></p>
+    </div>
+    <div class="art">
+      <div class="phone"><img src="img/p_pft.webp" alt="PFT 화면: 최고 기록 21:48, GOLD 뱃지와 등급 막대" width="540" height="1174"></div>
+      <div class="watch pad" style="--w: clamp(100px, 26vw, 170px)"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_pft.webp" alt="워치 PFT 끝 화면: GOLD 뱃지" width="416" height="496"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="in feat">
     <div class="copy">
       <p class="eyebrow"><span class="ko">기록</span><span class="en">Results</span></p>
       <h2><span class="ko">어디서 느려졌는지<br>바로 보입니다.</span><span class="en">See exactly where<br>you slowed down.</span></h2>
@@ -335,8 +384,8 @@ footer p { margin: 4px 0; }
   </div>
 </section>
 
-<section class="light" id="friends">
-  <div class="in feat">
+<section class="dark" id="friends">
+  <div class="in feat flip">
     <div class="copy">
       <p class="eyebrow"><span class="ko">친구</span><span class="en">Friends</span></p>
       <h2><span class="ko">친구 기록을<br>따라잡으세요.</span><span class="en">Chase your<br>friends' times.</span></h2>
@@ -370,8 +419,8 @@ footer p { margin: 4px 0; }
   </div>
 </section>
 
-<section class="dark" id="share">
-  <div class="in feat flip">
+<section class="light" id="share">
+  <div class="in feat">
     <div class="copy">
       <p class="eyebrow"><span class="ko">공유</span><span class="en">Share</span></p>
       <h2><span class="ko">기록을<br>한 장으로.</span><span class="en">Your result,<br>on one card.</span></h2>
@@ -386,16 +435,13 @@ footer p { margin: 4px 0; }
       </ul>
     </div>
     <div class="art">
-      <figure class="shot">
-        <img src="img/share_real.webp" alt="앱으로 만든 공유 그림: 운동 사진 위에 총 시간 17:31과 구간 기록" width="720" height="1280">
-        <figcaption><span class="ko">앱으로 만든 실제 공유 그림</span><span class="en">A real card made with the app</span></figcaption>
-      </figure>
+      <div class="phone"><img src="img/share_phone.webp" alt="공유 그림: 운동 사진 위에 총 시간 17:31과 구간 기록" width="540" height="1174"></div>
       <div class="phone" style="--w: clamp(130px, 26vw, 200px)"><img src="img/p_share.webp" alt="공유 그림 만들기 화면" width="540" height="1174"></div>
     </div>
   </div>
 </section>
 
-<section class="light">
+<section class="dark">
   <div class="in">
     <p class="eyebrow"><span class="ko">그리고</span><span class="en">And more</span></p>
     <h2><span class="ko">이것도 됩니다.</span><span class="en">Also inside.</span></h2>
@@ -410,7 +456,7 @@ footer p { margin: 4px 0; }
   </div>
 </section>
 
-<section class="ink" id="how">
+<section class="light" id="how">
   <div class="in">
     <p class="eyebrow"><span class="ko">사용법</span><span class="en">How to use</span></p>
     <h2><span class="ko">다섯 단계면<br>됩니다.</span><span class="en">Five steps<br>to your first split.</span></h2>
@@ -425,7 +471,7 @@ footer p { margin: 4px 0; }
       </div></li>
       <li><div>
         <h3><span class="ko">운동 고르기</span><span class="en">Pick a workout</span></h3>
-        <p><span class="ko">트레이닝을 새로 만들거나, 풀 시뮬레이션이나 레이스를 고릅니다.</span><span class="en">Build a training, or choose Full Simulation or Race.</span></p>
+        <p><span class="ko">트레이닝을 새로 만들거나, PFT, 풀 시뮬레이션, 레이스 중에서 고릅니다.</span><span class="en">Build a training, or choose PFT, Full Simulation or Race.</span></p>
       </div></li>
       <li><div>
         <h3><span class="ko">워치에서 시작</span><span class="en">Start on the watch</span></h3>
@@ -448,7 +494,7 @@ footer p { margin: 4px 0; }
   </div>
 </section>
 
-<section class="ink" id="contact" style="border-top:1px solid var(--line-d)">
+<section class="ink" id="contact">
   <div class="in">
     <p class="eyebrow"><span class="ko">문의 · 요청</span><span class="en">Contact · Requests</span></p>
     <h2><span class="ko">고칠 것과 바라는 것을<br>알려 주세요.</span><span class="en">Tell us what is broken<br>and what you want.</span></h2>
