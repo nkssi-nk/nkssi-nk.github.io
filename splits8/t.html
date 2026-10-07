@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SPLITS8 — 트레이닝 받기 / Shared training</title>
+<style>
+  :root { --bg:#0b0b0c; --fg:#f2f2f3; --sub:#a0a0a6; --line:#2a2a2e; --card:#17171a; --accent:#ffe600; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font-family:-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", "Malgun Gothic", sans-serif;
+         font-size:16px; line-height:1.6; -webkit-text-size-adjust:100%; word-break:keep-all; overflow-wrap:anywhere; }
+  main { max-width:480px; margin:0 auto; padding:28px 20px 56px; }
+  .brand { font-weight:800; letter-spacing:.02em; font-size:20px; color:var(--fg); text-decoration:none; }
+  .brand b { color:var(--accent); }
+  h1 { font-size:24px; line-height:1.3; margin:26px 0 4px; letter-spacing:-.01em; }
+  .sub { color:var(--sub); font-size:14px; margin:0 0 18px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:20px; padding:18px; }
+  .name { font-size:20px; font-weight:700; margin:0 0 2px; }
+  .meta { color:var(--sub); font-size:14px; margin:0 0 14px; }
+  ol { list-style:none; margin:0; padding:0; }
+  ol li { display:flex; gap:12px; align-items:baseline; padding:9px 0; border-top:1px solid var(--line); font-size:15px; }
+  ol li .no { color:var(--accent); font-weight:700; font-size:12px; width:22px; flex:none; font-variant-numeric:tabular-nums; }
+  ol li .what { flex:1; }
+  ol li .run { color:var(--sub); }
+  .open { display:block; margin:18px 0 10px; padding:15px 18px; border-radius:16px; background:var(--accent); color:#000;
+          font-weight:700; font-size:17px; text-align:center; text-decoration:none; }
+  .note { color:var(--sub); font-size:13.5px; margin:8px 2px; }
+  .bad { color:var(--sub); }
+  .note a { color:var(--accent); }
+  [data-lang] { display:none; }
+  html[lang="ko"] [data-lang="ko"], html[lang="en"] [data-lang="en"] { display:block; }
+  html[lang="ko"] span[data-lang="ko"], html[lang="en"] span[data-lang="en"] { display:inline; }
+</style>
+</head>
+<body>
+<main>
+  <a class="brand" href="./">SPLITS<b>8</b></a>
+
+  <div id="ok" hidden>
+    <h1><span data-lang="ko">트레이닝을 받았어요</span><span data-lang="en">A training was shared with you</span></h1>
+    <p class="sub">
+      <span data-lang="ko">아래 버튼을 누르면 SPLITS8 앱의 내 트레이닝에 추가돼요.</span>
+      <span data-lang="en">Tap the button below to add it to your trainings in the SPLITS8 app.</span>
+    </p>
+    <div class="card">
+      <p class="name" id="name"></p>
+      <p class="meta" id="meta"></p>
+      <ol id="list"></ol>
+    </div>
+    <a class="open" id="open" href="#">
+      <span data-lang="ko">SPLITS8에서 열기</span><span data-lang="en">Open in SPLITS8</span>
+    </a>
+    <p class="note" data-lang="ko">버튼을 눌러도 아무 일이 없으면 이 아이폰에 SPLITS8 앱이 없는 거예요. <a href="./">SPLITS8 홈페이지</a>에서 앱을 설치한 뒤 이 링크를 다시 열어 주세요.</p>
+    <p class="note" data-lang="en">If nothing happens, SPLITS8 isn't installed on this iPhone. Install the app from the <a href="./">SPLITS8 website</a>, then open this link again.</p>
+    <p class="note" data-lang="ko">이 링크에는 트레이닝 이름과 순서만 들어 있어요. 보낸 사람의 기록이나 개인정보는 들어 있지 않아요.</p>
+    <p class="note" data-lang="en">This link only holds the training's name and order. It contains no records or personal data from the sender.</p>
+  </div>
+
+  <div id="bad" hidden>
+    <h1><span data-lang="ko">링크를 읽을 수 없어요</span><span data-lang="en">This link can't be read</span></h1>
+    <p class="bad" data-lang="ko">링크가 중간에 잘렸을 수 있어요. 보낸 사람에게 다시 보내 달라고 해 주세요.</p>
+    <p class="bad" data-lang="en">The link may be cut off. Ask the sender to share it again.</p>
+  </div>
+</main>
+
+<script>
+(function () {
+  // 언어: 브라우저가 한국어면 한국어, 아니면 영어
+  var ko = (navigator.language || "ko").toLowerCase().indexOf("ko") === 0;
+  document.documentElement.lang = ko ? "ko" : "en";
+
+  var STATIONS = { skiErg: "SkiErg", sledPush: "Sled Push", sledPull: "Sled Pull", burpeeBroadJump: "Burpee Broad Jump",
+                   row: "Row", farmersCarry: "Farmers Carry", sandbagLunges: "Sandbag Lunges", wallBalls: "Wall Balls" };
+  var RUNS = ["200M", "400M", "800M", "1KM"];
+
+  // 앱(ProgramLink)과 같은 규칙으로 확인. 하나라도 이상하면 읽지 않음
+  function read(token) {
+    if (typeof token !== "string" || token.length > 4000 || token.indexOf("1.") !== 0) return null;
+    var b64 = token.slice(2).replace(/-/g, "+").replace(/_/g, "/");
+    if (!/^[A-Za-z0-9+/]*$/.test(b64)) return null;
+    while (b64.length % 4 !== 0) b64 += "=";
+    var pay;
+    try {
+      var bin = atob(b64), bytes = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      pay = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+    } catch (e) { return null; }
+    if (!pay || typeof pay.n !== "string" || !Number.isInteger(pay.s) || !Array.isArray(pay.q)) return null;
+    if (pay.q.length < 1 || pay.q.length > 16 || pay.s < 1 || pay.s > 20) return null;
+    var seq = [];
+    for (var k = 0; k < pay.q.length; k++) {
+      var x = pay.q[k];
+      if (typeof x !== "string") return null;
+      if (x.indexOf("run:") === 0) {
+        var label = x.slice(4);
+        if (RUNS.indexOf(label) < 0) return null;
+        seq.push({ run: true, text: "Run " + label });
+      } else {
+        if (!Object.prototype.hasOwnProperty.call(STATIONS, x)) return null;
+        seq.push({ run: false, text: STATIONS[x] });
+      }
+    }
+    var name = pay.n.replace(/[\u0000-\u001f\u007f-\u009f\u2028\u2029]/g, "").trim().slice(0, 40);
+    return { name: name || (ko ? "받은 트레이닝" : "Shared training"), sets: pay.s, seq: seq };
+  }
+
+  var token = location.hash.replace(/^#/, "");
+  var p = read(token);
+  if (!p) { document.getElementById("bad").hidden = false; return; }
+
+  // 남이 만든 글자이므로 화면에는 글자로만 넣음 (textContent)
+  document.getElementById("name").textContent = p.name;
+  document.getElementById("meta").textContent = ko
+    ? p.seq.length + "구간 × " + p.sets + "세트"
+    : p.seq.length + " segments × " + p.sets + (p.sets === 1 ? " set" : " sets");
+  var list = document.getElementById("list");
+  p.seq.forEach(function (s, i) {
+    var li = document.createElement("li");
+    var no = document.createElement("span"); no.className = "no"; no.textContent = (i + 1 < 10 ? "0" : "") + (i + 1);
+    var what = document.createElement("span"); what.className = "what" + (s.run ? " run" : ""); what.textContent = s.text;
+    li.appendChild(no); li.appendChild(what); list.appendChild(li);
+  });
+  // 확인을 통과한 글자(영문·숫자·-·_·. 만)라 그대로 붙여도 됨
+  document.getElementById("open").href = "splits8://t?d=" + encodeURIComponent(token);
+  document.getElementById("ok").hidden = false;
+})();
+</script>
+</body>
+</html>
