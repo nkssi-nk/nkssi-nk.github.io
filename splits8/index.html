@@ -65,6 +65,8 @@ a { color: inherit; }
 .btn.small { padding: 7px 14px; font-size: 13px; }
 .btn:focus-visible, .lang button:focus-visible, a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
 @media (max-width: 720px) { .nav-links { display: none; } }
+.navpill { display: none; font-size: 13px; font-weight: 700; text-decoration: none; color: var(--fg-d); border: 1px solid var(--line-d); border-radius: 999px; padding: 5px 11px; }
+@media (max-width: 720px) { .navpill { display: inline-flex; } }
 
 /* 구역 */
 section { padding-block: clamp(64px, 10vw, 128px); }
@@ -237,12 +239,14 @@ footer p { margin: 4px 0; }
     <a class="logo" href="#top">SPLITS<b>8</b></a>
     <nav class="nav-links" aria-label="Sections">
       <a href="#features"><span class="ko">기능</span><span class="en">Features</span></a>
+      <a href="hyrox.html"><span class="ko">하이록스 가이드</span><span class="en">HYROX guide</span></a>
       <a href="#pft">PFT</a>
       <a href="#friends"><span class="ko">친구</span><span class="en">Friends</span></a>
       <a href="#how"><span class="ko">사용법</span><span class="en">How to use</span></a>
       <a href="#contact"><span class="ko">문의</span><span class="en">Contact</span></a>
     </nav>
     <div class="nav-right">
+      <a class="navpill" href="hyrox.html"><span class="ko">하이록스</span><span class="en">HYROX</span></a>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="lang-ko" aria-pressed="true">한</button>
         <button type="button" id="lang-en" aria-pressed="false">EN</button>
