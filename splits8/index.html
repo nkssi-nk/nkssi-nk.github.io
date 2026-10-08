@@ -69,6 +69,19 @@ a { color: inherit; }
 @media (max-width: 720px) { .nav-links { display: none; } }
 .navpill { display: none; font-size: 13px; font-weight: 700; text-decoration: none; color: var(--fg-d); border: 1px solid var(--line-d); border-radius: 999px; padding: 5px 11px; }
 @media (max-width: 720px) { .navpill { display: inline-flex; } }
+.nav-right .btn, .navpill, .lang button { white-space: nowrap; flex: none; }
+.nav-right .sm, .nav-right .sm2 { display: none; }
+@media (max-width: 360px) { .nav-right .lg2 { display: none; } .nav-right .sm2 { display: inline; } }
+@media (max-width: 430px) {
+  .nav-in { gap: 10px; }
+  .nav-right { gap: 6px; }
+  .logoimg { height: 17px; }
+  .btn.small { padding: 7px 12px; }
+  .navpill { padding: 5px 10px; }
+  .lang button { padding: 5px 9px; }
+  .nav-right .lg { display: none; }
+  .nav-right .sm { display: inline; }
+}
 
 /* 구역 */
 section { padding-block: clamp(64px, 10vw, 128px); }
@@ -261,7 +274,7 @@ footer p { margin: 4px 0; }
         <button type="button" id="lang-ko" aria-pressed="true">한</button>
         <button type="button" id="lang-en" aria-pressed="false">EN</button>
       </div>
-      <a class="btn small" href="https://testflight.apple.com/join/X7UUKPSy" target="_blank" rel="noopener"><span class="ko">베타 받기</span><span class="en">Get the beta</span></a>
+      <a class="btn small" href="https://testflight.apple.com/join/X7UUKPSy" target="_blank" rel="noopener"><span class="ko"><span class="lg2">베타 받기</span><span class="sm2">베타</span></span><span class="en"><span class="lg">Get the beta</span><span class="sm">Beta</span></span></a>
     </div>
   </div>
 </div>
