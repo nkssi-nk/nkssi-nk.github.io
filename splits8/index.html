@@ -125,6 +125,7 @@ h2.ko, h2 .ko { line-height: 1.24; letter-spacing: -.03em; }
 .shot { display: block; width: min(440px, 100%); flex: 0 1 auto; max-width: 440px; height: auto; border-radius: 22px; box-shadow: 0 30px 80px rgba(0,0,0,.45); }
 .shot.lock { max-width: 480px; border-radius: 24px; }
 .art.col { flex-direction: column; }
+.shot.clear { box-shadow: none; border-radius: 0; filter: drop-shadow(0 20px 34px rgba(0,0,0,.22)); }
 .newtag { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: var(--yellow); color: #000; font-size: 11px; font-weight: 800; letter-spacing: .06em; vertical-align: middle; }
 
 .feat ul { margin: 22px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 17px; }
@@ -542,8 +543,6 @@ footer p { margin: 4px 0; }
       </p>
       <ul>
         <li><span class="ko">러닝 페이스, 스테이션, Roxzone, 심박, PFT 등급까지 42가지 규칙</span><span class="en">42 rules across run pacing, stations, Roxzone, heart rate and PFT grades</span></li>
-        <li><span class="ko">중요한 것만 최대 4줄. 작은 차이는 굳이 말하지 않습니다</span><span class="en">At most four lines, and only what matters</span></li>
-        <li><span class="ko">새 구간 최고 기록, 3번 연속 좋아진 종목도 알려 줍니다</span><span class="en">Spots new split bests and three-in-a-row improvements</span></li>
       </ul>
     </div>
     <div class="art">
@@ -564,7 +563,6 @@ footer p { margin: 4px 0; }
       <ul>
         <li><span class="ko">워치에서 넘기면 폰도, 폰에서 넘기면 워치도 넘어갑니다</span><span class="en">Next, Undo and Pause work from either device</span></li>
         <li><span class="ko">심박 구간 색과 칼로리를 크게</span><span class="en">Heart-rate zone and calories, big and clear</span></li>
-        <li><span class="ko">설정 › Device 에서 켜고 끌 수 있습니다</span><span class="en">Turn it on or off in Settings › Device</span></li>
       </ul>
     </div>
     <div class="art col">
@@ -589,7 +587,7 @@ footer p { margin: 4px 0; }
       </ul>
     </div>
     <div class="art">
-      <img class="shot" src="img/n_widgets.webp" alt="D-day 위젯과 이번 주 위젯" width="690" height="686">
+      <img class="shot clear" src="img/n_widgets.webp?v=2" alt="D-day 위젯과 이번 주 위젯" width="690" height="686">
     </div>
   </div>
 </section>

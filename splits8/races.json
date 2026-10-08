@@ -1,0 +1,155 @@
+[
+ {
+  "start": "2026-10-30",
+  "end": "2026-10-31",
+  "city": "함부르크",
+  "city_en": "Hamburg",
+  "country": "독일",
+  "country_en": "Germany",
+  "tag": "elite"
+ },
+ {
+  "start": "2026-10-31",
+  "end": "2026-11-01",
+  "city": "상하이",
+  "city_en": "Shanghai",
+  "country": "중국",
+  "country_en": "China",
+  "tag": "asia"
+ },
+ {
+  "start": "2026-11-14",
+  "end": "2026-11-15",
+  "city": "서울 (킨텍스, 고양)",
+  "city_en": "Seoul (KINTEX, Goyang)",
+  "country": "한국",
+  "country_en": "Korea",
+  "tag": "kr"
+ },
+ {
+  "start": "2026-11-21",
+  "end": "2026-11-22",
+  "city": "광저우",
+  "city_en": "Guangzhou",
+  "country": "중국",
+  "country_en": "China",
+  "tag": "asia"
+ },
+ {
+  "start": "2026-12-03",
+  "end": "2026-12-04",
+  "city": "런던",
+  "city_en": "London",
+  "country": "영국",
+  "country_en": "UK",
+  "tag": "elite"
+ },
+ {
+  "start": "2027-01-07",
+  "end": "2027-01-10",
+  "city": "홍콩",
+  "city_en": "Hong Kong",
+  "country": "",
+  "country_en": "",
+  "tag": "asia"
+ },
+ {
+  "start": "2027-01-21",
+  "end": "2027-01-24",
+  "city": "오사카",
+  "city_en": "Osaka",
+  "country": "일본",
+  "country_en": "Japan",
+  "tag": "asia"
+ },
+ {
+  "start": "2027-01-22",
+  "end": "2027-01-24",
+  "city": "베이징",
+  "city_en": "Beijing",
+  "country": "중국",
+  "country_en": "China",
+  "tag": "asia"
+ },
+ {
+  "start": "2027-02-11",
+  "end": "2027-02-14",
+  "city": "방콕",
+  "city_en": "Bangkok",
+  "country": "태국",
+  "country_en": "Thailand",
+  "tag": "elite"
+ },
+ {
+  "start": "2027-03-12",
+  "end": "2027-03-13",
+  "city": "라스베이거스",
+  "city_en": "Las Vegas",
+  "country": "미국",
+  "country_en": "USA",
+  "tag": "elite"
+ },
+ {
+  "start": "2027-03-13",
+  "end": "2027-03-14",
+  "city": "타이베이",
+  "city_en": "Taipei",
+  "country": "대만",
+  "country_en": "Taiwan",
+  "tag": "asia"
+ },
+ {
+  "start": "2027-04-16",
+  "end": "2027-04-18",
+  "city": "나고야",
+  "city_en": "Nagoya",
+  "country": "일본",
+  "country_en": "Japan",
+  "tag": "asia"
+ },
+ {
+  "start": "2027-05-12",
+  "end": "2027-05-16",
+  "city": "벵갈루루",
+  "city_en": "Bengaluru",
+  "country": "인도",
+  "country_en": "India",
+  "tag": "asia"
+ },
+ {
+  "start": "2027-05-13",
+  "end": "2027-05-16",
+  "city": "인천 (송도컨벤시아)",
+  "city_en": "Incheon (Songdo Convensia)",
+  "country": "한국",
+  "country_en": "Korea",
+  "tag": "kr"
+ },
+ {
+  "start": "2027-05-13",
+  "end": "2027-05-14",
+  "city": "리옹",
+  "city_en": "Lyon",
+  "country": "프랑스",
+  "country_en": "France",
+  "tag": "elite"
+ },
+ {
+  "start": "2027-05-14",
+  "end": "2027-05-16",
+  "city": "상하이",
+  "city_en": "Shanghai",
+  "country": "중국",
+  "country_en": "China",
+  "tag": "asia"
+ },
+ {
+  "start": "2027-06-10",
+  "end": "2027-06-13",
+  "city": "홍콩 · 월드 챔피언십",
+  "city_en": "Hong Kong · World Championships",
+  "country": "",
+  "country_en": "",
+  "tag": "wc"
+ }
+]
