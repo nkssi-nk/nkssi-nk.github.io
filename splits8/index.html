@@ -14,7 +14,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ctext x='32' y='47' font-family='Arial,Helvetica,sans-serif' font-size='44' font-weight='900' text-anchor='middle' fill='%23ffe600'%3E8%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <style>
 /* 배치: 검정과 밝은 바탕이 번갈아 나오는 넓은 구역, 구역마다 큰 제목 하나와 기기 하나 */
@@ -80,11 +80,12 @@ section { padding-block: clamp(64px, 10vw, 128px); }
 .sub { color: var(--sub-d); }
 .eyebrow { font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--yellow); margin: 0 0 14px; }
 .light .eyebrow { color: var(--sub-l); }
-h1, h2, h3 { margin: 0; text-wrap: balance; letter-spacing: -.03em; font-weight: 900; }
+h1, h2, h3 { margin: 0; text-wrap: balance; letter-spacing: -.02em; font-weight: 700; }
+h1 { font-weight: 800; }
 h1 { font-size: var(--h1); line-height: 1.04; }
 h2 { font-size: var(--h2); line-height: 1.08; }
-.ko h1, h1.ko, h1 .ko { line-height: 1.14; letter-spacing: -.04em; }
-h2.ko, h2 .ko { line-height: 1.18; letter-spacing: -.04em; }
+.ko h1, h1.ko, h1 .ko { line-height: 1.18; letter-spacing: -.03em; }
+h2.ko, h2 .ko { line-height: 1.24; letter-spacing: -.03em; }
 .lead { font-size: var(--lead); line-height: 1.5; max-width: 34em; margin: 20px 0 0; }
 
 /* 첫 화면 */
@@ -136,7 +137,7 @@ h2.ko, h2 .ko { line-height: 1.18; letter-spacing: -.04em; }
 }
 
 /* 손동작 표 */
-.gest { margin-top: 26px; display: grid; gap: 1px; background: var(--line-d); border: 1px solid var(--line-d); border-radius: 16px; overflow: hidden; max-width: 30em; }
+.gest { margin-top: 26px; display: grid; gap: 1px; background: var(--line-d); border: 1px solid var(--line-d); border-radius: 16px; overflow: hidden; max-width: 44em; }
 .gest div { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 12px; padding: 13px 16px; background: var(--card); font-size: 16px; }
 .gest b { font-weight: 700; }
 .gest span { color: var(--sub-d); }
@@ -180,7 +181,7 @@ h2.ko, h2 .ko { line-height: 1.18; letter-spacing: -.04em; }
 .medals > div { display: flex; align-items: center; gap: 14px; font-size: 19px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
 /* 점은 왼쪽 같은 자리에 고정(세 뱃지의 점이 한 줄로 맞음), 글자는 남은 칸 가운데 */
 .medal { display: inline-grid; grid-template-columns: 15px minmax(0, 1fr); align-items: center; gap: 4px; flex: none; width: 120px; height: 34px;
-         padding: 0 10px 0 12px; border-radius: 11px; text-align: center; font-size: 15px; font-weight: 900; letter-spacing: .04em; color: #201600; }
+         padding: 0 10px 0 12px; border-radius: 11px; text-align: center; font-size: 15px; font-weight: 800; letter-spacing: .04em; color: #201600; }
 .medal::before { content: ""; width: 15px; height: 15px; border-radius: 50%; background: rgba(0,0,0,.28); box-shadow: inset 0 0 0 2.5px rgba(255,255,255,.55); }
 .medal.g { background: linear-gradient(135deg, #ffe08a, #c9981e); }
 .medal.s { background: linear-gradient(135deg, #eef1f4, #9098a1); color: #15181c; }
@@ -205,7 +206,7 @@ h2 + .grid6 { margin-top: clamp(28px, 4vw, 44px); }
 /* 사용법 */
 .steps { margin: clamp(32px, 5vw, 56px) 0 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 0; border-top: 1px solid var(--line-d); }
 .steps li { counter-increment: s; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 8px 16px; padding: 26px 0; border-bottom: 1px solid var(--line-d); }
-.steps li::before { content: counter(s); font-size: 44px; font-weight: 900; line-height: 1; color: var(--yellow); font-variant-numeric: tabular-nums; letter-spacing: -.04em; }
+.steps li::before { content: counter(s); font-size: 44px; font-weight: 800; line-height: 1; color: var(--yellow); font-variant-numeric: tabular-nums; letter-spacing: -.04em; }
 .steps h3 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
 .steps p { margin: 6px 0 0; color: var(--sub-d); max-width: 40em; }
 .tip { margin-top: 26px; padding: 18px 20px; border-radius: 16px; background: var(--card); border: 1px solid var(--line-d); max-width: 44em; }
@@ -214,7 +215,7 @@ h2 + .grid6 { margin-top: clamp(28px, 4vw, 44px); }
 /* 업데이트 소식 */
 .log { margin-top: clamp(28px, 4vw, 48px); display: grid; gap: 0; border-top: 1px solid var(--line-l); }
 .log article { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 8px 24px; padding: 24px 0; border-bottom: 1px solid var(--line-l); }
-.log .ver { font-weight: 900; font-size: 22px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.log .ver { font-weight: 800; font-size: 22px; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .log .when { display: block; font-size: 14px; color: var(--sub-l); font-weight: 500; letter-spacing: 0; margin-top: 2px; }
 .log ul { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
 .new { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .06em; background: var(--fg-l); color: var(--yellow); padding: 3px 8px; border-radius: 999px; vertical-align: middle; margin-left: 8px; }
@@ -246,15 +247,15 @@ footer p { margin: 4px 0; }
     <a class="logo" href="#top">SPLITS<b>8</b></a>
     <nav class="nav-links" aria-label="Sections">
       <a href="#features"><span class="ko">기능</span><span class="en">Features</span></a>
-      <a href="hyrox.html"><span class="ko">하이록스 가이드</span><span class="en">HYROX guide</span></a>
-      <a href="#new"><span class="ko">새 기능</span><span class="en">What's new</span></a>
+      <a data-hx href="hyrox.html"><span class="ko">하이록스 가이드</span><span class="en">HYROX guide</span></a>
       <a href="#pft">PFT</a>
       <a href="#friends"><span class="ko">친구</span><span class="en">Friends</span></a>
       <a href="#how"><span class="ko">사용법</span><span class="en">How to use</span></a>
+      <a href="#new"><span class="ko">새 기능</span><span class="en">What's new</span></a>
       <a href="#contact"><span class="ko">문의</span><span class="en">Contact</span></a>
     </nav>
     <div class="nav-right">
-      <a class="navpill" href="hyrox.html"><span class="ko">하이록스</span><span class="en">HYROX</span></a>
+      <a class="navpill" data-hx href="hyrox.html"><span class="ko">하이록스</span><span class="en">HYROX</span></a>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="lang-ko" aria-pressed="true">한</button>
         <button type="button" id="lang-en" aria-pressed="false">EN</button>
@@ -279,92 +280,6 @@ footer p { margin: 4px 0; }
     <div class="hero-devices">
       <div class="watch"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_live.webp" alt="Apple Watch: Sled Push 구간 진행 화면" width="416" height="496"></div></div>
       <div class="phone cut"><img src="img/p_sim.webp?v=20" alt="iPhone: 풀 시뮬레이션 기록 그래프 화면" width="540" height="1174"></div>
-    </div>
-  </div>
-</section>
-
-<!-- 1.1 새 기능 -->
-<section class="light" id="new">
-  <div class="in feat">
-    <div class="copy">
-      <p class="eyebrow"><span class="ko">새 기능 · 운동이 끝나면</span><span class="en">New · When you finish</span><span class="newtag">1.1</span></p>
-      <h2><span class="ko">끝나면,<br>한마디.</span><span class="en">Done.<br>Well done.</span></h2>
-      <p class="lead sub">
-        <span class="ko">운동을 마치면 기록 위로 카드가 올라옵니다. 그날 운동에 맞는 한마디와 함께 총 시간, 칼로리, 심박이 한눈에.</span>
-        <span class="en">Finish a workout and a card slides up over your result: a line that fits the session, with total time, calories and heart rate.</span>
-      </p>
-      <ul>
-        <li><span class="ko">최고 기록, PFT 골드, 목표 달성, 대회 완주는 금색으로</span><span class="en">Personal bests, PFT Gold, goals and race finishes glow gold</span></li>
-        <li><span class="ko">연속 운동, 오랜만의 운동, 이른 아침까지 30가지가 넘는 상황별 멘트</span><span class="en">Over 30 messages for streaks, comebacks, early starts and more</span></li>
-        <li><span class="ko">Apple Watch 요약 화면에도 같은 한마디</span><span class="en">The same line on the Apple Watch summary</span></li>
-      </ul>
-    </div>
-    <div class="art">
-      <div class="phone"><img src="img/n_finish.webp" alt="운동 끝 카드: New personal best! 1:16:05" width="540" height="1174"></div>
-      <div class="watch pad" style="--w: clamp(100px, 26vw, 170px)"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_summary.webp" alt="워치 요약 화면: Gold again. Consistent." width="416" height="496"></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="dark">
-  <div class="in feat flip">
-    <div class="copy">
-      <p class="eyebrow"><span class="ko">새 기능 · 기록 분석</span><span class="en">New · Insights</span><span class="newtag">1.1</span></p>
-      <h2><span class="ko">기록이<br>먼저 말해 줍니다.</span><span class="en">Your splits,<br>explained.</span></h2>
-      <p class="lead sub">
-        <span class="ko">기록을 열면 숫자 바로 아래에 짧은 분석이 붙습니다. 어디서 처졌는지, 무엇이 좋아졌는지, 다음엔 어디를 줄이면 되는지.</span>
-        <span class="en">Open a result and a few short insights sit right under the numbers: where you slowed, what improved and where to find time next.</span>
-      </p>
-      <ul>
-        <li><span class="ko">러닝 페이스, 스테이션, Roxzone, 심박, PFT 등급까지 42가지 규칙</span><span class="en">42 rules across run pacing, stations, Roxzone, heart rate and PFT grades</span></li>
-        <li><span class="ko">중요한 것만 최대 4줄. 작은 차이는 굳이 말하지 않습니다</span><span class="en">At most four lines, and only what matters</span></li>
-        <li><span class="ko">새 구간 최고 기록, 3번 연속 좋아진 종목도 알려 줍니다</span><span class="en">Spots new split bests and three-in-a-row improvements</span></li>
-      </ul>
-    </div>
-    <div class="art">
-      <div class="phone"><img src="img/n_insights.webp" alt="기록 화면의 Insights 카드" width="540" height="1174"></div>
-    </div>
-  </div>
-</section>
-
-<section class="light">
-  <div class="in feat">
-    <div class="copy">
-      <p class="eyebrow"><span class="ko">새 기능 · 실시간</span><span class="en">New · Live on iPhone</span><span class="newtag">1.1</span></p>
-      <h2><span class="ko">워치로 뛰고,<br>폰으로 봅니다.</span><span class="en">Run on the watch.<br>Watch it on the phone.</span></h2>
-      <p class="lead sub">
-        <span class="ko">Apple Watch로 운동을 시작하면 iPhone에 같은 화면이 실시간으로 나옵니다. 잠금 화면과 다이내믹 아일랜드에도.</span>
-        <span class="en">Start on Apple Watch and your iPhone follows live, on the Lock Screen and in the Dynamic Island too.</span>
-      </p>
-      <ul>
-        <li><span class="ko">워치에서 넘기면 폰도, 폰에서 넘기면 워치도 넘어갑니다</span><span class="en">Next, Undo and Pause work from either device</span></li>
-        <li><span class="ko">심박 구간 색과 칼로리를 크게</span><span class="en">Heart-rate zone and calories, big and clear</span></li>
-        <li><span class="ko">설정 › Device 에서 켜고 끌 수 있습니다</span><span class="en">Turn it on or off in Settings › Device</span></li>
-      </ul>
-    </div>
-    <div class="art col">
-      <div class="phone"><img src="img/n_live.webp" alt="iPhone에 나온 워치 운동 실시간 화면" width="540" height="1174"></div>
-      <img class="shot lock" src="img/n_lock.webp" alt="잠금 화면 실시간 표시: Sled Push 1:20" width="740" height="280">
-    </div>
-  </div>
-</section>
-
-<section class="dark">
-  <div class="in feat flip">
-    <div class="copy">
-      <p class="eyebrow"><span class="ko">새 기능 · 위젯</span><span class="en">New · Widgets</span><span class="newtag">1.1</span></p>
-      <h2><span class="ko">홈 화면에<br>D-day.</span><span class="en">Race day,<br>on your Home Screen.</span></h2>
-      <p class="lead sub">
-        <span class="ko">다음 대회까지 남은 날과 목표, 이번 주 운동을 앱을 열지 않고 봅니다. 대회가 가까울수록 노란빛이 진해집니다.</span>
-        <span class="en">Days to your next race, your goal and this week's workouts, without opening the app. The glow grows as race day gets closer.</span>
-      </p>
-      <ul>
-        <li><span class="ko">홈 화면 · 잠금 화면 · Apple Watch 컴플리케이션</span><span class="en">Home Screen, Lock Screen and Apple Watch complications</span></li>
-        <li><span class="ko">이번 주 요약: 횟수, 시간, 칼로리, 달린 거리</span><span class="en">This week: workouts, time, calories and distance</span></li>
-      </ul>
-    </div>
-    <div class="art">
-      <img class="shot" src="img/n_widgets.webp" alt="D-day 위젯과 이번 주 위젯" width="690" height="686">
     </div>
   </div>
 </section>
@@ -593,6 +508,92 @@ footer p { margin: 4px 0; }
   </div>
 </section>
 
+<!-- 1.1 새 기능 (맨 아래) -->
+<section class="dark" id="new">
+  <div class="in feat">
+    <div class="copy">
+      <p class="eyebrow"><span class="ko">새 기능 · 운동이 끝나면</span><span class="en">New · When you finish</span><span class="newtag">1.1</span></p>
+      <h2><span class="ko">운동 후,<br>완벽한 분석.</span><span class="en">After the workout,<br>the full picture.</span></h2>
+      <p class="lead sub">
+        <span class="ko">운동을 마치면 기록 위로 카드가 올라옵니다. 그날 운동에 맞는 한마디와 함께 총 시간, 칼로리, 심박이 한눈에.</span>
+        <span class="en">Finish a workout and a card slides up over your result: a line that fits the session, with total time, calories and heart rate.</span>
+      </p>
+      <ul>
+        <li><span class="ko">최고 기록, PFT 골드, 목표 달성, 대회 완주는 금색으로</span><span class="en">Personal bests, PFT Gold, goals and race finishes glow gold</span></li>
+        <li><span class="ko">연속 운동, 오랜만의 운동, 이른 아침까지 30가지가 넘는 상황별 멘트</span><span class="en">Over 30 messages for streaks, comebacks, early starts and more</span></li>
+        <li><span class="ko">Apple Watch 요약 화면에도 같은 한마디</span><span class="en">The same line on the Apple Watch summary</span></li>
+      </ul>
+    </div>
+    <div class="art">
+      <div class="phone"><img src="img/n_finish.webp" alt="운동 끝 카드: New personal best! 1:16:05" width="540" height="1174"></div>
+      <div class="watch pad" style="--w: clamp(100px, 26vw, 170px)"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_summary.webp" alt="워치 요약 화면: Gold again. Consistent." width="416" height="496"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="in feat flip">
+    <div class="copy">
+      <p class="eyebrow"><span class="ko">새 기능 · 기록 분석</span><span class="en">New · Insights</span><span class="newtag">1.1</span></p>
+      <h2><span class="ko">기록이<br>먼저 말해 줍니다.</span><span class="en">Your splits,<br>explained.</span></h2>
+      <p class="lead sub">
+        <span class="ko">기록을 열면 숫자 바로 아래에 짧은 분석이 붙습니다. 어디서 처졌는지, 무엇이 좋아졌는지, 다음엔 어디를 줄이면 되는지.</span>
+        <span class="en">Open a result and a few short insights sit right under the numbers: where you slowed, what improved and where to find time next.</span>
+      </p>
+      <ul>
+        <li><span class="ko">러닝 페이스, 스테이션, Roxzone, 심박, PFT 등급까지 42가지 규칙</span><span class="en">42 rules across run pacing, stations, Roxzone, heart rate and PFT grades</span></li>
+        <li><span class="ko">중요한 것만 최대 4줄. 작은 차이는 굳이 말하지 않습니다</span><span class="en">At most four lines, and only what matters</span></li>
+        <li><span class="ko">새 구간 최고 기록, 3번 연속 좋아진 종목도 알려 줍니다</span><span class="en">Spots new split bests and three-in-a-row improvements</span></li>
+      </ul>
+    </div>
+    <div class="art">
+      <div class="phone"><img src="img/n_insights.webp" alt="기록 화면의 Insights 카드" width="540" height="1174"></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="in feat">
+    <div class="copy">
+      <p class="eyebrow"><span class="ko">새 기능 · 실시간</span><span class="en">New · Live on iPhone</span><span class="newtag">1.1</span></p>
+      <h2><span class="ko">워치로 뛰고,<br>폰으로 봅니다.</span><span class="en">Run on the watch.<br>Watch it on the phone.</span></h2>
+      <p class="lead sub">
+        <span class="ko">Apple Watch로 운동을 시작하면 iPhone에 같은 화면이 실시간으로 나옵니다. 잠금 화면과 다이내믹 아일랜드에도.</span>
+        <span class="en">Start on Apple Watch and your iPhone follows live, on the Lock Screen and in the Dynamic Island too.</span>
+      </p>
+      <ul>
+        <li><span class="ko">워치에서 넘기면 폰도, 폰에서 넘기면 워치도 넘어갑니다</span><span class="en">Next, Undo and Pause work from either device</span></li>
+        <li><span class="ko">심박 구간 색과 칼로리를 크게</span><span class="en">Heart-rate zone and calories, big and clear</span></li>
+        <li><span class="ko">설정 › Device 에서 켜고 끌 수 있습니다</span><span class="en">Turn it on or off in Settings › Device</span></li>
+      </ul>
+    </div>
+    <div class="art col">
+      <div class="phone"><img src="img/n_live.webp" alt="iPhone에 나온 워치 운동 실시간 화면" width="540" height="1174"></div>
+      <img class="shot lock" src="img/n_lock.webp" alt="잠금 화면 실시간 표시: Sled Push 1:20" width="740" height="280">
+    </div>
+  </div>
+</section>
+
+<section class="light">
+  <div class="in feat flip">
+    <div class="copy">
+      <p class="eyebrow"><span class="ko">새 기능 · 위젯</span><span class="en">New · Widgets</span><span class="newtag">1.1</span></p>
+      <h2><span class="ko">홈 화면에<br>D-day.</span><span class="en">Race day,<br>on your Home Screen.</span></h2>
+      <p class="lead sub">
+        <span class="ko">다음 대회까지 남은 날과 목표, 이번 주 운동을 앱을 열지 않고 봅니다. 대회가 가까울수록 노란빛이 진해집니다.</span>
+        <span class="en">Days to your next race, your goal and this week's workouts, without opening the app. The glow grows as race day gets closer.</span>
+      </p>
+      <ul>
+        <li><span class="ko">홈 화면 · 잠금 화면 · Apple Watch 컴플리케이션</span><span class="en">Home Screen, Lock Screen and Apple Watch complications</span></li>
+        <li><span class="ko">이번 주 요약: 횟수, 시간, 칼로리, 달린 거리</span><span class="en">This week: workouts, time, calories and distance</span></li>
+      </ul>
+    </div>
+    <div class="art">
+      <img class="shot" src="img/n_widgets.webp" alt="D-day 위젯과 이번 주 위젯" width="690" height="686">
+    </div>
+  </div>
+</section>
+
 <section class="ink" id="contact">
   <div class="in">
     <p class="eyebrow"><span class="ko">문의 · 요청</span><span class="en">Contact · Requests</span></p>
@@ -638,6 +639,7 @@ footer p { margin: 4px 0; }
     en.setAttribute('aria-pressed', l === 'en');
     if (save) { try { localStorage.setItem('lang', l); } catch (e) {} }
     document.documentElement.lang = l;
+    document.querySelectorAll('a[data-hx]').forEach(function (a) { a.setAttribute('href', l === 'en' ? 'hyrox-en.html' : 'hyrox.html'); });
   }
   var saved = (location.search.match(/[?&]lang=(ko|en)/) || [])[1] || null;
   if (!saved) { try { saved = localStorage.getItem('lang'); } catch (e) {} }
