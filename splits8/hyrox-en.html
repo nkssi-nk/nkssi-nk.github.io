@@ -59,16 +59,21 @@ a { color: inherit; }
 .nav-links a { text-decoration: none; }
 .nav-links a:hover, .nav-links a:focus-visible { color: var(--fg-d); }
 .nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-.lang { display: flex; border: 1px solid var(--line-d); border-radius: 999px; overflow: hidden; }
-.lang button { font: inherit; font-size: 12px; font-weight: 700; padding: 5px 10px; border: 0; background: transparent; color: var(--sub-d); cursor: pointer; }
-.lang button[aria-pressed="true"] { background: var(--fg-d); color: var(--black); }
-.lang a { font-size: 12px; font-weight: 700; padding: 5px 10px; text-decoration: none; color: var(--sub-d); }
-.lang a[aria-current="page"] { background: var(--fg-d); color: var(--black); }
 .gnav-in .lang { margin-left: auto; flex: none; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-weight: 700;
        background: var(--yellow); color: var(--yellow-ink); border-radius: 999px; padding: 13px 24px; font-size: 17px; }
 .btn.small { padding: 7px 14px; font-size: 13px; }
-.btn:focus-visible, .lang button:focus-visible, a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+.lang { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 10px; border: 1px solid var(--line-d); border-radius: 999px;
+        background: transparent; color: var(--sub-d); font-family: inherit; font-size: 12px; font-weight: 700; letter-spacing: .04em; line-height: 1;
+        text-decoration: none; cursor: pointer; white-space: nowrap; flex: none; transition: color .2s ease, border-color .2s ease; }
+.lang:hover { color: #fff; border-color: var(--sub-d); }
+.lang:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+.lang svg { display: block; flex: none; }
+.lang .lc { display: inline-block; min-width: 1.5em; text-align: center; }
+.lang .lc.flip { animation: lcflip .32s ease; }
+@keyframes lcflip { 0% { opacity: 0; transform: rotateX(90deg); } 100% { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .lang .lc.flip { animation: none; } }
+.btn:focus-visible, a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
 @media (max-width: 720px) { .nav-links { display: none; } }
 
 /* 구역 */
@@ -240,6 +245,16 @@ footer { background: var(--black); border-top: 1px solid var(--line-d); color: v
 footer p { margin: 4px 0; }
 .foot-links { margin-bottom: 10px !important; font-size: 14px; }
 .foot-links a { color: var(--fg-d); }
+
+/* 사이트맵 (푸터) */
+.sitemap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding-bottom: 24px; margin-bottom: 20px; border-bottom: 1px solid var(--line-d); }
+.sitemap .sm-h { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-d); }
+.sitemap ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.sitemap a { color: #8e8e93; text-decoration: none; font-size: 13px; line-height: 1.4; }
+.sitemap a:hover { color: #fff; }
+.sitemap a.sm-store:hover { color: var(--yellow); }
+@media (max-width: 620px) { .sitemap { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; } }
+#calendar { scroll-margin-top: 72px; }
 </style>
 </head>
 <body>
@@ -399,7 +414,7 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
       <a href="#news">News</a>
       <a href="#board">Board</a>
     </nav>
-    <div class="lang" role="group" aria-label="Language"><a href="hyrox.html" lang="ko">한</a><a aria-current="page" href="hyrox-en.html" lang="en">EN</a></div>
+    <a class="lang" href="hyrox.html" hreflang="ko" aria-label="Change language / 언어 변경" title="한국어"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span class="lc">EN</span></a>
   </div>
 </div>
 
@@ -598,7 +613,7 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
     <h2>HYROX news.</h2>
     <p class="lead sub">Results from major races and rule changes, collected in one place. Updated regularly.</p>
     <div class="news" id="newslist"></div>
-    <div class="rhead"><div><h3>Race calendar</h3><p class="sub">Announced 2026/27 races in Korea and Asia, plus the majors. Past races drop off automatically.</p></div><div class="rf" id="rf"><button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="kr" aria-pressed="false">Korea</button><button type="button" data-f="major" aria-pressed="false">Majors</button><button type="button" data-f="asia" aria-pressed="false">Asia</button></div></div>
+    <div class="rhead" id="calendar"><div><h3>Race calendar</h3><p class="sub">Announced 2026/27 races in Korea and Asia, plus the majors. Past races drop off automatically.</p></div><div class="rf" id="rf"><button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="kr" aria-pressed="false">Korea</button><button type="button" data-f="major" aria-pressed="false">Majors</button><button type="button" data-f="asia" aria-pressed="false">Asia</button></div></div>
     <div class="races" id="races"></div>
     <p class="sub rnote2">Dates follow official announcements and may change. Sign up on the <a href="https://hyrox.com/find-my-race/" target="_blank" rel="noopener">official HYROX site</a>.</p>
   </div>
@@ -618,6 +633,34 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
 
 <footer>
   <div class="in">
+  <nav class="sitemap" aria-label="Site map">
+    <div><p class="sm-h">App</p><ul>
+      <li><a href="./?lang=en#features">Features</a></li>
+      <li><a href="./?lang=en#pft">PFT fitness test</a></li>
+      <li><a href="./?lang=en#friends">Friends</a></li>
+      <li><a href="./?lang=en#share">Share</a></li>
+      <li><a href="./?lang=en#how">How to use</a></li>
+      <li><a href="./?lang=en#new">What's new</a></li>
+      <li><a class="sm-store" href="https://apps.apple.com/app/id6817286611" target="_blank" rel="noopener">App Store</a></li>
+    </ul></div>
+    <div><p class="sm-h">HYROX guide</p><ul>
+      <li><a href="#what">What is HYROX</a></li>
+      <li><a href="#calc">Analyze my time</a></li>
+      <li><a href="#pacer">Split targets</a></li>
+      <li><a href="#news">HYROX news</a></li>
+      <li><a href="#calendar">Race calendar</a></li>
+      <li><a href="#board">Board</a></li>
+    </ul></div>
+    <div><p class="sm-h">Support</p><ul>
+      <li><a href="./?lang=en#contact">Contact</a></li>
+      <li><a href="mailto:nkssi1981@gmail.com">Email us</a></li>
+      <li><a href="privacy.html?lang=en">Privacy Policy</a></li>
+      <li><a href="terms.html?lang=en">Terms of Use</a></li>
+    </ul></div>
+    <div><p class="sm-h">Follow</p><ul>
+      <li><a href="https://www.instagram.com/splits8.official/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul></div>
+  </nav>
     <p class="foot-links"><a href="./">SPLITS8</a> · <a href="terms.html">Terms of Use</a> · <a href="privacy.html">Privacy Policy</a></p>
     <p class="src">Sources: <a href="https://hyrox.com/the-history/" target="_blank" rel="noopener">HYROX official site (History)</a> · <a href="https://en.wikipedia.org/wiki/Hyrox" target="_blank" rel="noopener">Wikipedia: Hyrox</a> · <a href="https://www.redbull.com/int-en/hyrox-world-records-rankings" target="_blank" rel="noopener">Red Bull: HYROX world records (2026.4)</a> · <a href="https://roxlyfe.com/what-is-a-good-hyrox-time/" target="_blank" rel="noopener">Rox Lyfe: What is a good HYROX time</a> · <a href="https://roxlyfe.com/hyrox-from-average-to-elite/" target="_blank" rel="noopener">Rox Lyfe: From average to elite</a> · <a href="https://hyroxdatalab.com/articles/what-is-a-good-hyrox-time" target="_blank" rel="noopener">HyroxDataLab: Good HYROX time</a> · <a href="https://hyroxdatalab.com/articles/average-hyrox-station-times" target="_blank" rel="noopener">HyroxDataLab: Station times</a> · <a href="https://hyroxdatalab.com/articles/roxzone-efficiency-analysis" target="_blank" rel="noopener">HyroxDataLab: Roxzone</a> · <a href="https://fitnessvolt.com/roxrace/weights/" target="_blank" rel="noopener">Weights table</a></p>
     <p>SPLITS8 is not an official HYROX app and is not affiliated with HYROX. HYROX is a trademark of its respective owner. The numbers are compiled from the sources above; check the official rules before you race.</p>

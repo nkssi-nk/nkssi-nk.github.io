@@ -59,26 +59,34 @@ a { color: inherit; }
 .nav-links a { text-decoration: none; }
 .nav-links a:hover, .nav-links a:focus-visible { color: var(--fg-d); }
 .nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
-.lang { display: flex; border: 1px solid var(--line-d); border-radius: 999px; overflow: hidden; }
-.lang button { font: inherit; font-size: 12px; font-weight: 700; padding: 5px 10px; border: 0; background: transparent; color: var(--sub-d); cursor: pointer; }
-.lang button[aria-pressed="true"] { background: var(--fg-d); color: var(--black); }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-weight: 700;
        background: var(--yellow); color: var(--yellow-ink); border-radius: 999px; padding: 13px 24px; font-size: 17px; }
 .btn.small { padding: 7px 14px; font-size: 13px; }
-.btn:focus-visible, .lang button:focus-visible, a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+.lang { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 10px; border: 1px solid var(--line-d); border-radius: 999px;
+        background: transparent; color: var(--sub-d); font-family: inherit; font-size: 12px; font-weight: 700; letter-spacing: .04em; line-height: 1;
+        text-decoration: none; cursor: pointer; white-space: nowrap; flex: none; transition: color .2s ease, border-color .2s ease; }
+.lang:hover { color: #fff; border-color: var(--sub-d); }
+.lang:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+.lang svg { display: block; flex: none; }
+.lang .lc { display: inline-block; min-width: 1.5em; text-align: center; }
+.lang .lc.flip { animation: lcflip .32s ease; }
+@keyframes lcflip { 0% { opacity: 0; transform: rotateX(90deg); } 100% { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .lang .lc.flip { animation: none; } }
+.btn:focus-visible, a:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
 @media (max-width: 720px) { .nav-links { display: none; } }
 .navpill { display: none; font-size: 13px; font-weight: 700; text-decoration: none; color: var(--fg-d); border: 1px solid var(--line-d); border-radius: 999px; padding: 5px 11px; }
 @media (max-width: 720px) { .navpill { display: inline-flex; } }
-.nav-right .btn, .navpill, .lang button { white-space: nowrap; flex: none; }
+.nav-right .btn, .navpill { white-space: nowrap; flex: none; }
 .nav-right .sm, .nav-right .sm2 { display: none; }
-@media (max-width: 360px) { .nav-right .lg2 { display: none; } .nav-right .sm2 { display: inline; } }
+@media (max-width: 374px) { .nav .nav-in { padding: 0 14px; gap: 8px; } .nav-right { gap: 5px !important; } .nav-right .btn.small { padding: 7px 11px; } }
+@media (max-width: 420px) { .nav-right .lg2 { display: none; } .nav-right .sm2 { display: inline; } }
 @media (max-width: 430px) {
   .nav-in { gap: 10px; }
   .nav-right { gap: 6px; }
   .logoimg { height: 17px; }
   .btn.small { padding: 7px 12px; }
   .navpill { padding: 5px 10px; }
-  .lang button { padding: 5px 9px; }
+  .lang { padding: 0 10px 0 9px; gap: 5px; }
   .nav-right .lg { display: none; }
   .nav-right .sm { display: inline; }
 }
@@ -138,6 +146,7 @@ h2.ko, h2 .ko { line-height: 1.24; letter-spacing: -.03em; }
 .shot { display: block; width: min(440px, 100%); flex: 0 1 auto; max-width: 440px; height: auto; border-radius: 22px; box-shadow: 0 30px 80px rgba(0,0,0,.45); }
 .shot.lock { max-width: 480px; border-radius: 24px; }
 .art.col { flex-direction: column; }
+@media (max-width: 380px) { .feat .art { gap: 10px; } .feat .art .phone:first-child:not(:only-child) { --w: 52vw; } .feat .art .phone + .phone { --w: 36vw !important; } }
 .shot.clear { box-shadow: none; border-radius: 0; filter: drop-shadow(0 20px 34px rgba(0,0,0,.22)); }
 .newtag { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: var(--yellow); color: #000; font-size: 11px; font-weight: 800; letter-spacing: .06em; vertical-align: middle; }
 
@@ -253,6 +262,20 @@ footer { background: var(--black); border-top: 1px solid var(--line-d); color: v
 footer p { margin: 4px 0; }
 .foot-links { margin-bottom: 10px !important; font-size: 14px; }
 .foot-links a { color: var(--fg-d); }
+
+/* 사이트맵 (푸터) */
+.sitemap { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding-bottom: 24px; margin-bottom: 20px; border-bottom: 1px solid var(--line-d); }
+.sitemap .sm-h { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--fg-d); }
+.sitemap ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.sitemap a { color: #8e8e93; text-decoration: none; font-size: 13px; line-height: 1.4; }
+.sitemap a:hover { color: #fff; }
+.sitemap a.sm-store:hover { color: var(--yellow); }
+@media (max-width: 620px) { .sitemap { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; } }
+
+/* 가운데 집중: 화면 가운데에 있는 구역만 또렷하게 (JS가 html.fx를 붙일 때만) */
+html.fx body > section:not(.hero) { transition: opacity .4s ease, filter .4s ease; }
+html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: grayscale(.6); }
+@media (prefers-reduced-motion: reduce) { html.fx body > section { transition: none; opacity: 1 !important; filter: none !important; } }
 </style>
 </head>
 <body>
@@ -270,10 +293,7 @@ footer p { margin: 4px 0; }
     </nav>
     <div class="nav-right">
       <a class="navpill" data-hx href="hyrox.html"><span class="ko">하이록스</span><span class="en">HYROX</span></a>
-      <div class="lang" role="group" aria-label="Language">
-        <button type="button" id="lang-ko" aria-pressed="true">한</button>
-        <button type="button" id="lang-en" aria-pressed="false">EN</button>
-      </div>
+      <button type="button" class="lang" id="lang" aria-label="Change language / 언어 변경" title="English"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span class="lc" id="lang-code">KO</span></button>
       <a class="btn small" href="https://apps.apple.com/app/id6817286611" target="_blank" rel="noopener"><span class="ko"><span class="lg2">App Store에서 받기</span><span class="sm2">받기</span></span><span class="en"><span class="lg">Download on the App Store</span><span class="sm">Get</span></span></a>
     </div>
   </div>
@@ -635,6 +655,34 @@ footer p { margin: 4px 0; }
 
 <footer>
   <div class="in">
+  <nav class="sitemap" aria-label="Site map">
+    <div><p class="sm-h"><span class="ko">앱</span><span class="en">App</span></p><ul>
+      <li><a href="#features"><span class="ko">기능</span><span class="en">Features</span></a></li>
+      <li><a href="#pft"><span class="ko">PFT 체력 테스트</span><span class="en">PFT fitness test</span></a></li>
+      <li><a href="#friends"><span class="ko">친구</span><span class="en">Friends</span></a></li>
+      <li><a href="#share"><span class="ko">기록 공유</span><span class="en">Share</span></a></li>
+      <li><a href="#how"><span class="ko">사용법</span><span class="en">How to use</span></a></li>
+      <li><a href="#new"><span class="ko">새 기능</span><span class="en">What's new</span></a></li>
+      <li><a class="sm-store" href="https://apps.apple.com/app/id6817286611" target="_blank" rel="noopener"><span class="ko">App Store에서 받기</span><span class="en">App Store</span></a></li>
+    </ul></div>
+    <div><p class="sm-h"><span class="ko">하이록스 가이드</span><span class="en">HYROX guide</span></p><ul>
+      <li><a class="ko" href="hyrox.html#what">하이록스란</a><a class="en" href="hyrox-en.html#what">What is HYROX</a></li>
+      <li><a class="ko" href="hyrox.html#calc">내 기록 분석</a><a class="en" href="hyrox-en.html#calc">Analyze my time</a></li>
+      <li><a class="ko" href="hyrox.html#pacer">구간 목표</a><a class="en" href="hyrox-en.html#pacer">Split targets</a></li>
+      <li><a class="ko" href="hyrox.html#news">하이록스 소식</a><a class="en" href="hyrox-en.html#news">HYROX news</a></li>
+      <li><a class="ko" href="hyrox.html#calendar">대회 일정</a><a class="en" href="hyrox-en.html#calendar">Race calendar</a></li>
+      <li><a class="ko" href="hyrox.html#board">게시판</a><a class="en" href="hyrox-en.html#board">Board</a></li>
+    </ul></div>
+    <div><p class="sm-h"><span class="ko">지원</span><span class="en">Support</span></p><ul>
+      <li><a href="#contact"><span class="ko">문의</span><span class="en">Contact</span></a></li>
+      <li><a href="mailto:nkssi1981@gmail.com"><span class="ko">이메일 보내기</span><span class="en">Email us</span></a></li>
+      <li><a href="privacy.html"><span class="ko">개인정보처리방침</span><span class="en">Privacy Policy</span></a></li>
+      <li><a href="terms.html"><span class="ko">이용약관</span><span class="en">Terms of Use</span></a></li>
+    </ul></div>
+    <div><p class="sm-h"><span class="ko">팔로우</span><span class="en">Follow</span></p><ul>
+      <li><a href="https://www.instagram.com/splits8.official/" target="_blank" rel="noopener">Instagram</a></li>
+    </ul></div>
+  </nav>
     <p class="foot-links"><a href="terms.html"><span class="ko">이용약관</span><span class="en">Terms of Use</span></a> · <a href="privacy.html"><span class="ko">개인정보처리방침</span><span class="en">Privacy Policy</span></a></p>
     <p><span class="ko">SPLITS8은 HYROX 공식 앱이 아닙니다. HYROX는 해당 권리자의 상표입니다.</span><span class="en">SPLITS8 is not an official HYROX app. HYROX is a trademark of its respective owner.</span></p>
     <p><span class="ko">Apple Watch, iPhone, App Store는 Apple Inc.의 상표입니다. 화면은 업데이트에 따라 바뀔 수 있습니다.</span><span class="en">Apple Watch, iPhone and App Store are trademarks of Apple Inc. Screens may change with updates.</span></p>
@@ -643,11 +691,13 @@ footer p { margin: 4px 0; }
 
 <script>
 (function () {
-  var root = document.documentElement, ko = document.getElementById('lang-ko'), en = document.getElementById('lang-en');
+  var root = document.documentElement, lb = document.getElementById('lang'), lc = document.getElementById('lang-code'), cur = null;
   function set(l, save) {
     root.setAttribute('data-l', l);
-    ko.setAttribute('aria-pressed', l === 'ko');
-    en.setAttribute('aria-pressed', l === 'en');
+    lc.textContent = l === 'en' ? 'EN' : 'KO';
+    lb.title = l === 'en' ? '한국어' : 'English';
+    if (cur && cur !== l) { lc.classList.remove('flip'); void lc.offsetWidth; lc.classList.add('flip'); }
+    cur = l;
     if (save) { try { localStorage.setItem('lang', l); } catch (e) {} }
     document.documentElement.lang = l;
     document.querySelectorAll('a[data-hx]').forEach(function (a) { a.setAttribute('href', l === 'en' ? 'hyrox-en.html' : 'hyrox.html'); });
@@ -655,8 +705,7 @@ footer p { margin: 4px 0; }
   var saved = (location.search.match(/[?&]lang=(ko|en)/) || [])[1] || null;
   if (!saved) { try { saved = localStorage.getItem('lang'); } catch (e) {} }
   set(saved === 'ko' || saved === 'en' ? saved : ((navigator.language || 'ko').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en'), false);
-  ko.addEventListener('click', function () { set('ko', true); });
-  en.addEventListener('click', function () { set('en', true); });
+  lb.addEventListener('click', function () { set(cur === 'en' ? 'ko' : 'en', true); });
 
   var copy = document.getElementById('copy'), mail = document.getElementById('mail');
   copy.addEventListener('click', function () {
@@ -665,6 +714,46 @@ footer p { margin: 4px 0; }
     var pick = function () { var r = document.createRange(); r.selectNodeContents(mail); var s = getSelection(); s.removeAllRanges(); s.addRange(r); };
     if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(mail.textContent).then(done, pick); } else { pick(); }
   });
+})();
+</script>
+<script>
+// 가운데 집중: 화면 세로 가운데에 가장 가까운 구역 하나만 또렷하게, 나머지는 흐리게. 첫 화면(hero)과 푸터는 제외.
+(function () {
+  var root = document.documentElement;
+  var secs = Array.prototype.slice.call(document.querySelectorAll('body > section:not(.hero)'));
+  if (!secs.length) return;
+  var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  var cur = null, ticking = false;
+  function pick() {
+    ticking = false;
+    var vh = window.innerHeight, mid = vh / 2, best = null, bestD = Infinity;
+    // 페이지 맨 아래에서는 마지막 구역이 가운데까지 못 올라올 수 있으니 마지막 구역을 고름
+    if (window.scrollY + vh >= document.documentElement.scrollHeight - 4) {
+      best = secs[secs.length - 1];
+    } else {
+      for (var i = 0; i < secs.length; i++) {
+        var r = secs[i].getBoundingClientRect();
+        var d = r.top > mid ? r.top - mid : (r.bottom < mid ? mid - r.bottom : 0);
+        if (d < bestD) { bestD = d; best = secs[i]; }
+      }
+    }
+    if (best !== cur) {
+      if (cur) cur.classList.remove('is-focus');
+      best.classList.add('is-focus');
+      cur = best;
+    }
+  }
+  function req() { if (!ticking) { ticking = true; requestAnimationFrame(pick); } }
+  function apply() {
+    if (mq && mq.matches) { root.classList.remove('fx'); return; }
+    pick();
+    root.classList.add('fx');
+  }
+  window.addEventListener('scroll', req, { passive: true });
+  window.addEventListener('resize', req);
+  window.addEventListener('hashchange', req);
+  if (mq) { if (mq.addEventListener) mq.addEventListener('change', apply); else if (mq.addListener) mq.addListener(apply); }
+  apply();
 })();
 </script>
 </body>

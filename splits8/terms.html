@@ -18,10 +18,16 @@
   header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:8px; }
   .brand { font-weight:800; letter-spacing:.02em; font-size:20px; }
   .brand b { color:var(--accent); }
-  .lang { display:flex; border:1px solid var(--line); border-radius:10px; overflow:hidden; }
-  .lang button { font:inherit; font-size:14px; font-weight:600; padding:7px 14px; border:0; background:transparent;
-                 color:var(--sub); cursor:pointer; }
-  .lang button[aria-pressed="true"] { background:var(--fg); color:var(--bg); }
+  .lang { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 10px; border: 1px solid var(--line); border-radius: 999px;
+          background: transparent; color: var(--sub); font-family: inherit; font-size: 12px; font-weight: 700; letter-spacing: .04em; line-height: 1;
+          text-decoration: none; cursor: pointer; white-space: nowrap; flex: none; transition: color .2s ease, border-color .2s ease; }
+  .lang:hover { color: var(--fg); border-color: var(--sub); }
+  .lang:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .lang svg { display: block; flex: none; }
+  .lang .lc { display: inline-block; min-width: 1.5em; text-align: center; }
+  .lang .lc.flip { animation: lcflip .32s ease; }
+  @keyframes lcflip { 0% { opacity: 0; transform: rotateX(90deg); } 100% { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .lang .lc.flip { animation: none; } }
   h1 { font-size:28px; line-height:1.3; margin:22px 0 4px; letter-spacing:-.01em; }
   .date { color:var(--sub); font-size:14px; margin:0 0 22px; }
   .pre { margin:0 0 6px; padding:16px 0; border-top:2px solid var(--fg); border-bottom:1px solid var(--line); }
@@ -44,6 +50,15 @@
   .add { margin-top:34px; padding-top:18px; border-top:2px solid var(--fg); }
   .add h2 { border:0; padding:0; margin:0 0 8px; }
   footer { margin-top:32px; padding-top:16px; border-top:1px solid var(--line); color:var(--sub); font-size:13.5px; }
+
+  .sitemap { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:20px; padding-bottom:18px; margin-bottom:14px; border-bottom:1px solid var(--line); }
+  .sitemap .sm-h { margin:0 0 8px; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--fg); }
+  .sitemap ul { list-style:none; margin:0; padding:0; }
+  .sitemap li { margin:0 0 6px; line-height:1.4; }
+  .sitemap a { color:#8e8e93; text-decoration:none; font-size:13px; }
+  .sitemap a:hover { color:var(--fg); }
+  .sitemap a.sm-store:hover { color:var(--accent); }
+  @media (max-width:620px) { .sitemap { grid-template-columns:repeat(2, minmax(0,1fr)); gap:20px 14px; } }
   [data-lang] { display:none; }
   html[lang="ko"] [data-lang="ko"], html[lang="en"] [data-lang="en"] { display:block; }
 </style>
@@ -52,10 +67,7 @@
 <main>
   <header>
     <a class="brand" href="./" style="text-decoration:none"><picture><source srcset="img/logo.png" media="(prefers-color-scheme: dark)"><img src="img/logo-light.png" alt="SPLITS8" style="display:block;height:22px;width:auto"></picture></a>
-    <div class="lang" role="group" aria-label="Language">
-      <button type="button" id="b-ko" aria-pressed="true">한국어</button>
-      <button type="button" id="b-en" aria-pressed="false">English</button>
-    </div>
+    <button type="button" class="lang" id="lang" aria-label="Change language / 언어 변경" title="English"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span class="lc" id="lang-code">KO</span></button>
   </header>
 
   <!-- ===================== 한국어 ===================== -->
@@ -154,7 +166,35 @@
       <p>본 약관은 2026년 10월 6일부터 시행합니다.</p>
     </div>
 
-    <footer><a href="privacy.html">개인정보 처리방침</a> · SPLITS8은 HYROX의 공식 애플리케이션이 아닙니다.</footer>
+    <footer><nav class="sitemap" aria-label="사이트맵">
+        <div><p class="sm-h">앱</p><ul>
+          <li><a href="./#features">기능</a></li>
+          <li><a href="./#pft">PFT 체력 테스트</a></li>
+          <li><a href="./#friends">친구</a></li>
+          <li><a href="./#share">기록 공유</a></li>
+          <li><a href="./#how">사용법</a></li>
+          <li><a href="./#new">새 기능</a></li>
+          <li><a class="sm-store" href="https://apps.apple.com/app/id6817286611" target="_blank" rel="noopener">App Store에서 받기</a></li>
+        </ul></div>
+        <div><p class="sm-h">하이록스 가이드</p><ul>
+          <li><a href="hyrox.html#what">하이록스란</a></li>
+          <li><a href="hyrox.html#calc">내 기록 분석</a></li>
+          <li><a href="hyrox.html#pacer">구간 목표</a></li>
+          <li><a href="hyrox.html#news">하이록스 소식</a></li>
+          <li><a href="hyrox.html#calendar">대회 일정</a></li>
+          <li><a href="hyrox.html#board">게시판</a></li>
+        </ul></div>
+        <div><p class="sm-h">지원</p><ul>
+          <li><a href="./#contact">문의</a></li>
+          <li><a href="mailto:nkssi1981@gmail.com">이메일 보내기</a></li>
+          <li><a href="privacy.html">개인정보처리방침</a></li>
+          <li><a href="terms.html">이용약관</a></li>
+        </ul></div>
+        <div><p class="sm-h">팔로우</p><ul>
+          <li><a href="https://www.instagram.com/splits8.official/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul></div>
+      </nav>
+    <a href="privacy.html">개인정보 처리방침</a> · SPLITS8은 HYROX의 공식 애플리케이션이 아닙니다.</footer>
   </section>
 
   <!-- ===================== English ===================== -->
@@ -253,21 +293,50 @@
       <p>These Terms take effect on October 6, 2026.</p>
     </div>
 
-    <footer><a href="privacy.html">Privacy Policy</a> · SPLITS8 is not an official HYROX application.</footer>
+    <footer><nav class="sitemap" aria-label="Site map">
+        <div><p class="sm-h">App</p><ul>
+          <li><a href="./?lang=en#features">Features</a></li>
+          <li><a href="./?lang=en#pft">PFT fitness test</a></li>
+          <li><a href="./?lang=en#friends">Friends</a></li>
+          <li><a href="./?lang=en#share">Share</a></li>
+          <li><a href="./?lang=en#how">How to use</a></li>
+          <li><a href="./?lang=en#new">What's new</a></li>
+          <li><a class="sm-store" href="https://apps.apple.com/app/id6817286611" target="_blank" rel="noopener">App Store</a></li>
+        </ul></div>
+        <div><p class="sm-h">HYROX guide</p><ul>
+          <li><a href="hyrox-en.html#what">What is HYROX</a></li>
+          <li><a href="hyrox-en.html#calc">Analyze my time</a></li>
+          <li><a href="hyrox-en.html#pacer">Split targets</a></li>
+          <li><a href="hyrox-en.html#news">HYROX news</a></li>
+          <li><a href="hyrox-en.html#calendar">Race calendar</a></li>
+          <li><a href="hyrox-en.html#board">Board</a></li>
+        </ul></div>
+        <div><p class="sm-h">Support</p><ul>
+          <li><a href="./?lang=en#contact">Contact</a></li>
+          <li><a href="mailto:nkssi1981@gmail.com">Email us</a></li>
+          <li><a href="privacy.html?lang=en">Privacy Policy</a></li>
+          <li><a href="terms.html?lang=en">Terms of Use</a></li>
+        </ul></div>
+        <div><p class="sm-h">Follow</p><ul>
+          <li><a href="https://www.instagram.com/splits8.official/" target="_blank" rel="noopener">Instagram</a></li>
+        </ul></div>
+      </nav>
+    <a href="privacy.html">Privacy Policy</a> · SPLITS8 is not an official HYROX application.</footer>
   </section>
 </main>
 
 <script>
   (function () {
-    var ko = document.getElementById('b-ko'), en = document.getElementById('b-en');
+    var lb = document.getElementById('lang'), lc = document.getElementById('lang-code'), cur = null;
     function set(l) {
       document.documentElement.lang = l;
-      ko.setAttribute('aria-pressed', l === 'ko');
-      en.setAttribute('aria-pressed', l === 'en');
+      lc.textContent = l === 'en' ? 'EN' : 'KO';
+      lb.title = l === 'en' ? '한국어' : 'English';
+      if (cur && cur !== l) { lc.classList.remove('flip'); void lc.offsetWidth; lc.classList.add('flip'); }
+      cur = l;
       document.title = l === 'ko' ? 'SPLITS8 — 이용약관' : 'SPLITS8 — Terms of Use';
     }
-    ko.addEventListener('click', function () { set('ko'); });
-    en.addEventListener('click', function () { set('en'); });
+    lb.addEventListener('click', function () { set(cur === 'en' ? 'ko' : 'en'); });
     var q = (location.search.match(/[?&]lang=(ko|en)/) || [])[1];
     set(q || ((navigator.language || 'ko').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en'));
   })();
