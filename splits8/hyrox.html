@@ -317,6 +317,12 @@ footer p { margin: 4px 0; }
 select.tin { appearance: none; -webkit-appearance: none; padding-right: 40px; cursor: pointer;
   background: #121210 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23a3a399' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 16px center; }
 .tin:focus { outline: 2px solid var(--yellow); outline-offset: 1px; border-color: transparent; }
+.ocr { display: grid; gap: 8px; }
+.ocrbtn { font: inherit; font-size: 15px; font-weight: 700; height: 48px; border-radius: 12px; border: 1px solid var(--yellow); background: transparent; color: var(--yellow); cursor: pointer; }
+.ocrbtn:disabled { opacity: .5; cursor: wait; }
+.ocrs { margin: 0; color: var(--sub-d); }
+.ocrs.good { color: #30d158; } .ocrs.bad { color: #ff6b5e; }
+.tin.ocrfill { border-color: rgba(255,214,0,.55); }
 details.more { border: 1px solid #2a2a24; border-radius: 12px; background: #121210; }
 details.more summary { cursor: pointer; font-weight: 700; font-size: 15px; list-style: none; display: flex; align-items: center; justify-content: space-between; height: 48px; padding: 0 14px; }
 details.more summary::-webkit-details-marker { display: none; }
@@ -543,6 +549,8 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
         <input class="tin big" id="tt" inputmode="numeric" placeholder="1:28:30" autocomplete="off"></div>
       <div class="field"><label for="age">나이대 (선택)</label>
         <select class="tin" id="age"><option value="">선택 안 함</option></select></div>
+      <div class="ocr"><button class="ocrbtn" type="button" id="ocrb">이미지로 데이터 넣기</button><input type="file" id="ocrf" accept="image/*" hidden>
+        <p class="small ocrs" id="ocrs">대회 결과 화면 이미지를 넣으면 숫자를 읽어 칸을 채워 줘요. 사진은 이 기기 안에서만 읽고 어디로도 보내지 않아요.</p></div>
       <details class="more"><summary>구간 기록도 넣기 (선택)</summary>
         <p class="small sub" style="margin-top:0">분:초로 넣으세요. 비어 있는 칸은 빼고 비교합니다. SPLITS8 기록 화면의 구간 시간을 그대로 옮기면 됩니다.</p>
         <div class="splits" id="sp"></div>
@@ -733,7 +741,7 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
       h += '<p class="rk">내 위치</p><div class="lvl">' + lvl + '</div><div class="pct">' + name + ' Open 출전자 중 <b>상위 약 ' + p + '%</b></div>';
       h += '<div class="bar"><i style="left:' + Math.min(100, Math.max(0, p)) + '%"></i></div><div class="barlab"><span style="left:10%">상위 10%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span></div>';
       var nxt = t >= b[0] ? (t >= b[1] ? (t >= b[2] ? (t >= b[3] ? [b[3],'초급'] : [b[2],'중급']) : [b[1],'상급']) : [b[0],'엘리트급']) : null;
-      if (nxt) h += '<p class="msg">다음 단계(<b>' + nxt[1] + '</b>, ' + fm(nxt[0]) + ')까지 <b>' + fm(t - nxt[0] + 1) + '</b>. 8구간으로 나누면 구간마다 약 ' + Math.ceil((t - nxt[0] + 1) / 16) + '초씩입니다.</p>';
+      if (nxt) h += '<p class="msg">다음 단계(<b>' + nxt[1] + '</b>, ' + fm(nxt[0]) + ')까지 <b>' + fm(t - nxt[0] + 1) + '</b>. 16구간으로 나누면 구간마다 약 ' + Math.ceil((t - nxt[0] + 1) / 16) + '초씩입니다.</p>';
     } else {
       var P = PRO[g];
       var lvl2 = t < P.e15 ? 'Elite 15 수준' : t < P.world ? '세계 수준' : t < P.comp ? '경쟁 수준' : t < P.avg ? 'Pro 평균보다 빠름' : 'Pro 평균보다 느림';
@@ -825,6 +833,7 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
   }
 })();
 </script>
+<script src="ocr.js?v=1"></script>
 
 </body>
 </html>

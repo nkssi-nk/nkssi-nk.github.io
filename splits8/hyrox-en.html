@@ -317,6 +317,12 @@ footer p { margin: 4px 0; }
 select.tin { appearance: none; -webkit-appearance: none; padding-right: 40px; cursor: pointer;
   background: #121210 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23a3a399' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 16px center; }
 .tin:focus { outline: 2px solid var(--yellow); outline-offset: 1px; border-color: transparent; }
+.ocr { display: grid; gap: 8px; }
+.ocrbtn { font: inherit; font-size: 15px; font-weight: 700; height: 48px; border-radius: 12px; border: 1px solid var(--yellow); background: transparent; color: var(--yellow); cursor: pointer; }
+.ocrbtn:disabled { opacity: .5; cursor: wait; }
+.ocrs { margin: 0; color: var(--sub-d); }
+.ocrs.good { color: #30d158; } .ocrs.bad { color: #ff6b5e; }
+.tin.ocrfill { border-color: rgba(255,214,0,.55); }
 details.more { border: 1px solid #2a2a24; border-radius: 12px; background: #121210; }
 details.more summary { cursor: pointer; font-weight: 700; font-size: 15px; list-style: none; display: flex; align-items: center; justify-content: space-between; height: 48px; padding: 0 14px; }
 details.more summary::-webkit-details-marker { display: none; }
@@ -543,6 +549,8 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
         <input class="tin big" id="tt" inputmode="numeric" placeholder="1:28:30" autocomplete="off"></div>
       <div class="field"><label for="age">Age group (optional)</label>
         <select class="tin" id="age"><option value="">Not selected</option></select></div>
+      <div class="ocr"><button class="ocrbtn" type="button" id="ocrb">Add data from an image</button><input type="file" id="ocrf" accept="image/*" hidden>
+        <p class="small ocrs" id="ocrs">Add an image of your race result and we read the times into the boxes. The image is read on this device only and is not sent anywhere.</p></div>
       <details class="more"><summary>Add split times (optional)</summary>
         <p class="small sub" style="margin-top:0">Enter as m:ss. Empty fields are left out of the comparison. You can copy the split times straight from the SPLITS8 results screen.</p>
         <div class="splits" id="sp"></div>
@@ -733,7 +741,7 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
       h += '<p class="rk">Your position</p><div class="lvl">' + lvl + '</div><div class="pct"><b>About top ' + p + '%</b> of ' + name + ' in Open</div>';
       h += '<div class="bar"><i style="left:' + Math.min(100, Math.max(0, p)) + '%"></i></div><div class="barlab"><span style="left:10%">Top 10%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span></div>';
       var nxt = t >= b[0] ? (t >= b[1] ? (t >= b[2] ? (t >= b[3] ? [b[3],'Beginner'] : [b[2],'Intermediate']) : [b[1],'Advanced']) : [b[0],'Elite']) : null;
-      if (nxt) h += '<p class="msg"><b>' + fm(t - nxt[0] + 1) + '</b> to the next level (<b>' + nxt[1] + '</b>, ' + fm(nxt[0]) + '). Spread over 8 segments, that is about ' + Math.ceil((t - nxt[0] + 1) / 16) + ' seconds per segment.</p>';
+      if (nxt) h += '<p class="msg"><b>' + fm(t - nxt[0] + 1) + '</b> to the next level (<b>' + nxt[1] + '</b>, ' + fm(nxt[0]) + '). Spread over 16 segments, that is about ' + Math.ceil((t - nxt[0] + 1) / 16) + ' seconds per segment.</p>';
     } else {
       var P = PRO[g];
       var lvl2 = t < P.e15 ? 'Elite 15 level' : t < P.world ? 'World class' : t < P.comp ? 'Competitive' : t < P.avg ? 'Faster than Pro average' : 'Slower than Pro average';
@@ -826,6 +834,7 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
   }
 })();
 </script>
+<script src="ocr.js?v=1"></script>
 
 </body>
 </html>
