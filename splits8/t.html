@@ -108,6 +108,58 @@
   }
 
   var token = location.hash.replace(/^#/, "");
+
+  // 더블 계획 링크 (d1.…): 앱의 DoublesLink 와 같은 규칙. 받는 사람 입장으로 보여 주고 앱으로 넘김
+  if (token.indexOf("d1.") === 0) {
+    var dp = readDoubles(token);
+    if (!dp) { document.getElementById("bad").hidden = false; return; }
+    var who = dp.n || (ko ? "파트너" : "Partner");
+    document.getElementById("name").textContent = ko ? (who + "님이 보낸 더블 계획") : ("Doubles plan from " + who);
+    document.getElementById("meta").textContent = ko ? "스테이션마다 번갈아 하는 양 · 앱에서 열면 내 기준으로 바뀌어요"
+                                                    : "Turns per station · opens from your side in the app";
+    var NAMES = ["SkiErg", "Sled Push", "Sled Pull", "Burpee Broad Jump", "Row", "Farmers Carry", "Sandbag Lunges", "Wall Balls"];
+    var dl = document.getElementById("list");
+    for (var i = 0; i < 8; i++) {
+      var unit = i === 7 ? (ko ? "회" : " reps") : " m";
+      var first = dp.f[i] === 1 ? who : (ko ? "나" : "Me");
+      var li = document.createElement("li");
+      var no = document.createElement("span"); no.className = "no"; no.textContent = "0" + (i + 1);
+      var what = document.createElement("span"); what.className = "what";
+      what.textContent = NAMES[i] + " · " + dp.c[i] + unit + (ko ? "씩 · " + first + " 먼저" : " each · " + first + " first");
+      li.appendChild(no); li.appendChild(what); dl.appendChild(li);
+    }
+    var okBox = document.getElementById("ok");
+    okBox.querySelector("h1").textContent = ko ? "더블 계획을 받았어요" : "A doubles plan was shared with you";
+    okBox.querySelector(".sub").textContent = ko ? "아래 버튼을 누르면 SPLITS8 앱의 더블 계획으로 들어가요. 내 쪽에서 보이게 자동으로 바뀌어요."
+                                                 : "Tap the button below to open it as your doubles plan in SPLITS8, seen from your side.";
+    var notes = okBox.querySelectorAll(".note");
+    notes[notes.length - 2].textContent = "이 링크에는 스테이션별 나눔과 보낸 사람 닉네임만 들어 있어요. 기록이나 개인정보는 들어 있지 않아요.";
+    notes[notes.length - 1].textContent = "This link only holds the turns per station and the sender's nickname. No records or personal data.";
+    document.getElementById("open").href = "splits8://d?d=" + encodeURIComponent(token);
+    okBox.hidden = false;
+    return;
+  }
+
+  function readDoubles(tk) {
+    if (tk.length > 2000) return null;
+    var b = tk.slice(3).replace(/-/g, "+").replace(/_/g, "/");
+    if (!/^[A-Za-z0-9+/]*$/.test(b)) return null;
+    while (b.length % 4 !== 0) b += "=";
+    var o;
+    try {
+      var bin = atob(b), by = new Uint8Array(bin.length);
+      for (var j = 0; j < bin.length; j++) by[j] = bin.charCodeAt(j);
+      o = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(by));
+    } catch (e) { return null; }
+    if (!o || !Array.isArray(o.c) || !Array.isArray(o.f) || o.c.length !== 8 || o.f.length !== 8) return null;
+    for (var k = 0; k < 8; k++) {
+      if (typeof o.c[k] !== "number" || !(o.c[k] > 0) || o.c[k] > 1000) return null;
+      if (o.f[k] !== 0 && o.f[k] !== 1) return null;
+    }
+    var n = typeof o.n === "string" ? o.n.replace(/[\u0000-\u001f\u007f-\u009f\u2028\u2029]/g, "").trim().slice(0, 20) : "";
+    return { c: o.c, f: o.f, n: n };
+  }
+
   var p = read(token);
   if (!p) { document.getElementById("bad").hidden = false; return; }
 
