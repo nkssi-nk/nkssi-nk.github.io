@@ -115,6 +115,11 @@ h2.ko, h2 .ko { line-height: 1.24; letter-spacing: -.03em; }
 .hero .lead { margin-inline: auto; }
 .hero .cta { margin-top: 30px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .note { font-size: 13px; color: var(--sub-d); }
+/* 안드로이드 베타 안내 (정식 출시 때 Google Play 버튼으로 바꿈) */
+.droid { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; padding: 8px 16px; border: 1px solid var(--line-d); border-radius: 999px;
+         font-size: 14px; font-weight: 600; color: var(--fg-d); text-decoration: none; background: rgba(255,230,0,.06); }
+.droid:hover { border-color: var(--yellow); }
+.droid .dot { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; box-shadow: 0 0 0 3px rgba(61,220,132,.2); flex: none; }
 .hero-devices { margin-top: clamp(40px, 6vw, 72px); display: flex; justify-content: center; align-items: flex-end; gap: clamp(14px, 4vw, 48px); }
 .hero-devices .phone { margin-bottom: -18%; }
 .hero-devices .watch { margin-bottom: clamp(30px, 6vw, 70px); }
@@ -290,6 +295,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <a href="#how"><span class="ko">사용법</span><span class="en">How to use</span></a>
       <a href="#new"><span class="ko">새 기능</span><span class="en">What's new</span></a>
       <a href="#contact"><span class="ko">문의</span><span class="en">Contact</span></a>
+      <a href="android.html"><span class="ko">안드로이드 베타</span><span class="en">Android beta</span></a>
     </nav>
     <div class="nav-right">
       <a class="navpill" data-hx href="hyrox.html"><span class="ko">하이록스</span><span class="en">HYROX</span></a>
@@ -310,6 +316,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     <div class="cta">
       <a class="btn" href="https://apps.apple.com/app/id6817286611" target="_blank" rel="noopener"><span class="ko">App Store에서 받기</span><span class="en">Download on the App Store</span></a>
       <span class="note"><span class="ko">무료 · iOS 17, watchOS 10 이상</span><span class="en">Free · iOS 17 and watchOS 10 or later</span></span>
+      <a class="droid" href="android.html"><span class="dot" aria-hidden="true"></span><span class="ko">안드로이드 · 갤럭시 워치 베타 테스터 모집 중 →</span><span class="en">Android · Galaxy Watch beta is open →</span></a>
     </div>
     <div class="hero-devices">
       <div class="watch"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_live.webp" alt="Apple Watch: Sled Push 구간 진행 화면" width="416" height="496"></div></div>
@@ -664,6 +671,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <li><a href="#how"><span class="ko">사용법</span><span class="en">How to use</span></a></li>
       <li><a href="#new"><span class="ko">새 기능</span><span class="en">What's new</span></a></li>
       <li><a class="sm-store" href="https://apps.apple.com/app/id6817286611" target="_blank" rel="noopener"><span class="ko">App Store에서 받기</span><span class="en">App Store</span></a></li>
+      <li><a href="android.html"><span class="ko">안드로이드 베타 (모집 중)</span><span class="en">Android beta (open)</span></a></li>
     </ul></div>
     <div><p class="sm-h"><span class="ko">하이록스 가이드</span><span class="en">HYROX guide</span></p><ul>
       <li><a class="ko" href="hyrox.html#what">하이록스란</a><a class="en" href="hyrox-en.html#what">What is HYROX</a></li>
