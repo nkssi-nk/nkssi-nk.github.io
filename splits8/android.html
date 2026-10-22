@@ -295,7 +295,11 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
 .steps .go .btn { padding: 11px 20px; font-size: 16px; }
 .shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 3vw, 32px); margin-top: clamp(32px, 5vw, 56px); }
 .shots figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.shots .phone { --w: 100%; max-width: 280px; }
+.scr { width: 100%; max-width: 280px; border-radius: 30px; overflow: hidden; background: #000;
+       box-shadow: 0 0 0 1px #2b2b26, 0 30px 60px rgba(0,0,0,.55); }
+.scr img { display: block; width: 100%; height: auto; aspect-ratio: 9 / 18; object-fit: cover; object-position: top center; }
+.hero-scr { width: clamp(200px, 56vw, 300px); max-width: none; margin-bottom: -14%; border-radius: 34px 34px 0 0; }
+.hero-scr img { aspect-ratio: 540 / 900; }
 .shots figcaption { font-size: 15px; color: var(--sub-d); text-align: center; }
 .list { margin: clamp(28px, 4vw, 44px) 0 0; padding: 0; list-style: none; display: grid; gap: 10px; max-width: 44em; }
 .list li { position: relative; padding-left: 20px; color: var(--fg-d); }
@@ -309,7 +313,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
 .contact .go .ghost { text-decoration: none; display: inline-block; }
 @media (max-width: 720px) {
   .shots { grid-template-columns: minmax(0, 1fr); }
-  .shots .phone { max-width: 240px; }
+  .shots .scr { max-width: 260px; }
 }
 </style>
 </head>
@@ -334,8 +338,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     <p class="eyebrow"><span class="ko">Android · Galaxy Watch 베타 테스터 모집</span><span class="en">Android · Galaxy Watch beta</span></p>
     <h1><span class="ko">안드로이드에서도,<br>모든 구간을 손목에서.</span><span class="en">Now on Android.<br>Every split, from your wrist.</span></h1>
     <p class="lead sub">
-      <span class="ko">아이폰용 SPLITS8을 안드로이드 폰과 갤럭시 워치로 옮겼습니다. 정식 출시 전에 먼저 써 보고 의견을 주실 분을 찾습니다.</span>
-      <span class="en">SPLITS8 is coming to Android phones and Galaxy Watch. Help us test it before the public release.</span>
+      <span class="ko">이제 안드로이드 폰과 갤럭시 워치에서도 SPLITS8을 쓸 수 있어요. 정식 출시 전에 먼저 써 보고 의견을 주실 분을 찾습니다.</span>
+      <span class="en">SPLITS8 now runs on Android phones and Galaxy Watch. Help us test it before the public release.</span>
     </p>
     <div class="cta">
       <a class="btn" href="#join"><span class="ko">베타 참여 방법 보기</span><span class="en">See how to join</span></a>
@@ -344,7 +348,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     <div class="beta-note"><span class="tag">BETA</span><p><span class="ko"><b>안드로이드판은 아직 베타 테스트 중이에요.</b> 화면이 조금 어색하거나 오류가 있을 수 있어요. 발견하시면 알려 주세요, 바로 고칠게요.</span><span class="en"><b>The Android version is still in beta testing.</b> Some screens may look a little off, and you may run into bugs. Let us know and we will fix them quickly.</span></p></div>
     <div class="hero-devices">
       <div class="gw"><img src="img/gw_live.webp" alt="Galaxy Watch: SkiErg 구간 진행 화면" width="450" height="450"></div>
-      <div class="phone cut"><img src="img/a_live.webp" alt="Android: 폰으로 기록하는 화면" width="540" height="1187"></div>
+      <div class="scr hero-scr"><img src="img/a_live.webp" alt="Android: 폰으로 기록하는 화면" width="540" height="1187"></div>
     </div>
   </div>
 </section>
@@ -379,16 +383,16 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
 <section class="dark" id="what">
   <div class="in">
     <p class="eyebrow"><span class="ko">베타에서 되는 것</span><span class="en">What's in the beta</span></p>
-    <h2><span class="ko">아이폰판과<br>똑같이.</span><span class="en">Same as<br>on iPhone.</span></h2>
+    <h2><span class="ko">필요한 건<br>다 있어요.</span><span class="en">Everything<br>you need.</span></h2>
     <div class="shots">
-      <figure><div class="phone"><img src="img/a_sim.webp" alt="풀 시뮬레이션 화면" width="540" height="1187" loading="lazy"></div><figcaption><span class="ko">풀 시뮬레이션 · PFT · 레이스 · 나만의 트레이닝</span><span class="en">Full Simulation · PFT · Race · your own trainings</span></figcaption></figure>
-      <figure><div class="phone"><img src="img/a_detail.webp" alt="기록 분석 화면" width="540" height="1187" loading="lazy"></div><figcaption><span class="ko">심박 · 페이스 · 구간 분석</span><span class="en">Heart rate, pace and split analysis</span></figcaption></figure>
-      <figure><div class="phone"><img src="img/a_share.webp" alt="공유 그림 화면" width="540" height="1187" loading="lazy"></div><figcaption><span class="ko">사진 위에 기록을 얹어 공유</span><span class="en">Share your result on your photo</span></figcaption></figure>
+      <figure><div class="scr"><img src="img/a_sim.webp" alt="풀 시뮬레이션 화면" width="540" height="1187" loading="lazy"></div><figcaption><span class="ko">풀 시뮬레이션 · PFT · 레이스 · 나만의 트레이닝</span><span class="en">Full Simulation · PFT · Race · your own trainings</span></figcaption></figure>
+      <figure><div class="scr"><img src="img/a_detail.webp" alt="기록 분석 화면" width="540" height="1187" loading="lazy"></div><figcaption><span class="ko">심박 · 페이스 · 구간 분석</span><span class="en">Heart rate, pace and split analysis</span></figcaption></figure>
+      <figure><div class="scr"><img src="img/share_real.webp" alt="실제로 만든 공유 그림" width="720" height="1280" loading="lazy"></div><figcaption><span class="ko">사진 위에 기록을 얹어 공유</span><span class="en">Share your result on your photo</span></figcaption></figure>
     </div>
     <ul class="list">
       <li><span class="ko">갤럭시 워치: 왼쪽으로 밀거나 노란 버튼을 누르면 다음 구간</span><span class="en">Galaxy Watch: swipe left or tap the yellow button for the next segment</span></li>
       <li><span class="ko">워치 없이 폰으로만 기록 가능</span><span class="en">Track with the phone alone, no watch needed</span></li>
-      <li><span class="ko">아이폰 친구와 같은 계정 · 같은 친구 목록 · 같은 순위표</span><span class="en">Same accounts, friends and leaderboards as iPhone users</span></li>
+      <li><span class="ko"><b>아이폰을 쓰는 친구와도 친구 맺기</b> — 같은 순위표에서 기록을 비교하고 응원을 주고받아요</span><span class="en"><b>Be friends with iPhone users too</b> — compare results on the same leaderboard and send cheers</span></li>
       <li><span class="ko">Health Connect 에 운동 · 심박 저장</span><span class="en">Saves workouts and heart rate to Health Connect</span></li>
     </ul>
   </div>
@@ -405,6 +409,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
         <p><span class="ko">대화 내용은 멤버만 볼 수 있어서 나오는 문구예요. 위쪽의 "그룹에 참여" 버튼만 누르면 됩니다. 회사(Workspace) 계정이면 개인 Gmail 계정으로 바꿔 주세요.</span><span class="en">Posts are visible to members only, so that message is normal. Just tap "Join group" at the top. If you are on a work (Workspace) account, switch to a personal Gmail account.</span></p></details>
       <details><summary><span class="ko">갤럭시 워치가 없어도 되나요?</span><span class="en">Do I need a Galaxy Watch?</span></summary>
         <p><span class="ko">네. 폰에서 "Start on phone"으로 시작하면 폰만으로 구간을 기록합니다. 심박은 워치가 있을 때만 나옵니다.</span><span class="en">No. Tap "Start on phone" to track splits with the phone alone. Heart rate needs a watch.</span></p></details>
+      <details><summary><span class="ko">아이폰 쓰는 친구와도 친구가 되나요?</span><span class="en">Can I be friends with iPhone users?</span></summary>
+        <p><span class="ko">네. 아이폰판과 같은 계정 · 같은 서버를 써서, 닉네임이나 이메일로 서로 찾아 친구를 맺을 수 있어요. 친구 순위표와 응원도 함께 써요.</span><span class="en">Yes. Both apps share the same accounts and server, so you can find each other by nickname or email, then share leaderboards and cheers.</span></p></details>
       <details><summary><span class="ko">돈이 드나요?</span><span class="en">Does it cost anything?</span></summary>
         <p><span class="ko">아니요, 무료입니다. 가입하지 않아도 모든 기록 기능을 쓸 수 있고, 친구 · 순위표를 쓸 때만 가입하면 됩니다.</span><span class="en">No, it's free. Every tracking feature works without an account; sign up only for friends and leaderboards.</span></p></details>
       <details><summary><span class="ko">아이폰을 쓰고 있어요</span><span class="en">I use an iPhone</span></summary>
