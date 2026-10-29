@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>하이록스 서울 체크인 시간표 | SPLITS8</title>
+<meta name="description" content="AirAsia HYROX 서울(11.13–11.15, 킨텍스) Division별 체크인 시간과 장소, 전날 사전 체크인, 체크인 주의사항.">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="article">
+<meta property="og:title" content="하이록스 서울 체크인 시간표 | SPLITS8">
+<meta property="og:description" content="내 Division 체크인, 언제 어디서? 11.12 더현대 서울 사전 체크인부터 킨텍스 당일 시간까지.">
+<meta property="og:url" content="https://splits8.com/splits8/seoul.html">
+<meta property="og:image" content="https://splits8.com/splits8/img/a_og.png">
+<link rel="canonical" href="https://splits8.com/splits8/seoul.html">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ctext x='32' y='47' font-family='Arial,Helvetica,sans-serif' font-size='44' font-weight='900' text-anchor='middle' fill='%23ffe600'%3E8%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root {
+  color-scheme: dark;
+  --black: #000; --ink: #0c0c0b; --card: #17170f; --card2: #1f1f17; --line: #2b2b26;
+  --fg: #f6f6f1; --sub: #a3a399; --dim: #6f6f66; --yellow: #ffe600; --yellow-ink: #1a1700; --red: #ff5a5a;
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+  --gutter: 16px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--black); color: var(--fg); font-family: var(--font); font-size: 17px; line-height: 1.55;
+       word-break: keep-all; overflow-wrap: anywhere; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+.in { max-width: 720px; margin: 0 auto; padding-inline: var(--gutter); }
+
+.nav { position: sticky; top: 0; z-index: 20; background: rgba(0,0,0,.75); -webkit-backdrop-filter: saturate(160%) blur(18px); backdrop-filter: saturate(160%) blur(18px); border-bottom: 1px solid var(--line); }
+.nav .in { height: 52px; display: flex; align-items: center; gap: 14px; }
+.logo { display: inline-flex; text-decoration: none; }
+.logo img { display: block; height: 20px; width: auto; }
+.nav .back { margin-left: auto; font-size: 14px; color: var(--sub); text-decoration: none; }
+.nav .back:hover { color: var(--fg); }
+
+.hero { padding: 44px 0 8px; }
+.eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .08em; color: var(--yellow); margin: 0 0 12px; }
+h1 { margin: 0; font-size: clamp(36px, 9vw, 56px); line-height: 1.15; letter-spacing: -.03em; font-weight: 800; }
+h1 em { font-style: normal; color: var(--yellow); }
+.lead { color: var(--sub); margin: 14px 0 0; font-size: 17px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.chip { font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--sub); }
+
+section { padding: 34px 0 6px; }
+h2 { margin: 0 0 14px; font-size: 24px; letter-spacing: -.02em; font-weight: 800; }
+h2 small { display: block; font-size: 14px; font-weight: 600; color: var(--sub); letter-spacing: 0; margin-top: 4px; }
+
+/* 요일 고르기 */
+.tabs { position: sticky; top: 52px; z-index: 10; background: var(--black); padding: 12px 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tab { font: inherit; font-weight: 800; font-size: 16px; padding: 12px 6px; border-radius: 14px; border: 1px solid var(--line); background: var(--card); color: var(--fg); cursor: pointer; line-height: 1.2; }
+.tab span { display: block; font-size: 12px; font-weight: 600; color: var(--sub); margin-top: 3px; }
+.tab[aria-selected="true"] { background: var(--yellow); color: var(--yellow-ink); border-color: var(--yellow); }
+.tab[aria-selected="true"] span { color: var(--yellow-ink); opacity: .75; }
+
+.day[hidden] { display: none; }
+.pre { border: 2px solid var(--yellow); background: rgba(255,230,0,.07); border-radius: 18px; padding: 16px 18px; margin: 6px 0 18px; }
+.pill { display: inline-block; font-size: 12px; font-weight: 800; background: var(--yellow); color: var(--yellow-ink); border-radius: 999px; padding: 4px 10px; }
+.pre .when { font-size: 22px; font-weight: 800; margin: 10px 0 2px; letter-spacing: -.01em; }
+.pre .where { color: var(--sub); font-size: 15px; margin: 0; }
+.label { font-size: 14px; font-weight: 700; color: var(--sub); margin: 0 0 8px; }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.row { display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+.row .n { font-weight: 700; font-size: 17px; }
+.row .t { margin-left: auto; font-weight: 800; font-size: 20px; color: var(--yellow); font-variant-numeric: tabular-nums; }
+.star { font-size: 11px; font-weight: 800; color: var(--yellow); border: 1px solid var(--yellow); border-radius: 999px; padding: 2px 7px; white-space: nowrap; }
+.note { color: var(--sub); font-size: 14px; margin: 12px 2px 0; }
+
+.rules { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.rules li { display: flex; gap: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+.num { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--yellow); color: var(--yellow-ink); font-weight: 800; display: grid; place-items: center; font-size: 15px; }
+.rules b { display: block; font-size: 17px; }
+.rules p { margin: 2px 0 0; color: var(--sub); font-size: 15px; }
+.prio { margin-top: 10px; border: 1px solid var(--yellow); border-radius: 16px; padding: 14px 16px; color: var(--fg); font-size: 15px; }
+
+.app { margin: 40px 0 0; background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 22px; text-align: center; }
+.app p { margin: 0 0 14px; color: var(--sub); font-size: 15px; }
+.app strong { display: block; font-size: 20px; color: var(--fg); margin-bottom: 6px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 700; background: var(--yellow); color: var(--yellow-ink); border-radius: 999px; padding: 12px 22px; font-size: 16px; }
+
+footer { margin-top: 44px; border-top: 1px solid var(--line); color: var(--dim); font-size: 13px; padding: 22px 0 44px; }
+footer p { margin: 4px 0; }
+footer a { color: var(--sub); }
+</style>
+</head>
+<body>
+
+<div class="nav"><div class="in">
+  <a class="logo" href="./"><img src="img/logo.png" alt="SPLITS8" width="108" height="20"></a>
+  <a class="back" href="hyrox.html">하이록스 가이드</a>
+</div></div>
+
+<main class="in">
+  <div class="hero">
+    <p class="eyebrow">AIRASIA HYROX 서울</p>
+    <h1>체크인,<br><em>언제 어디서?</em></h1>
+    <p class="lead">내가 뛰는 요일을 누르면 내 Division 체크인 시간이 나옵니다.</p>
+    <div class="meta">
+      <span class="chip">레이스 11.13 금 – 11.15 일</span>
+      <span class="chip">킨텍스 (고양)</span>
+      <span class="chip">사전 체크인 11.12 목 · 더현대 서울</span>
+    </div>
+  </div>
+
+  <section id="time" aria-label="요일별 체크인 시간">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="t-fri" aria-controls="fri" aria-selected="true">금 11.13<span>레이스</span></button>
+      <button class="tab" role="tab" id="t-sat" aria-controls="sat" aria-selected="false">토 11.14<span>레이스</span></button>
+      <button class="tab" role="tab" id="t-sun" aria-controls="sun" aria-selected="false">일 11.15<span>레이스</span></button>
+    </div>
+
+    <div class="day" id="fri" role="tabpanel" aria-labelledby="t-fri">
+      <div class="pre">
+        <span class="pill">전날 미리</span>
+        <p class="when">목 11.12 · 11:00 – 19:00</p>
+        <p class="where">더현대 서울 5층 EPIC SEOUL · 금요일 Division 전부</p>
+      </div>
+      <p class="label">레이스 당일 · 킨텍스</p>
+      <ul class="list">
+        <li class="row"><span class="n">남성 오픈 싱글</span><span class="star">우선 줄</span><span class="t">07:30</span></li>
+        <li class="row"><span class="n">남성 오픈 더블</span><span class="t">09:00</span></li>
+        <li class="row"><span class="n">여성 오픈 더블</span><span class="t">13:30</span></li>
+        <li class="row"><span class="n">여성 오픈 싱글</span><span class="t">13:30</span></li>
+        <li class="row"><span class="n">혼성 더블</span><span class="t">16:00</span></li>
+      </ul>
+      <p class="note">체크인 마감 저녁 8시 · 어댑티브 선수는 헬프데스크에서 체크인</p>
+    </div>
+
+    <div class="day" id="sat" role="tabpanel" aria-labelledby="t-sat" hidden>
+      <div class="pre">
+        <span class="pill">전날 미리</span>
+        <p class="when">금 11.13 · 17:00 부터</p>
+        <p class="where">토요일 남성 오픈 싱글만 · 킨텍스</p>
+      </div>
+      <p class="label">레이스 당일 · 킨텍스</p>
+      <ul class="list">
+        <li class="row"><span class="n">남성 오픈 싱글</span><span class="star">우선 줄</span><span class="t">07:30</span></li>
+        <li class="row"><span class="n">여성 프로 싱글</span><span class="t">12:00</span></li>
+        <li class="row"><span class="n">여성 프로 더블</span><span class="t">12:00</span></li>
+        <li class="row"><span class="n">혼성 더블</span><span class="t">12:00</span></li>
+        <li class="row"><span class="n">남성 프로 싱글</span><span class="t">17:00</span></li>
+        <li class="row"><span class="n">남성 프로 더블</span><span class="t">17:00</span></li>
+      </ul>
+      <p class="note">체크인 마감 저녁 8시 · 어댑티브 선수는 헬프데스크에서 체크인</p>
+    </div>
+
+    <div class="day" id="sun" role="tabpanel" aria-labelledby="t-sun" hidden>
+      <div class="pre">
+        <span class="pill">전날 미리</span>
+        <p class="when">토 11.14 · 18:00 부터</p>
+        <p class="where">일요일 여성 오픈 더블만 · 킨텍스</p>
+      </div>
+      <p class="label">레이스 당일 · 킨텍스</p>
+      <ul class="list">
+        <li class="row"><span class="n">여성 오픈 더블</span><span class="star">우선 줄</span><span class="t">07:30</span></li>
+        <li class="row"><span class="n">여성 오픈 싱글</span><span class="t">09:00</span></li>
+        <li class="row"><span class="n">남성 오픈 더블</span><span class="t">12:00</span></li>
+        <li class="row"><span class="n">남성 릴레이</span><span class="t">16:00</span></li>
+        <li class="row"><span class="n">혼성 릴레이</span><span class="t">17:00</span></li>
+        <li class="row"><span class="n">여성 릴레이</span><span class="t">18:00</span></li>
+      </ul>
+      <p class="note">체크인 마감 저녁 8시 · 어댑티브 선수는 헬프데스크에서 체크인</p>
+    </div>
+  </section>
+
+  <section id="rules">
+    <h2>체크인 전에 꼭<small>공식 공지에 나온 내용 그대로입니다</small></h2>
+    <ol class="rules">
+      <li><span class="num">1</span><div><b>대리 체크인 안 돼요</b><p>파트너 · 팀원 것도 각자 직접 와서 해야 합니다.</p></div></li>
+      <li><span class="num">2</span><div><b>Division 2개에 나가면</b><p>첫 레이스를 끝낸 다음에 두 번째를 체크인합니다.</p></div></li>
+      <li><span class="num">3</span><div><b>현장에서 선수 변경 안 돼요</b><p>플렉스 옵션이 있으면 마감 전에 내 계정에서 직접 바꿔 두세요.</p></div></li>
+      <li><span class="num">4</span><div><b>팔찌로는 내 레이스 날만 입장</b><p>다른 날 들어가려면 관람권을 따로 사야 합니다.</p></div></li>
+    </ol>
+    <p class="prio"><span class="pill">우선 줄</span>&nbsp; 레이스 시간마다 곧 출발하는 Division 전용 줄이 따로 운영됩니다.</p>
+  </section>
+
+  <div class="app">
+    <strong>레이스 날 구간 기록은 SPLITS8로</strong>
+    <p>Apple Watch로 러닝 · 스테이션 · 록스존을 따로따로 기록합니다.</p>
+    <a class="btn" href="https://apps.apple.com/app/id6817286611" target="_blank" rel="noopener">App Store에서 받기</a>
+  </div>
+</main>
+
+<footer><div class="in">
+  <p>출처: HYROX Korea 공식 인스타그램 <a href="https://www.instagram.com/hyroxkor/" target="_blank" rel="noopener">@hyroxkor</a> 사전 체크인 공지 (2026.10.28). 일정은 바뀔 수 있으니 대회 직전에 공식 공지를 한 번 더 확인하세요.</p>
+  <p>SPLITS8은 HYROX 공식 앱이 아닙니다. HYROX는 해당 권리자의 상표입니다.</p>
+  <p><a href="./">SPLITS8</a> · <a href="hyrox.html">하이록스 가이드</a> · <a href="https://www.instagram.com/splits8_official/" target="_blank" rel="noopener">Instagram</a></p>
+</div></footer>
+
+<script>
+(function () {
+  var tabs = [].slice.call(document.querySelectorAll('.tab'));
+  function show(id, push) {
+    tabs.forEach(function (t) {
+      var on = t.getAttribute('aria-controls') === id;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (push) { try { history.replaceState(null, '', '#' + id); } catch (e) {} }
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { show(t.getAttribute('aria-controls'), true); }); });
+  var h = (location.hash || '').slice(1);
+  if (h === 'fri' || h === 'sat' || h === 'sun') { show(h, false); }
+  else {
+    // 대회 기간에는 오늘 요일 탭을 먼저 보여 줌 (한국 시간 기준)
+    try {
+      var d = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+      if (d.getFullYear() === 2026 && d.getMonth() === 10) {
+        var day = d.getDate();
+        if (day === 13 && d.getHours() >= 17) show('sat', false);
+        else if (day === 14 && d.getHours() < 18) show('sat', false);
+        else if (day === 14 || day === 15) show('sun', false);
+      }
+    } catch (e) {}
+  }
+})();
+</script>
+</body>
+</html>
