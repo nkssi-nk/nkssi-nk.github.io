@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SPLITS8 — iPhone + Apple Watch 구간 기록</title>
+<title>SPLITS8 — 하이록스 구간 기록 (iPhone · Android)</title>
 <meta name="description" content="런, 스테이션, Roxzone까지. 워치를 한 번 밀면 다음 구간이 기록됩니다. Every split, from your wrist.">
 <meta name="theme-color" content="#000000">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://splits8.com/splits8/">
 <link rel="canonical" href="https://splits8.com/splits8/">
 <meta property="og:title" content="SPLITS8 — Every split, from your wrist">
-<meta property="og:description" content="Split tracker for iPhone + Apple Watch. Runs, stations and Roxzone.">
+<meta property="og:description" content="Split tracker for iPhone, Android and your watch. Runs, stations and Roxzone.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ctext x='32' y='47' font-family='Arial,Helvetica,sans-serif' font-size='44' font-weight='900' text-anchor='middle' fill='%23ffe600'%3E8%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
@@ -127,7 +127,7 @@ h2.ko, h2 .ko { line-height: 1.24; letter-spacing: -.03em; }
 .droid .dot { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; box-shadow: 0 0 0 3px rgba(61,220,132,.2); flex: none; }
 .hero-devices { margin-top: clamp(40px, 6vw, 72px); display: flex; justify-content: center; align-items: flex-end; gap: clamp(14px, 4vw, 48px); }
 .hero-devices .phone { margin-bottom: -18%; }
-.hero-devices .watch { margin-bottom: clamp(30px, 6vw, 70px); }
+.hero-devices .watch, .hero-devices .uw { margin-bottom: clamp(30px, 6vw, 70px); }
 
 /* 기기 모양 (직접 그린 일반 모양) */
 .phone { --w: clamp(200px, 56vw, 300px); width: var(--w); flex: none; position: relative; padding: calc(var(--w) * .032);
@@ -148,6 +148,14 @@ h2.ko, h2 .ko { line-height: 1.24; letter-spacing: -.03em; }
 .watch .band.top { top: -22%; border-radius: 18px 18px 0 0; }
 .watch .band.bot { bottom: -22%; border-radius: 0 0 18px 18px; background: linear-gradient(0deg, #1d1d1f, #0b0b0b); }
 .watch.pad { margin-block: calc(var(--w) * .28); }
+/* 워치 (사진 틀): 틀 그림 아래에 앱 화면을 깔아 화면을 채움 */
+.uw { --w: clamp(150px, 36vw, 230px); width: var(--w); flex: none; position: relative; aspect-ratio: 654 / 859; }
+.uw .scr { position: absolute; left: 6.5%; top: 12.6%; width: 81.7%; height: 74.7%; border-radius: 18.2% / 15.2%; background: #000; overflow: hidden;
+           display: grid; place-items: center; }
+.uw .scr img { display: block; width: 94%; height: auto; aspect-ratio: 416 / 496; }
+.uw .fr { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; filter: drop-shadow(0 24px 40px rgba(0,0,0,.35)); }
+.uw.sm { --w: clamp(130px, 30vw, 200px); }
+.hero-devices .uw { --w: clamp(118px, 30vw, 230px); }
 
 /* 기능 구역: 글 + 기기 */
 .feat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 80px); align-items: center; }
@@ -312,7 +320,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
 
 <section class="hero" id="top">
   <div class="in">
-    <p class="eyebrow"><span class="ko">iPhone + Apple Watch 구간 기록 앱</span><span class="en">Split tracker for iPhone + Apple Watch</span></p>
+    <p class="eyebrow"><span class="ko">iPhone · Android 구간 기록 앱</span><span class="en">Split tracker for iPhone, Android and your watch</span></p>
     <h1><span class="ko">모든 구간을<br>손목에서.</span><span class="en">Every split,<br>from your wrist.</span></h1>
     <p class="lead sub">
       <span class="ko">런, 스테이션, Roxzone까지. 워치를 한 번 밀면 다음 구간이 기록됩니다.</span>
@@ -320,11 +328,11 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     </p>
     <div class="cta">
       <a class="btn" href="https://apps.apple.com/app/id6817286611" target="_blank" rel="noopener"><span class="ko">App Store에서 받기</span><span class="en">Download on the App Store</span></a>
-      <span class="note"><span class="ko">무료 · iOS 17, watchOS 10 이상</span><span class="en">Free · iOS 17 and watchOS 10 or later</span></span>
-      <a class="droid" href="android.html"><span class="dot" aria-hidden="true"></span><span class="ko">안드로이드 · 갤럭시 워치 베타 테스터 모집 중 →</span><span class="en">Android · Galaxy Watch beta is open →</span></a>
+      <span class="note"><span class="ko">무료 · iPhone iOS 17 · Apple Watch watchOS 10 이상 · Android 10 · 갤럭시 워치 Wear OS 4 이상</span><span class="en">Free · iOS 17 / watchOS 10 or later · Android 10 / Wear OS 4 or later</span></span>
+      <a class="droid" href="android.html"><span class="dot" aria-hidden="true"></span><span class="ko">안드로이드 · 갤럭시 워치는 베타로 바로 설치 →</span><span class="en">Android · Galaxy Watch: install the beta →</span></a>
     </div>
     <div class="hero-devices">
-      <div class="watch"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_live.webp" alt="Apple Watch: Sled Push 구간 진행 화면" width="416" height="496"></div></div>
+      <div class="uw"><div class="scr"><img src="img/w_live.webp" alt="워치: Sled Push 구간 진행 화면" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
       <div class="phone cut"><img src="img/p_sim.webp?v=20" alt="iPhone: 풀 시뮬레이션 기록 그래프 화면" width="540" height="1174"></div>
     </div>
   </div>
@@ -333,21 +341,22 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
 <section class="light" id="features">
   <div class="in feat">
     <div class="copy">
-      <p class="eyebrow">Apple Watch</p>
+      <p class="eyebrow"><span class="ko">워치</span><span class="en">Watch</span></p>
       <h2><span class="ko">밀면,<br>다음 구간.</span><span class="en">Swipe.<br>Next segment.</span></h2>
       <p class="lead sub">
         <span class="ko">운동 중에는 화면을 들여다볼 틈이 없습니다. 그래서 조작을 하나로 줄였습니다.</span>
         <span class="en">Mid-workout there is no time to look at a screen. So there is only one move to remember.</span>
       </p>
       <ul>
-        <li><span class="ko">왼쪽으로 밀기 또는 손가락 두 번 톡톡(watchOS 11 이상): 다음 구간</span><span class="en">Swipe left, or double tap your fingers (watchOS 11 or later): next segment</span></li>
+        <li><span class="ko">왼쪽으로 밀기: 다음 구간</span><span class="en">Swipe left: next segment</span></li>
         <li><span class="ko">오른쪽으로 밀기: 일시정지와 종료</span><span class="en">Swipe right: pause and end</span></li>
-        <li><span class="ko">지금 구간 시간, 총 시간, 다음 구간이 한 화면에</span><span class="en">Current split, total time and what comes next on one screen</span></li>
+        <li><span class="ko">지금 구간 시간 · 목표 · 심박수(♥ BPM)와 총 시간이 한 화면에</span><span class="en">Current split, goal, heart rate (♥ BPM) and total time on one screen</span></li>
+        <li><span class="ko">Apple Watch와 갤럭시 워치 모두 같은 방식</span><span class="en">Works the same on Apple Watch and Galaxy Watch</span></li>
       </ul>
     </div>
     <div class="art">
-      <div class="watch pad"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_live.webp" alt="워치 운동 중 화면" width="416" height="496"></div></div>
-      <div class="watch pad"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_confirm.webp" alt="워치 트레이닝 시작 화면" width="416" height="496"></div></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_live.webp" alt="워치 운동 중 화면" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_confirm.webp" alt="워치 트레이닝 시작 화면" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
     </div>
   </div>
 </section>
@@ -364,6 +373,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <ul>
         <li><span class="ko">한 세트에 16구간까지, 세트 반복</span><span class="en">Up to 16 segments per set, repeat sets</span></li>
         <li><span class="ko">스테이션 8종: SkiErg, Sled Push, Sled Pull, BBJ, Row, Carry, Lunges, Wall Balls</span><span class="en">Eight stations: SkiErg, Sled Push, Sled Pull, BBJ, Row, Carry, Lunges, Wall Balls</span></li>
+        <li><span class="ko">Roxzone도 종목처럼 넣어 이동 시간까지 연습</span><span class="en">Add Roxzone like a station to practise transitions</span></li>
         <li><span class="ko">HIIT와 러닝도 한 번에 시작</span><span class="en">HIIT and running start in one tap too</span></li>
       </ul>
     </div>
@@ -385,6 +395,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <ul>
         <li><span class="ko">Roxzone(이동 구간)을 따로 재기</span><span class="en">Time Roxzone transitions separately</span></li>
         <li><span class="ko">목표 기록 또는 지난 기록과 비교</span><span class="en">Compare against a goal or your last result</span></li>
+        <li><span class="ko">코치 음성이 구간마다 안내하고 응원</span><span class="en">A voice coach calls each segment and cheers you on</span></li>
         <li><span class="ko">대회 날짜를 넣으면 달력에 표시</span><span class="en">Add your race date and see it on the calendar</span></li>
       </ul>
     </div>
@@ -411,13 +422,13 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <ul>
         <li><span class="ko">런 1 km → 버피 브로드 점프 50 → 런지 100 → 로잉 1 km → 푸시업 30 → 월볼 100</span><span class="en">Run 1 km → 50 burpee broad jumps → 100 lunges → row 1 km → 30 push-ups → 100 wall balls</span></li>
         <li><span class="ko">받은 뱃지는 홈 화면의 내 아이디 옆에 붙습니다</span><span class="en">Your badge sits next to your name on the Home screen</span></li>
-        <li><span class="ko">워치에서 PFT를 누르면 바로 시작. 아이폰만으로도 할 수 있습니다</span><span class="en">Tap PFT on your watch to start, or run it from the iPhone alone</span></li>
+        <li><span class="ko">워치에서 PFT를 누르면 바로 시작. 폰만으로도 할 수 있습니다</span><span class="en">Tap PFT on your watch to start, or run it from your phone alone</span></li>
       </ul>
       <p class="note"><span class="ko">등급은 SPLITS8 자체 기준이며 HYROX 공식 기록이 아닙니다.</span><span class="en">Grades are SPLITS8's own guide, not an official HYROX result.</span></p>
     </div>
     <div class="art">
       <div class="phone"><img src="img/p_pft.webp?v=20" alt="PFT 화면: 최고 기록 21:48, GOLD 뱃지와 등급 막대" width="540" height="1174"></div>
-      <div class="watch pad" style="--w: clamp(100px, 26vw, 170px)"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_pft.webp" alt="워치 PFT 끝 화면: GOLD 뱃지" width="416" height="496"></div></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_pft.webp" alt="워치 PFT 끝 화면: GOLD 뱃지" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
     </div>
   </div>
 </section>
@@ -507,10 +518,10 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     <h2><span class="ko">이것도 됩니다.</span><span class="en">Also inside.</span></h2>
     <div class="grid6">
       <div><h3>HIIT</h3><p><span class="ko">라운드를 원하는 만큼. 밀 때마다 한 라운드가 기록됩니다.</span><span class="en">As many rounds as you want. Each swipe logs one.</span></p></div>
-      <div><h3><span class="ko">러닝</span><span class="en">Running</span></h3><p><span class="ko">3, 5, 10, 21K 또는 자유. 1km마다 자동으로 나눕니다. 실외는 달린 길이 지도에 남습니다.</span><span class="en">3, 5, 10, 21K or free. Auto splits every 1 km. Outdoor runs keep a route map.</span></p></div>
+      <div><h3><span class="ko">러닝</span><span class="en">Running</span></h3><p><span class="ko">3, 5, 10, 21K 또는 자유. 총 거리 · 지금 페이스 · 심박을 한 화면에. 실외는 달린 길이 지도에 남습니다.</span><span class="en">3, 5, 10, 21K or free. Distance, current pace and heart rate on one screen. Outdoor runs keep a route map.</span></p></div>
       <div><h3><span class="ko">달력</span><span class="en">Calendar</span></h3><p><span class="ko">운동한 날, 계획한 날, 대회 날을 한눈에 봅니다.</span><span class="en">Days trained, days planned and race day at a glance.</span></p></div>
-      <div><h3><span class="ko">건강 앱</span><span class="en">Apple Health</span></h3><p><span class="ko">운동이 건강 앱에 저장됩니다. 심박수는 내 기기에만 남습니다.</span><span class="en">Workouts are saved to Health. Heart rate stays on your device.</span></p></div>
-      <div><h3><span class="ko">아이폰만으로도</span><span class="en">iPhone only works too</span></h3><p><span class="ko">워치가 없어도 아이폰에서 바로 시작할 수 있습니다.</span><span class="en">No watch? Start the workout right on your iPhone.</span></p></div>
+      <div><h3><span class="ko">건강 앱</span><span class="en">Health</span></h3><p><span class="ko">아이폰은 운동이 건강 앱에 저장됩니다. 심박수는 내 기기에만 남습니다.</span><span class="en">On iPhone, workouts are saved to Health. Heart rate stays on your device.</span></p></div>
+      <div><h3><span class="ko">폰만으로도</span><span class="en">Phone only works too</span></h3><p><span class="ko">워치가 없어도 폰에서 바로 시작할 수 있습니다.</span><span class="en">No watch? Start the workout right on your phone.</span></p></div>
       <div><h3><span class="ko">가입 없이도</span><span class="en">No account needed</span></h3><p><span class="ko">기록만 할 때는 가입하지 않아도 됩니다.</span><span class="en">You can track without signing up.</span></p></div>
     </div>
   </div>
@@ -522,12 +533,12 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     <h2><span class="ko">다섯 단계면<br>됩니다.</span><span class="en">Five steps<br>to your first split.</span></h2>
     <ol class="steps">
       <li><div>
-        <h3><span class="ko">App Store에서 설치</span><span class="en">Install from the App Store</span></h3>
-        <p><span class="ko">이 페이지의 "App Store에서 받기"를 누르거나 App Store에서 SPLITS8을 검색해 설치합니다. 워치 앱은 아이폰에 설치하면 함께 들어갑니다.</span><span class="en">Tap "Download on the App Store" on this page, or search SPLITS8 in the App Store. The watch app installs with the iPhone app.</span></p>
+        <h3><span class="ko">앱 설치</span><span class="en">Install the app</span></h3>
+        <p><span class="ko">아이폰은 "App Store에서 받기"를 누르거나 App Store에서 SPLITS8을 검색해 설치합니다. 안드로이드는 <a href="android.html">베타 안내</a>의 세 단계(테스터 그룹 가입 → 테스터 되기 → Play 스토어 설치)를 따라 합니다.</span><span class="en">On iPhone, tap "Download on the App Store" or search SPLITS8 in the App Store. On Android, follow the three steps on the <a href="android.html">beta page</a> (join the tester group → become a tester → install from Google Play).</span></p>
       </div></li>
       <li><div>
         <h3><span class="ko">워치에도 설치</span><span class="en">Add it to your watch</span></h3>
-        <p><span class="ko">아이폰의 Watch 앱을 열고 목록에서 SPLITS8의 "설치"를 누릅니다. 워치가 없으면 아이폰만으로도 기록할 수 있습니다.</span><span class="en">Open the Watch app on your iPhone and tap Install next to SPLITS8. No watch? You can track from the iPhone alone.</span></p>
+        <p><span class="ko">Apple Watch는 아이폰의 Watch 앱에서 SPLITS8의 "설치"를 누릅니다. 갤럭시 워치는 워치의 Play 스토어에서 SPLITS8을 설치합니다. 워치가 없으면 폰만으로도 기록할 수 있습니다.</span><span class="en">Apple Watch: open the Watch app on your iPhone and tap Install next to SPLITS8. Galaxy Watch: install SPLITS8 from Google Play on the watch. No watch? You can track from your phone alone.</span></p>
       </div></li>
       <li><div>
         <h3><span class="ko">운동 고르기</span><span class="en">Pick a workout</span></h3>
@@ -538,13 +549,12 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
         <p><span class="ko">구간이 끝날 때마다 왼쪽으로 밉니다. 멈추거나 끝낼 때는 오른쪽으로 밉니다.</span><span class="en">Swipe left each time a segment ends. Swipe right to pause or end.</span></p>
       </div></li>
       <li><div>
-        <h3><span class="ko">아이폰에서 기록 보기</span><span class="en">Review on iPhone</span></h3>
-        <p><span class="ko">운동이 끝나면 기록이 아이폰으로 넘어옵니다. 구간별 시간을 보고, 그림으로 공유합니다.</span><span class="en">When you finish, the result moves to your iPhone. Check each split and share it as an image.</span></p>
+        <h3><span class="ko">폰에서 기록 보기</span><span class="en">Review on your phone</span></h3>
+        <p><span class="ko">운동이 끝나면 기록이 폰으로 넘어옵니다. 구간별 시간을 보고, 그림으로 공유합니다.</span><span class="en">When you finish, the result moves to your phone. Check each split and share it as an image.</span></p>
       </div></li>
     </ol>
     <div class="gest" role="table" aria-label="Watch gestures">
       <div role="row"><b role="cell"><span class="ko">왼쪽으로 밀기</span><span class="en">Swipe left</span></b><span role="cell"><span class="ko">다음 구간</span><span class="en">Next segment</span></span></div>
-      <div role="row"><b role="cell"><span class="ko">손가락 두 번 톡톡</span><span class="en">Double tap</span></b><span role="cell"><span class="ko">다음 구간 (watchOS 11 이상)</span><span class="en">Next segment (watchOS 11 or later)</span></span></div>
       <div role="row"><b role="cell"><span class="ko">오른쪽으로 밀기</span><span class="en">Swipe right</span></b><span role="cell"><span class="ko">일시정지 · 종료</span><span class="en">Pause · End</span></span></div>
     </div>
     <div class="tip"><p>
@@ -554,11 +564,27 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
   </div>
 </section>
 
-<!-- 1.1 새 기능 (맨 아래) -->
+<!-- 1.2 새 기능 -->
 <section class="dark" id="new">
+  <div class="in">
+    <p class="eyebrow"><span class="ko">새 기능</span><span class="en">What's new</span><span class="newtag">1.2</span></p>
+    <h2><span class="ko">대회 날을 위해<br>더 단단해졌습니다.</span><span class="en">Built tougher<br>for race day.</span></h2>
+    <div class="grid6">
+      <div><h3><span class="ko">코치 음성</span><span class="en">Voice coach</span></h3><p><span class="ko">레이스 · 풀 시뮬에서 구간마다 안내하고 응원합니다. 응원 양은 적게 · 보통 · 많이 중에서.</span><span class="en">In Race and Full Sim it calls every segment and cheers you on. Pick Few, Some or Lots.</span></p></div>
+      <div><h3><span class="ko">폰에서도 구간 목록</span><span class="en">Segment list on the phone</span></h3><p><span class="ko">폰으로 기록할 때 왼쪽으로 넘기면 전체 구간과 목표와의 차이가 보입니다.</span><span class="en">Recording on the phone? Swipe left to see every segment and how you stand against the target.</span></p></div>
+      <div><h3><span class="ko">구간 건너뛰기</span><span class="en">Skip a segment</span></h3><p><span class="ko">못 한 구간은 Skip. 건너뛴 기록은 최고 기록과 순위에 들어가지 않습니다.</span><span class="en">Skip what you could not do. Skipped results don't count for bests or rankings.</span></p></div>
+      <div><h3><span class="ko">워치에 심박수</span><span class="en">Heart rate on the watch</span></h3><p><span class="ko">운동 화면 가운데 줄에 SPLIT · GOAL · ♥ BPM. 심박은 존 색으로.</span><span class="en">SPLIT · GOAL · ♥ BPM across the middle of the workout screen, coloured by zone.</span></p></div>
+      <div><h3><span class="ko">교대 계획</span><span class="en">Swap plan</span></h3><p><span class="ko">더블 파트너와 차례마다 양을 정합니다. 워치에 교대 순서가 보입니다.</span><span class="en">Set how much each partner does on every turn. The swap order shows on the watch.</span></p></div>
+      <div><h3><span class="ko">러닝 화면</span><span class="en">Run screen</span></h3><p><span class="ko">총 거리 · 지금 페이스 · 심박을 크게. 올리지 못한 기록은 다음에 다시 올립니다.</span><span class="en">Total distance, current pace and heart rate, big. Records that failed to upload are retried.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 운동 후 · 기록 분석 · 실시간 · 위젯 (1.1 기능, 이름표만 바꿈) -->
+<section class="light" id="after">
   <div class="in feat">
     <div class="copy">
-      <p class="eyebrow"><span class="ko">새 기능 · 운동이 끝나면</span><span class="en">New · When you finish</span><span class="newtag">1.1</span></p>
+      <p class="eyebrow"><span class="ko">운동이 끝나면</span><span class="en">When you finish</span></p>
       <h2><span class="ko">운동 후,<br>완벽한 분석.</span><span class="en">After the workout,<br>the full picture.</span></h2>
       <p class="lead sub">
         <span class="ko">운동을 마치면 기록 위로 카드가 올라옵니다. 그날 운동에 맞는 한마디와 함께 총 시간, 칼로리, 심박이 한눈에.</span>
@@ -572,15 +598,15 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     </div>
     <div class="art">
       <div class="phone"><img src="img/n_finish.webp" alt="운동 끝 카드: New personal best! 1:16:05" width="540" height="1174"></div>
-      <div class="watch pad" style="--w: clamp(100px, 26vw, 170px)"><div class="band top"></div><div class="band bot"></div><div class="case"><img src="img/w_summary.webp" alt="워치 요약 화면: Gold again. Consistent." width="416" height="496"></div></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_summary.webp" alt="워치 요약 화면: Gold again. Consistent." width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
     </div>
   </div>
 </section>
 
-<section class="light">
+<section class="dark">
   <div class="in feat flip">
     <div class="copy">
-      <p class="eyebrow"><span class="ko">새 기능 · 기록 분석</span><span class="en">New · Insights</span><span class="newtag">1.1</span></p>
+      <p class="eyebrow"><span class="ko">기록 분석</span><span class="en">Insights</span></p>
       <h2><span class="ko">기록이<br>먼저 말해 줍니다.</span><span class="en">Your splits,<br>explained.</span></h2>
       <p class="lead sub">
         <span class="ko">기록을 열면 숫자 바로 아래에 짧은 분석이 붙습니다. 어디서 처졌는지, 무엇이 좋아졌는지, 다음엔 어디를 줄이면 되는지.</span>
@@ -596,10 +622,10 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
   </div>
 </section>
 
-<section class="dark">
+<section class="light">
   <div class="in feat">
     <div class="copy">
-      <p class="eyebrow"><span class="ko">새 기능 · 실시간</span><span class="en">New · Live on iPhone</span><span class="newtag">1.1</span></p>
+      <p class="eyebrow"><span class="ko">실시간</span><span class="en">Live on iPhone</span></p>
       <h2><span class="ko">워치로 뛰고,<br>폰으로 봅니다.</span><span class="en">Run on the watch.<br>Watch it on the phone.</span></h2>
       <p class="lead sub">
         <span class="ko">Apple Watch로 운동을 시작하면 iPhone에 같은 화면이 실시간으로 나옵니다. 잠금 화면과 다이내믹 아일랜드에도.</span>
@@ -617,14 +643,14 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
   </div>
 </section>
 
-<section class="light">
+<section class="dark">
   <div class="in feat flip">
     <div class="copy">
-      <p class="eyebrow"><span class="ko">새 기능 · 위젯</span><span class="en">New · Widgets</span><span class="newtag">1.1</span></p>
+      <p class="eyebrow"><span class="ko">위젯</span><span class="en">Widgets</span></p>
       <h2><span class="ko">홈 화면에<br>D-day.</span><span class="en">Race day,<br>on your Home Screen.</span></h2>
       <p class="lead sub">
-        <span class="ko">다음 대회까지 남은 날과 목표, 이번 주 운동을 앱을 열지 않고 봅니다. 대회가 가까울수록 노란빛이 진해집니다.</span>
-        <span class="en">Days to your next race, your goal and this week's workouts, without opening the app. The glow grows as race day gets closer.</span>
+        <span class="ko">다음 대회까지 남은 날, 목표 · 최고 기록과 목표까지 남은 시간, 이번 주 운동을 앱을 열지 않고 봅니다. 대회가 가까울수록 노란빛이 진해집니다.</span>
+        <span class="en">Days to your next race, your goal and best time with the gap to go, and this week's workouts, without opening the app. The glow grows as race day gets closer.</span>
       </p>
       <ul>
         <li><span class="ko">홈 화면 · 잠금 화면 · Apple Watch 컴플리케이션</span><span class="en">Home Screen, Lock Screen and Apple Watch complications</span></li>
@@ -659,8 +685,9 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
 <section class="dark last">
   <div class="in">
     <h2><span class="ko">호랑이는 죽어서 가죽을 남기고,<br>하이록서는 기록을 남긴다.</span><span class="en">Start with your<br>next session.</span></h2>
-    <p class="lead sub"><span class="ko">당신의 기록, SPLITS8에.</span><span class="en">Free on the App Store. Try it and tell us what you think.</span></p>
+    <p class="lead sub"><span class="ko">당신의 기록, SPLITS8에.</span><span class="en">Free on iPhone and Android. Try it and tell us what you think.</span></p>
     <a class="btn" href="https://apps.apple.com/app/id6817286611" target="_blank" rel="noopener"><span class="ko">App Store에서 받기</span><span class="en">Download on the App Store</span></a>
+    <p style="margin-top:14px"><a class="droid" href="android.html"><span class="dot" aria-hidden="true"></span><span class="ko">안드로이드 · 갤럭시 워치 베타 설치 →</span><span class="en">Android · Galaxy Watch beta →</span></a></p>
     <p class="note ko" style="margin-top:14px">무료입니다. 써 보고 의견을 보내 주세요.</p>
   </div>
 </section>
@@ -698,7 +725,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
   </nav>
     <p class="foot-links"><a href="terms.html"><span class="ko">이용약관</span><span class="en">Terms of Use</span></a> · <a href="privacy.html"><span class="ko">개인정보처리방침</span><span class="en">Privacy Policy</span></a></p>
     <p><span class="ko">SPLITS8은 HYROX 공식 앱이 아닙니다. HYROX는 해당 권리자의 상표입니다.</span><span class="en">SPLITS8 is not an official HYROX app. HYROX is a trademark of its respective owner.</span></p>
-    <p><span class="ko">Apple Watch, iPhone, App Store는 Apple Inc.의 상표입니다. 화면은 업데이트에 따라 바뀔 수 있습니다.</span><span class="en">Apple Watch, iPhone and App Store are trademarks of Apple Inc. Screens may change with updates.</span></p>
+    <p><span class="ko">Apple Watch, iPhone, App Store는 Apple Inc.의 상표이고, Android, Google Play, Wear OS는 Google LLC의 상표입니다. 화면은 업데이트에 따라 바뀔 수 있습니다.</span><span class="en">Apple Watch, iPhone and App Store are trademarks of Apple Inc. Android, Google Play and Wear OS are trademarks of Google LLC. Screens may change with updates.</span></p>
   </div>
 </footer>
 
