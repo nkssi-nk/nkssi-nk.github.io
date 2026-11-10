@@ -150,12 +150,14 @@ h2.ko, h2 .ko { line-height: 1.24; letter-spacing: -.03em; }
 .watch.pad { margin-block: calc(var(--w) * .28); }
 /* 워치 (사진 틀): 틀 그림 아래에 앱 화면을 깔아 화면을 채움 */
 .uw { --w: clamp(150px, 36vw, 230px); width: var(--w); flex: none; position: relative; aspect-ratio: 654 / 859; }
-.uw .scr { position: absolute; left: 6.5%; top: 12.6%; width: 81.7%; height: 74.7%; border-radius: 18.2% / 15.2%; background: #000; overflow: hidden;
-           display: grid; place-items: center; }
-.uw .scr img { display: block; width: 94%; height: auto; aspect-ratio: 416 / 496; }
+/* 유리 자리: 사진의 실제 유리 모서리(반지름 152/531)에 맞춤. 화면은 유리 안쪽 테두리만큼 들어가고 같은 곡률로 잘림 */
+.uw .scr { position: absolute; left: 6.45%; top: 12.6%; width: 81.45%; height: 74.6%; border-radius: 28.8% / 24%; background: #000; overflow: hidden; }
+.uw .scr img { position: absolute; left: 4%; top: 3.05%; width: 92%; height: 93.9%; object-fit: cover; object-position: center top; border-radius: 27% / 22%; }
 .uw .fr { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; filter: drop-shadow(0 24px 40px rgba(0,0,0,.35)); }
 .uw.sm { --w: clamp(130px, 30vw, 200px); }
 .hero-devices .uw { --w: clamp(118px, 30vw, 230px); }
+/* 761~1120px: 기기 두 개가 칸을 넘어 가로 스크롤 생기던 것 막기 */
+@media (min-width: 761px) and (max-width: 1120px) { .feat .art .phone { --w: clamp(180px, 24vw, 300px); } .feat .art .phone + .phone, .feat .art .phone + .uw { --w: clamp(120px, 16vw, 230px) !important; } .feat .art .uw.sm { --w: clamp(120px, 17vw, 200px); } }
 
 /* 기능 구역: 글 + 기기 */
 .feat { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 6vw, 80px); align-items: center; }
@@ -332,8 +334,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <a class="droid" href="android.html"><span class="dot" aria-hidden="true"></span><span class="ko">안드로이드 · 갤럭시 워치는 베타로 바로 설치 →</span><span class="en">Android · Galaxy Watch: install the beta →</span></a>
     </div>
     <div class="hero-devices">
-      <div class="uw"><div class="scr"><img src="img/w_live.webp" alt="워치: Sled Push 구간 진행 화면" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
-      <div class="phone cut"><img src="img/p_sim.webp?v=20" alt="iPhone: 풀 시뮬레이션 기록 그래프 화면" width="540" height="1174"></div>
+      <div class="uw"><div class="scr"><img src="img/w_live_122.webp" alt="워치 운동 화면: Sled Push 구간, SPLIT · GOAL · 심박수" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="phone cut"><img src="img/p_sim_122.webp" alt="폰: 풀 시뮬레이션 기록 그래프 화면" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -355,8 +357,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="uw sm"><div class="scr"><img src="img/w_live.webp" alt="워치 운동 중 화면" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
-      <div class="uw sm"><div class="scr"><img src="img/w_confirm.webp" alt="워치 트레이닝 시작 화면" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_live_122.webp" alt="워치 운동 중 화면: SPLIT · GOAL · BPM" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_controls_122.webp" alt="워치 조작 화면: End · Pause · Undo · Skip · Next" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
     </div>
   </div>
 </section>
@@ -378,7 +380,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/p_build.webp?v=20" alt="새 트레이닝 만들기 화면" width="540" height="1174"></div>
+      <div class="phone"><img src="img/p_build_122.webp" alt="새 트레이닝 만들기 화면" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -400,7 +402,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/p_race.webp?v=20" alt="레이스 목표 기록 화면" width="540" height="1174"></div>
+      <div class="phone"><img src="img/p_race_122.webp" alt="레이스 목표 기록 화면" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -427,8 +429,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <p class="note"><span class="ko">등급은 SPLITS8 자체 기준이며 HYROX 공식 기록이 아닙니다.</span><span class="en">Grades are SPLITS8's own guide, not an official HYROX result.</span></p>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/p_pft.webp?v=20" alt="PFT 화면: 최고 기록 21:48, GOLD 뱃지와 등급 막대" width="540" height="1174"></div>
-      <div class="uw sm"><div class="scr"><img src="img/w_pft.webp" alt="워치 PFT 끝 화면: GOLD 뱃지" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="phone"><img src="img/p_pft_122.webp" alt="PFT 화면: 최고 기록 21:48, GOLD 뱃지와 등급 막대" width="540" height="1174"></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_home_122.webp" alt="워치 첫 화면: Training · PFT · Full Simulation · Race" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
     </div>
   </div>
 </section>
@@ -449,8 +451,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/p_detail.webp?v=20" alt="기록 상세 화면" width="540" height="1174"></div>
-      <div class="phone" style="--w: clamp(150px, 30vw, 230px)"><img src="img/p_splits.webp?v=20" alt="구간별 시간 목록" width="540" height="1174"></div>
+      <div class="phone"><img src="img/p_detail_122.webp" alt="기록 상세 화면" width="540" height="1174"></div>
+      <div class="phone" style="--w: clamp(150px, 30vw, 230px)"><img src="img/p_splits_122.webp" alt="구간별 시간 목록" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -507,7 +509,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     </div>
     <div class="art">
       <div class="phone"><img src="img/share_phone.webp" alt="공유 그림: 운동 사진 위에 총 시간 17:31과 구간 기록" width="540" height="1174"></div>
-      <div class="phone" style="--w: clamp(130px, 26vw, 200px)"><img src="img/p_share.webp?v=20" alt="공유 그림 만들기 화면" width="540" height="1174"></div>
+      <div class="phone" style="--w: clamp(130px, 26vw, 200px)"><img src="img/p_share_122.webp" alt="공유 그림 만들기 화면" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -597,8 +599,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/n_finish.webp" alt="운동 끝 카드: New personal best! 1:16:05" width="540" height="1174"></div>
-      <div class="uw sm"><div class="scr"><img src="img/w_summary.webp" alt="워치 요약 화면: Gold again. Consistent." width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="phone"><img src="img/n_finish_122.webp" alt="운동 끝 카드: New personal best! 1:16:05" width="540" height="1174"></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_summary_122.webp" alt="워치 요약 화면: Gold again. Consistent." width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
     </div>
   </div>
 </section>
@@ -617,7 +619,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/n_insights.webp" alt="기록 화면의 Insights 카드" width="540" height="1174"></div>
+      <div class="phone"><img src="img/n_insights_122.webp" alt="기록 화면의 Insights 카드" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -637,7 +639,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art col">
-      <div class="phone"><img src="img/n_live.webp" alt="iPhone에 나온 워치 운동 실시간 화면" width="540" height="1174"></div>
+      <div class="phone"><img src="img/n_live_122.webp" alt="iPhone에 나온 워치 운동 실시간 화면" width="540" height="1174"></div>
       <img class="shot lock" src="img/n_lock.webp" alt="잠금 화면 실시간 표시: Sled Push 1:20" width="740" height="280">
     </div>
   </div>
@@ -658,7 +660,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <img class="shot clear" src="img/n_widgets.webp?v=2" alt="D-day 위젯과 이번 주 위젯" width="690" height="686">
+      <div class="phone"><img src="img/p_widgets_122.webp" alt="위젯 화면: D-day 작은 위젯과 목표 · 최고 기록이 보이는 가로 위젯" width="540" height="1174"></div>
     </div>
   </div>
 </section>
