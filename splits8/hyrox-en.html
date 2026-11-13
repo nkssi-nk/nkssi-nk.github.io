@@ -308,6 +308,10 @@ footer p { margin: 4px 0; }
 .seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; padding: 4px; background: #1a1a16; border-radius: 14px; }
 .seg button { font: inherit; font-size: 15px; font-weight: 700; height: 40px; border: 0; border-radius: 10px; background: transparent; color: var(--sub-d); cursor: pointer; transition: background .15s, color .15s; }
 .seg button:hover { color: var(--fg-d); }
+.seg button { white-space: nowrap; padding: 0 6px; }
+#dv, #g { grid-auto-columns: auto; }
+@media (max-width: 440px) { .seg button { font-size: 13px; padding: 0 4px; } #dv button[data-v="dbl"] { padding: 0 8px; } } #dv button[data-v="dbl"] { padding: 0 12px; }
+.seg button[hidden] { display: none; }
 .seg button[aria-pressed="true"] { background: var(--yellow); color: #000; }
 .tin { font: inherit; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; width: 100%; height: 48px; padding: 0 14px; border-radius: 12px;
        border: 1px solid #2a2a24; background: #121210; color: var(--fg-d); }
@@ -344,6 +348,7 @@ details.more > :last-child { margin-bottom: 14px; }
 .bar { position: relative; height: 12px; border-radius: 999px; margin: 26px 0 8px;
        background: linear-gradient(90deg, #ffe600 0%, #b8a800 25%, #6b6a5c 50%, #3a3a33 75%, #2a2a25 100%); }
 .bar.ph { opacity: .25; }
+.bar b { position: absolute; left: 50%; top: -4px; width: 2px; height: 20px; background: rgba(255,255,255,.35); transform: translateX(-1px); }
 .bar i { position: absolute; top: -6px; width: 4px; height: 24px; border-radius: 2px; background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,.6); transform: translateX(-2px); }
 .barlab { position: relative; height: 16px; font-size: 11px; color: var(--sub-d); font-variant-numeric: tabular-nums; }
 .barlab span { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
@@ -534,21 +539,19 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
   <div class="in">
     <p class="eyebrow">My time</p>
     <h2>Where does<br>my time rank?</h2>
-    <p class="lead sub">Enter your finish time to see roughly where you stand among athletes worldwide. Add your split times to see where you lost time compared with the average.</p>
+    <p class="lead sub">Enter your finish time to see how far ahead of or behind the median time for your division you are. Add your split times to see where you lost time compared with the average.</p>
   </div>
   <div class="in calc">
    <div class="calcbox">
     <div class="form">
       <div class="frow">
       <div class="field"><span class="lab">Gender</span>
-        <div class="seg" id="g"><button type="button" data-v="m" aria-pressed="true">Men</button><button type="button" data-v="w" aria-pressed="false">Women</button></div></div>
+        <div class="seg" id="g"><button type="button" data-v="m" aria-pressed="true">Men</button><button type="button" data-v="w" aria-pressed="false">Women</button><button type="button" data-v="x" aria-pressed="false" hidden>Mixed</button></div></div>
       <div class="field"><span class="lab">Division</span>
-        <div class="seg" id="dv"><button type="button" data-v="open" aria-pressed="true">Open</button><button type="button" data-v="pro" aria-pressed="false">Pro</button></div></div>
+        <div class="seg" id="dv"><button type="button" data-v="open" aria-pressed="true">Open</button><button type="button" data-v="pro" aria-pressed="false">Pro</button><button type="button" data-v="dbl" aria-pressed="false">Doubles</button></div></div>
       </div>
       <div class="field"><label for="tt">Finish time (h:mm:ss)</label>
         <input class="tin big" id="tt" inputmode="numeric" placeholder="1:28:30" autocomplete="off"></div>
-      <div class="field"><label for="age">Age group (optional)</label>
-        <select class="tin" id="age"><option value="">Not selected</option></select></div>
       <div class="ocr"><button class="ocrbtn" type="button" id="ocrb">Add data from an image</button><input type="file" id="ocrf" accept="image/*" hidden>
         <p class="small ocrs" id="ocrs">Add an image of your race result and we read the times into the boxes. The image is read on this device only and is not sent anywhere.</p></div>
       <details class="more"><summary>Add split times (optional)</summary>
@@ -560,11 +563,11 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
     <div class="resbox">
     <div class="res" id="out" aria-live="polite">
       <p class="rk">Your position</p>
-      <div class="lvl ph">Top —%</div>
-      <p class="pct sub">Enter your finish time and tap <b>Analyze</b> to see roughly where you stand among athletes worldwide.</p>
-      <div class="bar ph"></div><div class="barlab"><span style="left:10%">Top 10%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span></div>
+      <div class="lvl ph">vs. median —</div>
+      <p class="pct sub">Enter your finish time and tap <b>Analyze</b> to compare it with the median finish time for your division.</p>
+      <div class="bar ph"><b></b></div><div class="barlab"><span style="left:10%">−24 min</span><span style="left:30%">−12 min</span><span style="left:50%">Median</span><span style="left:70%">+12 min</span><span style="left:90%">+24 min</span></div>
     </div>
-    <p class="rnote">Note: This is a rough position based on ranges from published data on worldwide race results (about 700,000 results, Open). It is not an exact ranking. The averages used for split comparison are medians from about 390,000 solo results (Open and Pro) in the 2025/26 season.</p>
+    <p class="rnote">Note: Compared with median finish times by division from BoxLife Magazine (2026.9), which analysed about 700,000 published race results (Pyrox open source). This is not an official ranking. The averages used for split comparison are medians from about 390,000 solo results (Open and Pro) in the 2025/26 season, so Doubles has no split comparison. Pro Doubles and Relay are left out because there is no data.</p>
     </div>
    </div>
     </div>
@@ -670,7 +673,7 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
     </ul></div>
   </nav>
     <p class="foot-links"><a href="./">SPLITS8</a> · <a href="terms.html">Terms of Use</a> · <a href="privacy.html">Privacy Policy</a></p>
-    <p class="src">Sources: <a href="https://hyrox.com/the-history/" target="_blank" rel="noopener">HYROX official site (History)</a> · <a href="https://en.wikipedia.org/wiki/Hyrox" target="_blank" rel="noopener">Wikipedia: Hyrox</a> · <a href="https://www.redbull.com/int-en/hyrox-world-records-rankings" target="_blank" rel="noopener">Red Bull: HYROX world records (2026.4)</a> · <a href="https://roxlyfe.com/what-is-a-good-hyrox-time/" target="_blank" rel="noopener">Rox Lyfe: What is a good HYROX time</a> · <a href="https://roxlyfe.com/hyrox-from-average-to-elite/" target="_blank" rel="noopener">Rox Lyfe: From average to elite</a> · <a href="https://hyroxdatalab.com/articles/what-is-a-good-hyrox-time" target="_blank" rel="noopener">HyroxDataLab: Good HYROX time</a> · <a href="https://hyroxdatalab.com/articles/average-hyrox-station-times" target="_blank" rel="noopener">HyroxDataLab: Station times</a> · <a href="https://hyroxdatalab.com/articles/roxzone-efficiency-analysis" target="_blank" rel="noopener">HyroxDataLab: Roxzone</a> · <a href="https://fitnessvolt.com/roxrace/weights/" target="_blank" rel="noopener">Weights table</a></p>
+    <p class="src">Sources: <a href="https://hyrox.com/the-history/" target="_blank" rel="noopener">HYROX official site (History)</a> · <a href="https://en.wikipedia.org/wiki/Hyrox" target="_blank" rel="noopener">Wikipedia: Hyrox</a> · <a href="https://www.redbull.com/int-en/hyrox-world-records-rankings" target="_blank" rel="noopener">Red Bull: HYROX world records (2026.4)</a> · <a href="https://roxlyfe.com/what-is-a-good-hyrox-time/" target="_blank" rel="noopener">Rox Lyfe: What is a good HYROX time</a> · <a href="https://roxlyfe.com/hyrox-from-average-to-elite/" target="_blank" rel="noopener">Rox Lyfe: From average to elite</a> · <a href="https://hyroxdatalab.com/articles/what-is-a-good-hyrox-time" target="_blank" rel="noopener">HyroxDataLab: Good HYROX time</a> · <a href="https://hyroxdatalab.com/articles/average-hyrox-station-times" target="_blank" rel="noopener">HyroxDataLab: Station times</a> · <a href="https://hyroxdatalab.com/articles/roxzone-efficiency-analysis" target="_blank" rel="noopener">HyroxDataLab: Roxzone</a> · <a href="https://boxlifemagazine.com/700000-hyrox-results-analysed-here-is-exactly-where-your-finish-time-actually-ranks/" target="_blank" rel="noopener">BoxLife: 700,000 HYROX results (2026.9)</a> · <a href="https://fitnessvolt.com/roxrace/weights/" target="_blank" rel="noopener">Weights table</a></p>
     <p>SPLITS8 is not an official HYROX app and is not affiliated with HYROX. HYROX is a trademark of its respective owner. The numbers are compiled from the sources above; check the official rules before you race.</p>
   </div>
 </footer>
@@ -678,15 +681,10 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
 <script>
 (function () {
   // ── Reference data ─────────────────────────
-  // Open: HyroxDataLab (2026.3, 700k+ results) ranges — top 10% / 25% / 50% / 75% boundaries
-  var OPEN = { m: [75*60, 85*60, 100*60, 114*60], w: [86*60, 98*60, 114*60, 130*60] };
-  // Pro: Rox Lyfe tiers (Elite 15 / world class / competitive), average
-  var PRO = { m: { e15: 54*60, world: 58*60, comp: 65*60, avg: 81*60+1 }, w: { e15: 57*60, world: 62*60, comp: 70*60, avg: 86*60+36 } };
-  // Age group standards (Open, HyroxDataLab) [Elite, Advanced, Intermediate, Beginner]
-  var AGE = {
-    m: { '18–24':[72,83,94,107], '25–29':[73,81,94,107], '30–34':[75,85,102,115], '35–39':[74,84,98,116], '40–44':[82,91,104,118], '45–49':[79,89,104,114], '50–54':[81,93,107,118], '55–59':[84,96,112,125], '60+':[88,101,113,150] },
-    w: { '18–24':[85,93,105,117], '25–29':[80,94,114,126], '30–34':[83,95,116,134], '35–39':[88,98,117,135], '40–44':[86,99,114,135], '45–49':[89,100,119,136], '50–54':[86,103,115,144], '55–59':[89,106,120,151], '60+':[93,111,126,170] }
-  };
+  // Median finish time by division — BoxLife Magazine 2026-09-18 "700,000 HYROX Results Analysed" (Pyrox open source)
+  var MED = { open: { m: 1*3600+27*60+56, w: 1*3600+36*60+20 }, pro: { m: 1*3600+20*60+54, w: 1*3600+26*60+53 },
+              dbl: { m: 1*3600+16*60+13, w: 1*3600+28*60+13, x: 1*3600+23*60+5 } };
+  var DVN = { open: 'Open', pro: 'Pro', dbl: 'Doubles' }, GN = { m: 'Men', w: 'Women', x: 'Mixed' };
   // Split medians (2025/26 solo, ~390k results) — running uses the average
   var ST = [
     { k:'run',  n:'Running 8 km', m: 279+295+320+319+330+322+323+370, w: 314+333+350+352+362+357+356+398 },
@@ -708,8 +706,8 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
       el.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); v = b.dataset.v; });
     return function () { return v; }; }
   var G = seg('g'), DV = seg('dv');
-  var ages = Object.keys(AGE.m), sel = $('age');
-  ages.forEach(function (a) { var o = document.createElement('option'); o.value = a; o.textContent = a; sel.appendChild(o); });
+  $('dv').addEventListener('click', function () { var mx = $('g').querySelector('[data-v="x"]'), on = DV() === 'dbl'; mx.hidden = !on;
+    if (!on && G() === 'x') $('g').querySelector('[data-v="m"]').click(); });
   var sp = $('sp');
   ST.forEach(function (s) { var d = document.createElement('div');
     d.innerHTML = '<label for="s_' + s.k + '">' + s.n + (s.k === 'run' ? ' (total of 8)' : '') + '</label><input class="tin s" id="s_' + s.k + '" inputmode="numeric" placeholder="' + (s.k === 'run' ? '45:00' : '5:00') + '">';
@@ -723,37 +721,20 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
   function fm(s) { s = Math.round(Math.abs(s)); var h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60;
     return (h ? h + ':' + String(m).padStart(2,'0') : m) + ':' + String(x).padStart(2,'0'); }
 
-  // Open: straight lines between boundaries for a rough percentile (top %)
-  function openPct(t, b) {
-    var pts = [[b[0]*0.85, 1], [b[0], 10], [b[1], 25], [b[2], 50], [b[3], 75], [b[3]*1.25, 97]];
-    if (t <= pts[0][0]) return 1; if (t >= pts[5][0]) return 97;
-    for (var i = 1; i < pts.length; i++) if (t <= pts[i][0]) {
-      var a = pts[i-1], c = pts[i]; return a[1] + (c[1]-a[1]) * (t-a[0]) / (c[0]-a[0]); }
-    return 97; }
-
   $('go').addEventListener('click', function () {
     var t = parse($('tt').value), g = G(), dv = DV(), out = $('out');
     if (!t || t < 40*60 || t > 4*3600) { out.innerHTML = '<p class="bad" style="margin:0">Enter your finish time like 1:28:30.</p>'; return; }
-    var h = '', name = g === 'm' ? 'men' : 'women';
-    if (dv === 'open') {
-      var b = OPEN[g], p = Math.max(1, Math.round(openPct(t, b)));
-      var lvl = t < b[0] ? 'Elite' : t < b[1] ? 'Advanced' : t < b[2] ? 'Intermediate' : t < b[3] ? 'Beginner' : 'First finisher';
-      h += '<p class="rk">Your position</p><div class="lvl">' + lvl + '</div><div class="pct"><b>About top ' + p + '%</b> of ' + name + ' in Open</div>';
-      h += '<div class="bar"><i style="left:' + Math.min(100, Math.max(0, p)) + '%"></i></div><div class="barlab"><span style="left:10%">Top 10%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span></div>';
-      var nxt = t >= b[0] ? (t >= b[1] ? (t >= b[2] ? (t >= b[3] ? [b[3],'Beginner'] : [b[2],'Intermediate']) : [b[1],'Advanced']) : [b[0],'Elite']) : null;
-      if (nxt) h += '<p class="msg"><b>' + fm(t - nxt[0] + 1) + '</b> to the next level (<b>' + nxt[1] + '</b>, ' + fm(nxt[0]) + '). Spread over 16 segments, that is about ' + Math.ceil((t - nxt[0] + 1) / 16) + ' seconds per segment.</p>';
-    } else {
-      var P = PRO[g];
-      var lvl2 = t < P.e15 ? 'Elite 15 level' : t < P.world ? 'World class' : t < P.comp ? 'Competitive' : t < P.avg ? 'Faster than Pro average' : 'Slower than Pro average';
-      h += '<p class="rk">Your position</p><div class="lvl">' + lvl2 + '</div><div class="pct">vs. Pro ' + name + ' average ' + fm(P.avg) + ': <b class="' + (t <= P.avg ? 'good' : 'bad') + '">' + (t <= P.avg ? '−' : '+') + fm(t - P.avg) + '</b></div>';
-      h += '<p class="msg">Pro standards: Elite 15 under ' + fm(P.e15) + ' · World class under ' + fm(P.world) + ' · Competitive under ' + fm(P.comp) + '</p>';
-    }
-    var a = sel.value;
-    if (a && dv === 'open') { var r = AGE[g][a], names = ['Elite','Advanced','Intermediate','Beginner'], k = r.findIndex(function (x) { return t < x*60; });
-      h += '<p class="msg">For ' + name + ' aged ' + a + ', you are <b>' + (k < 0 ? 'First finisher' : names[k]) + '</b>. (Elite under ' + fm(r[0]*60) + ' · Advanced under ' + fm(r[1]*60) + ' · Intermediate under ' + fm(r[2]*60) + ')</p>'; }
+    var h = '', name = DVN[dv] + ' ' + GN[g], med = MED[dv][g], df = t - med, fast = df <= 0;
+    h += '<p class="rk">Your position · ' + name + '</p>';
+    h += '<div class="lvl">' + (Math.abs(df) < 30 ? 'About the median' : fm(df) + (fast ? ' faster than the median' : ' slower than the median')) + '</div>';
+    h += '<div class="pct">' + name + ' median <b>' + fm(med) + '</b> · Your time <b>' + fm(t) + '</b></div>';
+    var pos = 50 + Math.max(-50, Math.min(50, df / 60 / 30 * 50));
+    h += '<div class="bar"><b></b><i style="left:' + pos.toFixed(1) + '%"></i></div><div class="barlab"><span style="left:10%">−24 min</span><span style="left:30%">−12 min</span><span style="left:50%">Median</span><span style="left:70%">+12 min</span><span style="left:90%">+24 min</span></div>';
+    if (!fast && df >= 30) h += '<p class="msg"><b>' + fm(df) + '</b> to the median. Spread over 16 segments, that is about ' + Math.ceil(df / 16) + ' seconds per segment.</p>';
+    else if (fast && df <= -30) h += '<p class="msg">Faster than half of ' + name + ' finishers.</p>';
     // Split comparison
     var diffs = [];
-    ST.forEach(function (s) { var v = parse($('s_' + s.k).value); if (v) diffs.push({ s: s, v: v, d: v - s[g] }); });
+    if (dv !== 'dbl') ST.forEach(function (s) { var v = parse($('s_' + s.k).value); if (v) diffs.push({ s: s, v: v, d: v - s[g] }); });
     if (diffs.length) {
       var mx = Math.max.apply(null, diffs.map(function (x) { return Math.abs(x.d); }).concat([30]));
       h += '<h3>Compared with the average (median)</h3><div class="rows2">';
@@ -768,6 +749,8 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
       var rx = diffs.filter(function (x) { return x.s.k === 'rox'; })[0];
       if (rx) h += '<li>Roxzone is <b>' + (rx.v / t * 100).toFixed(1) + '%</b> of your total (6.5% or less is good)</li>';
       h += '</ul>';
+    } else if (dv === 'dbl') {
+      h += '<p class="small sub" style="margin-top:18px">There is no published split data for Doubles, so only the finish time is compared.</p>';
     } else {
       h += '<p class="small sub" style="margin-top:18px">Add your split times to see where you lost time.</p>';
     }

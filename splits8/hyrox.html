@@ -308,6 +308,10 @@ footer p { margin: 4px 0; }
 .seg { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; padding: 4px; background: #1a1a16; border-radius: 14px; }
 .seg button { font: inherit; font-size: 15px; font-weight: 700; height: 40px; border: 0; border-radius: 10px; background: transparent; color: var(--sub-d); cursor: pointer; transition: background .15s, color .15s; }
 .seg button:hover { color: var(--fg-d); }
+.seg button { white-space: nowrap; padding: 0 6px; }
+#dv, #g { grid-auto-columns: auto; }
+@media (max-width: 440px) { .seg button { font-size: 13px; padding: 0 4px; } #dv button[data-v="dbl"] { padding: 0 8px; } } #dv button[data-v="dbl"] { padding: 0 12px; }
+.seg button[hidden] { display: none; }
 .seg button[aria-pressed="true"] { background: var(--yellow); color: #000; }
 .tin { font: inherit; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; width: 100%; height: 48px; padding: 0 14px; border-radius: 12px;
        border: 1px solid #2a2a24; background: #121210; color: var(--fg-d); }
@@ -344,6 +348,7 @@ details.more > :last-child { margin-bottom: 14px; }
 .bar { position: relative; height: 12px; border-radius: 999px; margin: 26px 0 8px;
        background: linear-gradient(90deg, #ffe600 0%, #b8a800 25%, #6b6a5c 50%, #3a3a33 75%, #2a2a25 100%); }
 .bar.ph { opacity: .25; }
+.bar b { position: absolute; left: 50%; top: -4px; width: 2px; height: 20px; background: rgba(255,255,255,.35); transform: translateX(-1px); }
 .bar i { position: absolute; top: -6px; width: 4px; height: 24px; border-radius: 2px; background: #fff; box-shadow: 0 0 0 3px rgba(0,0,0,.6); transform: translateX(-2px); }
 .barlab { position: relative; height: 16px; font-size: 11px; color: var(--sub-d); font-variant-numeric: tabular-nums; }
 .barlab span { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
@@ -454,7 +459,7 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
   <div class="in">
     <p class="eyebrow">종목과 무게</p>
     <h2>순서는 늘 같습니다.</h2>
-    <p class="lead sub">1km를 달린 뒤 아래 스테이션을 하나씩 끝내고, 다시 1km를 달립니다. 무게는 디비전마다 다릅니다. (슬레드 무게는 슬레드 자체 무게를 포함한 값)</p>
+    <p class="lead sub">1km를 달린 뒤 아래 스테이션을 하나씩 끝내고, 다시 1km를 달립니다. 무게는 Division마다 다릅니다. (슬레드 무게는 슬레드 자체 무게를 포함한 값)</p>
     <div class="tblwrap">
     <table class="tbl">
       <thead><tr><th>#</th><th>스테이션</th><th>거리 · 횟수</th><th class="num">Open 남</th><th class="num">Open 여</th><th class="num">Pro 남</th><th class="num">Pro 여</th></tr></thead>
@@ -534,21 +539,19 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
   <div class="in">
     <p class="eyebrow">내 기록 분석</p>
     <h2>내 시간,<br>어디쯤일까.</h2>
-    <p class="lead sub">완주 시간을 넣으면 전 세계 출전자 중 대략 어디쯤인지 알려 줍니다. 구간 기록까지 넣으면 평균과 비교해 어디서 시간을 잃었는지 보여 줍니다.</p>
+    <p class="lead sub">완주 시간을 넣으면 내 Division 중간 시간보다 얼마나 빠른지, 느린지 알려 줍니다. 구간 기록까지 넣으면 평균과 비교해 어디서 시간을 잃었는지 보여 줍니다.</p>
   </div>
   <div class="in calc">
    <div class="calcbox">
     <div class="form">
       <div class="frow">
       <div class="field"><span class="lab">성별</span>
-        <div class="seg" id="g"><button type="button" data-v="m" aria-pressed="true">남자</button><button type="button" data-v="w" aria-pressed="false">여자</button></div></div>
-      <div class="field"><span class="lab">디비전</span>
-        <div class="seg" id="dv"><button type="button" data-v="open" aria-pressed="true">Open</button><button type="button" data-v="pro" aria-pressed="false">Pro</button></div></div>
+        <div class="seg" id="g"><button type="button" data-v="m" aria-pressed="true">남자</button><button type="button" data-v="w" aria-pressed="false">여자</button><button type="button" data-v="x" aria-pressed="false" hidden>혼성</button></div></div>
+      <div class="field"><span class="lab">Division</span>
+        <div class="seg" id="dv"><button type="button" data-v="open" aria-pressed="true">Open</button><button type="button" data-v="pro" aria-pressed="false">Pro</button><button type="button" data-v="dbl" aria-pressed="false">Doubles</button></div></div>
       </div>
       <div class="field"><label for="tt">완주 시간 (시:분:초)</label>
         <input class="tin big" id="tt" inputmode="numeric" placeholder="1:28:30" autocomplete="off"></div>
-      <div class="field"><label for="age">나이대 (선택)</label>
-        <select class="tin" id="age"><option value="">선택 안 함</option></select></div>
       <div class="ocr"><button class="ocrbtn" type="button" id="ocrb">이미지로 데이터 넣기</button><input type="file" id="ocrf" accept="image/*" hidden>
         <p class="small ocrs" id="ocrs">대회 결과 화면 이미지를 넣으면 숫자를 읽어 칸을 채워 줘요. 사진은 이 기기 안에서만 읽고 어디로도 보내지 않아요.</p></div>
       <details class="more"><summary>구간 기록도 넣기 (선택)</summary>
@@ -560,11 +563,11 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
     <div class="resbox">
     <div class="res" id="out" aria-live="polite">
       <p class="rk">내 위치</p>
-      <div class="lvl ph">상위 —%</div>
-      <p class="pct sub">완주 시간을 넣고 <b>분석하기</b>를 누르면, 전 세계 출전자 중 어디쯤인지 여기에 나옵니다.</p>
-      <div class="bar ph"></div><div class="barlab"><span style="left:10%">상위 10%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span></div>
+      <div class="lvl ph">중간보다 —</div>
+      <p class="pct sub">완주 시간을 넣고 <b>분석하기</b>를 누르면, 내 Division 중간 시간과 비교한 결과가 여기에 나옵니다.</p>
+      <div class="bar ph"><b></b></div><div class="barlab"><span style="left:10%">−24분</span><span style="left:30%">−12분</span><span style="left:50%">중간</span><span style="left:70%">+12분</span><span style="left:90%">+24분</span></div>
     </div>
-    <p class="rnote">참고: 전 세계 대회 결과(약 70만 건, Open 기준)를 정리해 공개한 자료의 구간을 바탕으로 한 대략의 위치입니다. 정확한 순위가 아닙니다. 구간 비교에 쓰는 평균값은 2025/26 시즌 개인전(Open·Pro) 약 39만 건의 중간값입니다.</p>
+    <p class="rnote">참고: BoxLife Magazine(2026.9)이 공개된 대회 결과 약 70만 건(Pyrox 오픈소스)을 분석한 Division별 중간 완주 시간과 비교합니다. 공식 순위가 아닙니다. 구간 비교에 쓰는 평균값은 2025/26 시즌 개인전(Open·Pro) 약 39만 건의 중간값이라, Doubles 는 구간 비교를 하지 않습니다. Pro Doubles · 릴레이는 자료가 없어 빠졌습니다.</p>
     </div>
    </div>
     </div>
@@ -579,7 +582,7 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
     <p class="lead sub">목표 완주 시간을 넣으면, 같은 시간대로 완주한 전 세계 선수들의 구간 중간값으로 나눠 줍니다. 2025/26 시즌 결과 67만 건 기준.</p>
     <div class="calcbox pacer-box">
       <div class="form">
-        <div class="field"><label for="pdv">디비전</label><select class="tin" id="pdv"><option value="openMen">Open 남자</option><option value="openWomen">Open 여자</option><option value="proMen">Pro 남자</option><option value="proWomen">Pro 여자</option><option value="doublesMen">더블 남자</option><option value="doublesWomen">더블 여자</option><option value="doublesMixed">더블 혼성</option><option value="proDoublesMen">Pro 더블 남자</option><option value="proDoublesWomen">Pro 더블 여자</option></select></div>
+        <div class="field"><label for="pdv">Division</label><select class="tin" id="pdv"><option value="openMen">Open 남자</option><option value="openWomen">Open 여자</option><option value="proMen">Pro 남자</option><option value="proWomen">Pro 여자</option><option value="doublesMen">더블 남자</option><option value="doublesWomen">더블 여자</option><option value="doublesMixed">더블 혼성</option><option value="proDoublesMen">Pro 더블 남자</option><option value="proDoublesWomen">Pro 더블 여자</option></select></div>
         <div class="field"><label for="ptt">목표 완주 시간 (시:분:초)</label><input class="tin big" id="ptt" inputmode="numeric" value="1:30:00" autocomplete="off"></div>
       </div>
       <div class="resbox"><div id="pout" aria-live="polite"></div></div>
@@ -670,7 +673,7 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
     </ul></div>
   </nav>
     <p class="foot-links"><a href="./">SPLITS8</a> · <a href="terms.html">이용약관</a> · <a href="privacy.html">개인정보처리방침</a></p>
-    <p class="src">자료 출처: <a href="https://hyrox.com/the-history/" target="_blank" rel="noopener">HYROX 공식 사이트 (역사)</a> · <a href="https://en.wikipedia.org/wiki/Hyrox" target="_blank" rel="noopener">Wikipedia: Hyrox</a> · <a href="https://www.redbull.com/int-en/hyrox-world-records-rankings" target="_blank" rel="noopener">Red Bull: HYROX world records (2026.4)</a> · <a href="https://roxlyfe.com/what-is-a-good-hyrox-time/" target="_blank" rel="noopener">Rox Lyfe: What is a good HYROX time</a> · <a href="https://roxlyfe.com/hyrox-from-average-to-elite/" target="_blank" rel="noopener">Rox Lyfe: From average to elite</a> · <a href="https://hyroxdatalab.com/articles/what-is-a-good-hyrox-time" target="_blank" rel="noopener">HyroxDataLab: Good HYROX time</a> · <a href="https://hyroxdatalab.com/articles/average-hyrox-station-times" target="_blank" rel="noopener">HyroxDataLab: Station times</a> · <a href="https://hyroxdatalab.com/articles/roxzone-efficiency-analysis" target="_blank" rel="noopener">HyroxDataLab: Roxzone</a> · <a href="https://fitnessvolt.com/roxrace/weights/" target="_blank" rel="noopener">무게 표</a></p>
+    <p class="src">자료 출처: <a href="https://hyrox.com/the-history/" target="_blank" rel="noopener">HYROX 공식 사이트 (역사)</a> · <a href="https://en.wikipedia.org/wiki/Hyrox" target="_blank" rel="noopener">Wikipedia: Hyrox</a> · <a href="https://www.redbull.com/int-en/hyrox-world-records-rankings" target="_blank" rel="noopener">Red Bull: HYROX world records (2026.4)</a> · <a href="https://roxlyfe.com/what-is-a-good-hyrox-time/" target="_blank" rel="noopener">Rox Lyfe: What is a good HYROX time</a> · <a href="https://roxlyfe.com/hyrox-from-average-to-elite/" target="_blank" rel="noopener">Rox Lyfe: From average to elite</a> · <a href="https://hyroxdatalab.com/articles/what-is-a-good-hyrox-time" target="_blank" rel="noopener">HyroxDataLab: Good HYROX time</a> · <a href="https://hyroxdatalab.com/articles/average-hyrox-station-times" target="_blank" rel="noopener">HyroxDataLab: Station times</a> · <a href="https://hyroxdatalab.com/articles/roxzone-efficiency-analysis" target="_blank" rel="noopener">HyroxDataLab: Roxzone</a> · <a href="https://boxlifemagazine.com/700000-hyrox-results-analysed-here-is-exactly-where-your-finish-time-actually-ranks/" target="_blank" rel="noopener">BoxLife: 700,000 HYROX results (2026.9)</a> · <a href="https://fitnessvolt.com/roxrace/weights/" target="_blank" rel="noopener">무게 표</a></p>
     <p>SPLITS8은 HYROX 공식 앱이 아니며 HYROX와 관련이 없습니다. HYROX는 해당 권리자의 상표입니다. 숫자는 위 자료를 정리한 것이며, 출전 전에는 공식 규정을 확인하세요.</p>
   </div>
 </footer>
@@ -678,15 +681,10 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
 <script>
 (function () {
   // ── 기준 자료 ─────────────────────────
-  // Open: HyroxDataLab(2026.3, 70만 건+) 구간 — 상위 10% / 25% / 50% / 75% 경계
-  var OPEN = { m: [75*60, 85*60, 100*60, 114*60], w: [86*60, 98*60, 114*60, 130*60] };
-  // Pro: Rox Lyfe 단계 (Elite 15 / 세계 수준 / 경쟁 수준), 평균
-  var PRO = { m: { e15: 54*60, world: 58*60, comp: 65*60, avg: 81*60+1 }, w: { e15: 57*60, world: 62*60, comp: 70*60, avg: 86*60+36 } };
-  // 나이대 기준 (Open, HyroxDataLab) [Elite, Advanced, Intermediate, Beginner]
-  var AGE = {
-    m: { '18–24':[72,83,94,107], '25–29':[73,81,94,107], '30–34':[75,85,102,115], '35–39':[74,84,98,116], '40–44':[82,91,104,118], '45–49':[79,89,104,114], '50–54':[81,93,107,118], '55–59':[84,96,112,125], '60+':[88,101,113,150] },
-    w: { '18–24':[85,93,105,117], '25–29':[80,94,114,126], '30–34':[83,95,116,134], '35–39':[88,98,117,135], '40–44':[86,99,114,135], '45–49':[89,100,119,136], '50–54':[86,103,115,144], '55–59':[89,106,120,151], '60+':[93,111,126,170] }
-  };
+  // Division별 중간 완주 시간 — BoxLife Magazine 2026-09-18 "700,000 HYROX Results Analysed" (Pyrox 오픈소스)
+  var MED = { open: { m: 1*3600+27*60+56, w: 1*3600+36*60+20 }, pro: { m: 1*3600+20*60+54, w: 1*3600+26*60+53 },
+              dbl: { m: 1*3600+16*60+13, w: 1*3600+28*60+13, x: 1*3600+23*60+5 } };
+  var DVN = { open: 'Open', pro: 'Pro', dbl: 'Doubles' }, GN = { m: '남자', w: '여자', x: '혼성' };
   // 구간 중간값 (2025/26 개인전 약 39만 건) — 달리기는 평균
   var ST = [
     { k:'run',  n:'러닝 8km', m: 279+295+320+319+330+322+323+370, w: 314+333+350+352+362+357+356+398 },
@@ -708,8 +706,9 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
       el.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); v = b.dataset.v; });
     return function () { return v; }; }
   var G = seg('g'), DV = seg('dv');
-  var ages = Object.keys(AGE.m), sel = $('age');
-  ages.forEach(function (a) { var o = document.createElement('option'); o.value = a; o.textContent = a + '세'; sel.appendChild(o); });
+  // Doubles 일 때만 '혼성' 보이기
+  $('dv').addEventListener('click', function () { var mx = $('g').querySelector('[data-v="x"]'), on = DV() === 'dbl'; mx.hidden = !on;
+    if (!on && G() === 'x') $('g').querySelector('[data-v="m"]').click(); });
   var sp = $('sp');
   ST.forEach(function (s) { var d = document.createElement('div');
     d.innerHTML = '<label for="s_' + s.k + '">' + s.n + (s.k === 'run' ? ' (8개 합계)' : '') + '</label><input class="tin s" id="s_' + s.k + '" inputmode="numeric" placeholder="' + (s.k === 'run' ? '45:00' : '5:00') + '">';
@@ -723,37 +722,20 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
   function fm(s) { s = Math.round(Math.abs(s)); var h = Math.floor(s/3600), m = Math.floor(s%3600/60), x = s%60;
     return (h ? h + ':' + String(m).padStart(2,'0') : m) + ':' + String(x).padStart(2,'0'); }
 
-  // Open: 경계 사이를 곧게 이어서 대략의 백분위 (상위 %)
-  function openPct(t, b) {
-    var pts = [[b[0]*0.85, 1], [b[0], 10], [b[1], 25], [b[2], 50], [b[3], 75], [b[3]*1.25, 97]];
-    if (t <= pts[0][0]) return 1; if (t >= pts[5][0]) return 97;
-    for (var i = 1; i < pts.length; i++) if (t <= pts[i][0]) {
-      var a = pts[i-1], c = pts[i]; return a[1] + (c[1]-a[1]) * (t-a[0]) / (c[0]-a[0]); }
-    return 97; }
-
   $('go').addEventListener('click', function () {
     var t = parse($('tt').value), g = G(), dv = DV(), out = $('out');
     if (!t || t < 40*60 || t > 4*3600) { out.innerHTML = '<p class="bad" style="margin:0">완주 시간을 1:28:30 처럼 넣어 주세요.</p>'; return; }
-    var h = '', name = g === 'm' ? '남자' : '여자';
-    if (dv === 'open') {
-      var b = OPEN[g], p = Math.max(1, Math.round(openPct(t, b)));
-      var lvl = t < b[0] ? '엘리트급' : t < b[1] ? '상급' : t < b[2] ? '중급' : t < b[3] ? '초급' : '첫 완주권';
-      h += '<p class="rk">내 위치</p><div class="lvl">' + lvl + '</div><div class="pct">' + name + ' Open 출전자 중 <b>상위 약 ' + p + '%</b></div>';
-      h += '<div class="bar"><i style="left:' + Math.min(100, Math.max(0, p)) + '%"></i></div><div class="barlab"><span style="left:10%">상위 10%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span></div>';
-      var nxt = t >= b[0] ? (t >= b[1] ? (t >= b[2] ? (t >= b[3] ? [b[3],'초급'] : [b[2],'중급']) : [b[1],'상급']) : [b[0],'엘리트급']) : null;
-      if (nxt) h += '<p class="msg">다음 단계(<b>' + nxt[1] + '</b>, ' + fm(nxt[0]) + ')까지 <b>' + fm(t - nxt[0] + 1) + '</b>. 16구간으로 나누면 구간마다 약 ' + Math.ceil((t - nxt[0] + 1) / 16) + '초씩입니다.</p>';
-    } else {
-      var P = PRO[g];
-      var lvl2 = t < P.e15 ? 'Elite 15 수준' : t < P.world ? '세계 수준' : t < P.comp ? '경쟁 수준' : t < P.avg ? 'Pro 평균보다 빠름' : 'Pro 평균보다 느림';
-      h += '<p class="rk">내 위치</p><div class="lvl">' + lvl2 + '</div><div class="pct">' + name + ' Pro 평균 ' + fm(P.avg) + ' 대비 <b class="' + (t <= P.avg ? 'good' : 'bad') + '">' + (t <= P.avg ? '−' : '+') + fm(t - P.avg) + '</b></div>';
-      h += '<p class="msg">Pro 기준: Elite 15 ' + fm(P.e15) + ' 미만 · 세계 수준 ' + fm(P.world) + ' 미만 · 경쟁 수준 ' + fm(P.comp) + ' 미만</p>';
-    }
-    var a = sel.value;
-    if (a && dv === 'open') { var r = AGE[g][a], names = ['엘리트','상급','중급','초급'], k = r.findIndex(function (x) { return t < x*60; });
-      h += '<p class="msg">' + a + '세 ' + name + ' 기준으로는 <b>' + (k < 0 ? '첫 완주권' : names[k]) + '</b>입니다. (엘리트 ' + fm(r[0]*60) + ' · 상급 ' + fm(r[1]*60) + ' · 중급 ' + fm(r[2]*60) + ' 미만)</p>'; }
+    var h = '', name = DVN[dv] + ' ' + GN[g], med = MED[dv][g], df = t - med, fast = df <= 0;
+    h += '<p class="rk">내 위치 · ' + name + '</p>';
+    h += '<div class="lvl">' + (Math.abs(df) < 30 ? '중간과 거의 같음' : '중간보다 ' + fm(df) + (fast ? ' 빠름' : ' 느림')) + '</div>';
+    h += '<div class="pct">' + name + ' 중간 완주 시간 <b>' + fm(med) + '</b> · 내 시간 <b>' + fm(t) + '</b></div>';
+    var pos = 50 + Math.max(-50, Math.min(50, df / 60 / 30 * 50));
+    h += '<div class="bar"><b></b><i style="left:' + pos.toFixed(1) + '%"></i></div><div class="barlab"><span style="left:10%">−24분</span><span style="left:30%">−12분</span><span style="left:50%">중간</span><span style="left:70%">+12분</span><span style="left:90%">+24분</span></div>';
+    if (!fast && df >= 30) h += '<p class="msg">중간까지 <b>' + fm(df) + '</b>. 16구간으로 나누면 구간마다 약 ' + Math.ceil(df / 16) + '초씩입니다.</p>';
+    else if (fast && df <= -30) h += '<p class="msg">' + name + ' 출전자 절반보다 빠른 기록입니다.</p>';
     // 구간 비교
     var diffs = [];
-    ST.forEach(function (s) { var v = parse($('s_' + s.k).value); if (v) diffs.push({ s: s, v: v, d: v - s[g] }); });
+    if (dv !== 'dbl') ST.forEach(function (s) { var v = parse($('s_' + s.k).value); if (v) diffs.push({ s: s, v: v, d: v - s[g] }); });
     if (diffs.length) {
       var mx = Math.max.apply(null, diffs.map(function (x) { return Math.abs(x.d); }).concat([30]));
       h += '<h3>평균(중간값)과 비교</h3><div class="rows2">';
@@ -768,6 +750,8 @@ ul.msg { padding-left: 18px; display: grid; gap: 6px; }
       var rx = diffs.filter(function (x) { return x.s.k === 'rox'; })[0];
       if (rx) h += '<li>Roxzone이 전체의 <b>' + (rx.v / t * 100).toFixed(1) + '%</b> (6.5% 이하면 좋은 편)</li>';
       h += '</ul>';
+    } else if (dv === 'dbl') {
+      h += '<p class="small sub" style="margin-top:18px">Doubles 는 공개된 구간 자료가 없어 완주 시간만 비교합니다.</p>';
     } else {
       h += '<p class="small sub" style="margin-top:18px">구간 기록까지 넣으면 어디서 시간을 잃었는지 보여 줍니다.</p>';
     }
