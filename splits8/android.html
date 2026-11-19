@@ -293,6 +293,10 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
 .beta-note p { margin: 0; font-size: 15px; color: var(--fg-d); line-height: 1.55; }
 .steps .go { margin-top: 14px; }
 .steps .go .btn { padding: 11px 20px; font-size: 16px; }
+.steps .back { margin-top: 10px; font-size: 14px; font-weight: 700; color: #b8860b; }
+.steps .after { margin-top: 8px; font-size: 13px; color: #6b6b6b; }
+.guide { margin: 16px 0 0; }
+.guide img { display: block; width: 100%; max-width: 540px; height: auto; border-radius: 14px; }
 .shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 3vw, 32px); margin-top: clamp(32px, 5vw, 56px); }
 .shots figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
 /* 안드로이드 폰 틀: 고른 검은 테두리 + 화면 위 가운데 카메라 구멍 + 오른쪽 옆 버튼 */
@@ -368,15 +372,20 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
         <h3><span class="ko">테스터 그룹에 가입</span><span class="en">Join the tester group</span></h3>
         <p><span class="ko">아래 버튼을 눌러 "그룹에 참여"를 누릅니다. <b>안드로이드 폰에 로그인된 구글 계정</b>으로 가입해야 합니다. (회사 계정은 막혀 있을 수 있어요)</span><span class="en">Open the group and tap "Join group". Use <b>the Google account signed in on your Android phone</b>. (Work accounts may be blocked.)</span></p>
         <p class="go"><a class="btn" href="https://groups.google.com/g/splits8-testers" target="_blank" rel="noopener"><span class="ko">1. 테스터 그룹 가입</span><span class="en">1. Join the group</span></a></p>
+        <p class="back"><span class="ko">가입했으면 이 페이지로 돌아와서 2번을 눌러 주세요. 그룹 페이지에는 설치 버튼이 없어요.</span><span class="en">After joining, come back to this page and tap step 2. The group page has no install button.</span></p>
       </div></li>
       <li><div>
         <h3><span class="ko">"테스터 되기" 누르기</span><span class="en">Tap "Become a tester"</span></h3>
         <p><span class="ko">같은 구글 계정으로 아래 버튼을 열고 "테스터 되기"를 누릅니다. 그룹에 가입한 직후에는 몇 분 걸릴 수 있어요.</span><span class="en">With the same Google account, open the link below and tap "Become a tester". Right after joining the group it may take a few minutes.</span></p>
         <p class="go"><a class="btn" href="https://play.google.com/apps/testing/com.nkssi.splits8" target="_blank" rel="noopener"><span class="ko">2. 테스터 되기</span><span class="en">2. Become a tester</span></a></p>
+        <p><span class="ko">영어 화면이 나오면 성공이에요. 둘째 줄의 파란 글씨 <b>download it on Google Play</b>를 누르거나, 아래 3번 버튼을 누르세요.</span><span class="en">If you see the page below, you're in. Tap the blue <b>download it on Google Play</b> link, or use button 3 below.</span></p>
+        <figure class="guide ko"><img src="img/tester_guide.webp" width="1080" height="516" loading="lazy" alt="테스터 되기 후 화면: 파란 글씨 download it on Google Play 를 누르면 설치 화면이 열림"></figure>
       </div></li>
       <li><div>
         <h3><span class="ko">Play 스토어에서 설치</span><span class="en">Install from Google Play</span></h3>
-        <p><span class="ko">"테스터 되기" 화면의 Play 스토어 링크를 누르거나, Play 스토어에서 SPLITS8을 찾아 설치합니다. 갤럭시 워치가 있으면 워치의 Play 스토어에서도 SPLITS8을 설치하세요. 워치가 없어도 폰만으로 기록할 수 있어요.</span><span class="en">Follow the Play Store link on the tester page, or search SPLITS8 on Google Play. If you have a Galaxy Watch, install SPLITS8 from the watch's Play Store too. No watch? You can track with the phone alone.</span></p>
+        <p><span class="ko">아래 버튼을 눌러 Play 스토어에서 설치합니다. 아직 정식 출시 전이라 Play 스토어 <b>검색에는 안 나와요</b>. 갤럭시 워치가 있으면 워치의 Play 스토어에서도 SPLITS8을 설치하세요. 워치가 없어도 폰만으로 기록할 수 있어요.</span><span class="en">Tap the button below to install from Google Play. Before the public release, SPLITS8 <b>does not show up in Play Store search</b>. If you have a Galaxy Watch, install SPLITS8 from the watch's Play Store too. No watch? You can track with the phone alone.</span></p>
+        <p class="go"><a class="btn" href="https://play.google.com/store/apps/details?id=com.nkssi.splits8" target="_blank" rel="noopener"><span class="ko">3. Play 스토어에서 받기</span><span class="en">3. Get it on Google Play</span></a></p>
+        <p class="after"><span class="ko">2번 "테스터 되기"를 누른 뒤에 열려요. 먼저 누르면 "찾을 수 없음"이 나올 수 있어요.</span><span class="en">Opens after you tap "Become a tester" in step 2. Before that it may say the app can't be found.</span></p>
       </div></li>
     </ol>
     <div class="tip"><p>
@@ -410,7 +419,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     <h2><span class="ko">막히면<br>여기부터.</span><span class="en">Stuck?<br>Start here.</span></h2>
     <div class="faq">
       <details><summary><span class="ko">"앱을 찾을 수 없음"이 나와요</span><span class="en">It says the app can't be found</span></summary>
-        <p><span class="ko">그룹에 가입한 구글 계정과 Play 스토어에 로그인된 계정이 같은지 확인해 주세요. 그룹 가입 직후라면 몇 분 뒤 다시 열어 보세요.</span><span class="en">Make sure the Google account you used for the group is the one signed in to Google Play. If you just joined, try again in a few minutes.</span></p></details>
+        <p><span class="ko">2번 "테스터 되기"를 먼저 눌렀는지 확인해 주세요. 그다음 그룹에 가입한 구글 계정과 Play 스토어에 로그인된 계정이 같은지 확인해 주세요. 그룹 가입 직후라면 몇 분 뒤 다시 열어 보세요.</span><span class="en">First make sure you tapped "Become a tester" in step 2. Then check that the Google account you used for the group is the one signed in to Google Play. If you just joined, try again in a few minutes.</span></p></details>
       <details><summary><span class="ko">그룹 페이지에 "권한이 없습니다"가 보여요</span><span class="en">The group page says I don't have permission</span></summary>
         <p><span class="ko">대화 내용은 멤버만 볼 수 있어서 나오는 문구예요. 위쪽의 "그룹에 참여" 버튼만 누르면 됩니다. 회사(Workspace) 계정이면 개인 Gmail 계정으로 바꿔 주세요.</span><span class="en">Posts are visible to members only, so that message is normal. Just tap "Join group" at the top. If you are on a work (Workspace) account, switch to a personal Gmail account.</span></p></details>
       <details><summary><span class="ko">갤럭시 워치가 없어도 되나요?</span><span class="en">Do I need a Galaxy Watch?</span></summary>
