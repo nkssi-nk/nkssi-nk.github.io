@@ -329,14 +329,14 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
 /* 릴스 모음 (인스타처럼 3칸) */
 .reels .head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .reels .ig{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--yellow);text-decoration:none;font-size:16px}
-.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:28px;max-width:760px}
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin:28px auto 0;max-width:760px}
 .rgrid .r{position:relative;aspect-ratio:9/16;background:var(--ink);overflow:hidden;cursor:pointer;border:0;padding:0;display:block;width:100%}
 .rgrid .r img,.rgrid .r video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .rgrid .r .pi{position:absolute;top:8px;right:8px;width:22px;height:22px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
 .rgrid .r:hover img{opacity:.85}
 .rgrid .r.on .pi,.rgrid .r.on img{display:none}
 .rgrid .r[hidden]{display:none}
-.reels .more{margin-top:18px}
+.reels .more{margin-top:18px;text-align:center}
 @media (max-width:600px){.rgrid{gap:2px;margin-left:calc(-1*var(--gutter));margin-right:calc(-1*var(--gutter))}}
 </style>
 </head>
