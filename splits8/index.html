@@ -296,6 +296,21 @@ footer p { margin: 4px 0; }
 html.fx body > section:not(.hero) { transition: opacity .4s ease, filter .4s ease; }
 html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: grayscale(.6); }
 @media (prefers-reduced-motion: reduce) { html.fx body > section { transition: none; opacity: 1 !important; filter: none !important; } }
+/* 1.2.7 새 운동 화면: 색 3가지 (Apple Watch + 동그란 갤럭시 워치) */
+.tones-copy { max-width: 760px; margin: 0 auto clamp(28px, 5vw, 56px); text-align: center; }
+.tones-copy ul { text-align: left; display: inline-block; }
+.tones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 3vw, 40px); }
+.tone { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.tone .pair { display: flex; align-items: center; justify-content: center; gap: clamp(6px, 1.4vw, 16px); }
+.uw.xs { --w: clamp(67px, 10.5vw, 139px); }
+.gw { --w: clamp(80px, 12.5vw, 165px); width: var(--w); flex: none; position: relative; aspect-ratio: 780 / 1074; }
+.gw .scr { position: absolute; left: 19.1%; top: 24.67%; width: 69.74%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: #000; }
+.gw .scr img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.gw .fr { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; filter: drop-shadow(0 24px 40px rgba(0,0,0,.35)); }
+.tone figcaption { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: clamp(14px, 1.6vw, 17px); }
+.tone .sw { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+.tone .sw.st { background: #FFE600; } .tone .sw.rn { background: #1E78FA; } .tone .sw.rx { background: #54545C; box-shadow: 0 0 0 1px #8a8a90; }
+@media (max-width: 760px) { .tones { grid-template-columns: minmax(0, 1fr); gap: 34px; } .gw { --w: 36vw; } .uw.xs { --w: 30vw; } }
 </style>
 </head>
 <body>
@@ -334,8 +349,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <a class="droid" href="android.html"><span class="dot" aria-hidden="true"></span><span class="ko">안드로이드 · 갤럭시 워치는 베타로 바로 설치 →</span><span class="en">Android · Galaxy Watch: install the beta →</span></a>
     </div>
     <div class="hero-devices">
-      <div class="uw"><div class="scr"><img src="img/w_live_122.webp" alt="워치 운동 화면: Sled Push 구간, SPLIT · GOAL · 심박수" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
-      <div class="phone cut"><img src="img/p_sim_122.webp" alt="폰: 풀 시뮬레이션 기록 그래프 화면" width="540" height="1174"></div>
+      <div class="uw"><div class="scr"><img src="img/w_live_127.webp" alt="워치 운동 화면: 노란 스테이션 Sled Push, SPLIT · GOAL · 심박수, Next Roxzone" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="phone cut"><img src="img/p_sim_127.webp" alt="폰: 풀 시뮬레이션 기록 그래프 화면" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -350,15 +365,57 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
         <span class="en">Mid-workout there is no time to look at a screen. So there is only one move to remember.</span>
       </p>
       <ul>
-        <li><span class="ko">왼쪽으로 밀기: 다음 구간</span><span class="en">Swipe left: next segment</span></li>
-        <li><span class="ko">오른쪽으로 밀기: 일시정지와 종료</span><span class="en">Swipe right: pause and end</span></li>
+        <li><span class="ko">왼쪽으로 밀기 또는 가운데 → 버튼: 다음 구간</span><span class="en">Swipe left or tap the → button: next segment</span></li>
+        <li><span class="ko">오른쪽으로 밀기: End · Pause · Undo · Skip</span><span class="en">Swipe right: End, Pause, Undo, Skip</span></li>
         <li><span class="ko">지금 구간 시간 · 목표 · 심박수(♥ BPM)와 총 시간이 한 화면에</span><span class="en">Current split, goal, heart rate (♥ BPM) and total time on one screen</span></li>
         <li><span class="ko">Apple Watch와 갤럭시 워치 모두 같은 방식</span><span class="en">Works the same on Apple Watch and Galaxy Watch</span></li>
       </ul>
     </div>
     <div class="art">
-      <div class="uw sm"><div class="scr"><img src="img/w_live_122.webp" alt="워치 운동 중 화면: SPLIT · GOAL · BPM" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
-      <div class="uw sm"><div class="scr"><img src="img/w_controls_122.webp" alt="워치 조작 화면: End · Pause · Undo · Skip · Next" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_live_127.webp" alt="워치 운동 중 화면: SPLIT · GOAL · BPM" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_controls_127.webp" alt="워치 조작 화면: End · Pause · Undo · Skip · Next" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="screen">
+  <div class="in">
+    <div class="copy tones-copy">
+      <p class="eyebrow"><span class="ko">1.2.7 · 새 운동 화면</span><span class="en">1.2.7 · New workout screen</span></p>
+      <h2><span class="ko">숨이 차도,<br>색만 보면 압니다.</span><span class="en">Out of breath?<br>Just read the color.</span></h2>
+      <p class="lead sub">
+        <span class="ko">직접 하이록스를 뛰어 보니, 숨이 턱까지 찰 때는 작은 숫자가 눈에 들어오지 않았습니다. 지금 뭘 하고 있는지, 다음은 뭔지, 어디를 눌러야 넘어가는지. 이 세 가지가 바로 보이도록 운동 화면을 처음부터 다시 만들었습니다.</span>
+        <span class="en">Racing HYROX myself, I found small numbers impossible to read while gasping for air. What am I doing now, what comes next, where do I tap? I rebuilt the workout screen from scratch so those three are clear at a glance.</span>
+      </p>
+      <ul>
+        <li><span class="ko">노랑은 스테이션, 파랑은 러닝, 회색은 Roxzone과 휴식. 색만 봐도 지금 구간을 압니다</span><span class="en">Yellow for stations, blue for runs, gray for Roxzone and rest. The color tells you where you are</span></li>
+        <li><span class="ko">지금 구간 이름과 다음 구간은 크게, 버튼은 언제나 같은 자리</span><span class="en">Big current and next segment, buttons always in the same place</span></li>
+        <li><span class="ko">크라운이나 베젤을 돌리면 목표 대비 · 예상 완주 · 최고 심박 · 칼로리</span><span class="en">Turn the crown or bezel for vs goal, projected finish, max heart rate and calories</span></li>
+        <li><span class="ko">Apple Watch · 갤럭시 워치 · 폰 모두 같은 색, 같은 배치</span><span class="en">Same colors and layout on Apple Watch, Galaxy Watch and your phone</span></li>
+      </ul>
+    </div>
+    <div class="tones">
+      <figure class="tone">
+        <div class="pair">
+          <div class="uw xs"><div class="scr"><img src="img/w_live_127.webp" alt="Apple Watch 스테이션(노랑) 화면" width="416" height="496" loading="lazy"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+          <div class="gw"><div class="scr"><img src="img/gw_station_127.webp" alt="갤럭시 워치 스테이션(노랑) 화면" width="450" height="450" loading="lazy"></div><img class="fr" src="img/gw_frame.webp" alt="" aria-hidden="true" width="780" height="1074" loading="lazy"></div>
+        </div>
+        <figcaption><span class="sw st"></span><span class="ko">스테이션</span><span class="en">Station</span></figcaption>
+      </figure>
+      <figure class="tone">
+        <div class="pair">
+          <div class="uw xs"><div class="scr"><img src="img/w_run_127.webp" alt="Apple Watch 러닝(파랑) 화면" width="416" height="496" loading="lazy"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+          <div class="gw"><div class="scr"><img src="img/gw_run_127.webp" alt="갤럭시 워치 러닝(파랑) 화면" width="450" height="450" loading="lazy"></div><img class="fr" src="img/gw_frame.webp" alt="" aria-hidden="true" width="780" height="1074" loading="lazy"></div>
+        </div>
+        <figcaption><span class="sw rn"></span><span class="ko">러닝</span><span class="en">Run</span></figcaption>
+      </figure>
+      <figure class="tone">
+        <div class="pair">
+          <div class="uw xs"><div class="scr"><img src="img/w_rox_127.webp" alt="Apple Watch Roxzone(회색) 화면" width="416" height="496" loading="lazy"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+          <div class="gw"><div class="scr"><img src="img/gw_rox_127.webp" alt="갤럭시 워치 Roxzone(회색) 화면" width="450" height="450" loading="lazy"></div><img class="fr" src="img/gw_frame.webp" alt="" aria-hidden="true" width="780" height="1074" loading="lazy"></div>
+        </div>
+        <figcaption><span class="sw rx"></span><span class="ko">Roxzone · 휴식</span><span class="en">Roxzone · Rest</span></figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -375,12 +432,12 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <ul>
         <li><span class="ko">한 세트에 16구간까지, 세트 반복</span><span class="en">Up to 16 segments per set, repeat sets</span></li>
         <li><span class="ko">스테이션 8종: SkiErg, Sled Push, Sled Pull, BBJ, Row, Carry, Lunges, Wall Balls</span><span class="en">Eight stations: SkiErg, Sled Push, Sled Pull, BBJ, Row, Carry, Lunges, Wall Balls</span></li>
-        <li><span class="ko">Roxzone도 종목처럼 넣어 이동 시간까지 연습</span><span class="en">Add Roxzone like a station to practise transitions</span></li>
+        <li><span class="ko">Roxzone도 종목처럼 넣어 이동 시간까지 연습, 휴식(Rest)도 원하는 자리에</span><span class="en">Add Roxzone like a station to practise transitions, and Rest wherever you need it</span></li>
         <li><span class="ko">HIIT와 러닝도 한 번에 시작</span><span class="en">HIIT and running start in one tap too</span></li>
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/p_build_122.webp" alt="새 트레이닝 만들기 화면" width="540" height="1174"></div>
+      <div class="phone"><img src="img/p_build_127.webp" alt="트레이닝 만들기 화면: Roxzone · Rest 칸과 구간 순서" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -402,7 +459,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/p_race_122.webp" alt="레이스 목표 기록 화면" width="540" height="1174"></div>
+      <div class="phone"><img src="img/p_race_127.webp" alt="레이스 목표 기록 화면" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -429,8 +486,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <p class="note"><span class="ko">등급은 SPLITS8 자체 기준이며 HYROX 공식 기록이 아닙니다.</span><span class="en">Grades are SPLITS8's own guide, not an official HYROX result.</span></p>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/p_pft_122.webp" alt="PFT 화면: 최고 기록 21:48, GOLD 뱃지와 등급 막대" width="540" height="1174"></div>
-      <div class="uw sm"><div class="scr"><img src="img/w_home_122.webp" alt="워치 첫 화면: Training · PFT · Full Simulation · Race" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="phone"><img src="img/p_pft_127.webp" alt="PFT 화면: 최고 기록 21:48, GOLD 뱃지와 등급 막대" width="540" height="1174"></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_home_127.webp" alt="워치 첫 화면: Training · PFT · Full Simulation · Race" width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
     </div>
   </div>
 </section>
@@ -451,8 +508,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/p_detail_122.webp" alt="기록 상세 화면" width="540" height="1174"></div>
-      <div class="phone" style="--w: clamp(150px, 30vw, 230px)"><img src="img/p_splits_122.webp" alt="구간별 시간 목록" width="540" height="1174"></div>
+      <div class="phone"><img src="img/p_detail_127.webp" alt="기록 상세 화면" width="540" height="1174"></div>
+      <div class="phone" style="--w: clamp(150px, 30vw, 230px)"><img src="img/p_splits_127.webp" alt="구간별 시간 목록" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -598,8 +655,8 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/n_finish_122.webp" alt="운동 끝 카드: New personal best! 1:16:05" width="540" height="1174"></div>
-      <div class="uw sm"><div class="scr"><img src="img/w_summary_122.webp" alt="워치 요약 화면: Gold again. Consistent." width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
+      <div class="phone"><img src="img/n_finish_127.webp" alt="운동 끝 카드: Faster than ever. 1:16:05" width="540" height="1174"></div>
+      <div class="uw sm"><div class="scr"><img src="img/w_summary_127.webp" alt="워치 요약 화면: Gold again. Consistent." width="416" height="496"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
     </div>
   </div>
 </section>
@@ -618,7 +675,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/n_insights_122.webp" alt="기록 화면의 Insights 카드" width="540" height="1174"></div>
+      <div class="phone"><img src="img/n_insights_127.webp" alt="기록 화면의 Insights 카드" width="540" height="1174"></div>
     </div>
   </div>
 </section>
@@ -638,7 +695,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art col">
-      <div class="phone"><img src="img/n_live_122.webp" alt="iPhone에 나온 워치 운동 실시간 화면" width="540" height="1174"></div>
+      <div class="phone"><img src="img/n_live_127.webp" alt="폰에 나온 워치 운동 실시간 화면: 노란 스테이션 Sled Push" width="540" height="1174"></div>
       <img class="shot lock" src="img/n_lock.webp" alt="잠금 화면 실시간 표시: Sled Push 1:20" width="740" height="280">
     </div>
   </div>
@@ -659,7 +716,7 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       </ul>
     </div>
     <div class="art">
-      <div class="phone"><img src="img/p_widgets_122.webp" alt="위젯 화면: D-day 작은 위젯과 목표 · 최고 기록이 보이는 가로 위젯" width="540" height="1174"></div>
+      <div class="phone"><img src="img/p_widgets_127.webp" alt="위젯 화면: D-day 작은 위젯과 목표 · 최고 기록이 보이는 가로 위젯" width="540" height="1174"></div>
     </div>
   </div>
 </section>
