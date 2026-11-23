@@ -311,6 +311,22 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
 .tone .sw { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
 .tone .sw.st { background: #FFE600; } .tone .sw.rn { background: #1E78FA; } .tone .sw.rx { background: #54545C; box-shadow: 0 0 0 1px #8a8a90; }
 @media (max-width: 760px) { .tones { grid-template-columns: minmax(0, 1fr); gap: 34px; } .gw { --w: 36vw; } .uw.xs { --w: 30vw; } }
+
+/* 릴스 모음 (인스타처럼 3칸) */
+.reels .head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.reels .ig{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--yellow);text-decoration:none;font-size:16px}
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:28px;max-width:760px}
+.rgrid .r{position:relative;aspect-ratio:9/16;background:var(--ink);overflow:hidden;cursor:pointer;border:0;padding:0;display:block;width:100%}
+.rgrid .r img,.rgrid .r video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.rgrid .r .pi{position:absolute;top:8px;right:8px;width:22px;height:22px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
+.rgrid .r:hover img{opacity:.85}
+.rgrid .r.on .pi,.rgrid .r.on img{display:none}
+.rgrid .r[hidden]{display:none}
+.reels .more{margin-top:18px}
+.light.reels .ig{color:var(--fg-l)}
+.light.reels .ghost{color:var(--fg-l);border-color:var(--sub-l)}
+.light.reels .rgrid .r{background:#e4e4dc}
+@media (max-width:600px){.rgrid{gap:2px;margin-left:calc(-1*var(--gutter));margin-right:calc(-1*var(--gutter))}}
 </style>
 </head>
 <body>
@@ -398,21 +414,21 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
       <figure class="tone">
         <div class="pair">
           <div class="uw xs"><div class="scr"><img src="img/w_live_127.webp" alt="Apple Watch 스테이션(노랑) 화면" width="416" height="496" loading="lazy"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
-          <div class="gw"><div class="scr"><img src="img/gw_station_127.webp" alt="갤럭시 워치 스테이션(노랑) 화면" width="450" height="450" loading="lazy"></div><img class="fr" src="img/gw_frame.webp" alt="" aria-hidden="true" width="780" height="1074" loading="lazy"></div>
+          <div class="gw"><div class="scr"><img src="img/gw_station_127s.webp" alt="갤럭시 워치 스테이션(노랑) 화면" width="320" height="320" loading="lazy"></div><img class="fr" src="img/gw_frame.webp" alt="" aria-hidden="true" width="780" height="1074" loading="lazy"></div>
         </div>
         <figcaption><span class="sw st"></span><span class="ko">스테이션</span><span class="en">Station</span></figcaption>
       </figure>
       <figure class="tone">
         <div class="pair">
           <div class="uw xs"><div class="scr"><img src="img/w_run_127.webp" alt="Apple Watch 러닝(파랑) 화면" width="416" height="496" loading="lazy"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
-          <div class="gw"><div class="scr"><img src="img/gw_run_127.webp" alt="갤럭시 워치 러닝(파랑) 화면" width="450" height="450" loading="lazy"></div><img class="fr" src="img/gw_frame.webp" alt="" aria-hidden="true" width="780" height="1074" loading="lazy"></div>
+          <div class="gw"><div class="scr"><img src="img/gw_run_127s.webp" alt="갤럭시 워치 러닝(파랑) 화면" width="320" height="320" loading="lazy"></div><img class="fr" src="img/gw_frame.webp" alt="" aria-hidden="true" width="780" height="1074" loading="lazy"></div>
         </div>
         <figcaption><span class="sw rn"></span><span class="ko">러닝</span><span class="en">Run</span></figcaption>
       </figure>
       <figure class="tone">
         <div class="pair">
           <div class="uw xs"><div class="scr"><img src="img/w_rox_127.webp" alt="Apple Watch Roxzone(회색) 화면" width="416" height="496" loading="lazy"></div><img class="fr" src="img/w_ultra_frame.webp" alt="" aria-hidden="true" width="654" height="859"></div>
-          <div class="gw"><div class="scr"><img src="img/gw_rox_127.webp" alt="갤럭시 워치 Roxzone(회색) 화면" width="450" height="450" loading="lazy"></div><img class="fr" src="img/gw_frame.webp" alt="" aria-hidden="true" width="780" height="1074" loading="lazy"></div>
+          <div class="gw"><div class="scr"><img src="img/gw_rox_127s.webp" alt="갤럭시 워치 Roxzone(회색) 화면" width="320" height="320" loading="lazy"></div><img class="fr" src="img/gw_frame.webp" alt="" aria-hidden="true" width="780" height="1074" loading="lazy"></div>
         </div>
         <figcaption><span class="sw rx"></span><span class="ko">Roxzone · 휴식</span><span class="en">Roxzone · Rest</span></figcaption>
       </figure>
@@ -721,6 +737,43 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
   </div>
 </section>
 
+<section class="light reels" id="reels">
+  <div class="in">
+    <div class="head">
+      <div>
+        <p class="eyebrow"><span class="ko">인스타그램 릴스</span><span class="en">Instagram Reels</span></p>
+        <h2><span class="ko">대회 정보,<br>1분이면 됩니다.</span><span class="en">Race info<br>in a minute.</span></h2>
+      </div>
+      <a class="ig" href="https://www.instagram.com/splits8_official/" target="_blank" rel="noopener">@splits8_official →</a>
+    </div>
+    <p class="lead sub"><span class="ko">인스타그램에 올린 영상을 모았습니다. 누르면 바로 재생돼요.</span><span class="en">Our Instagram reels in one place. Tap to play. Captions are in Korean.</span></p>
+    <div class="rgrid">
+      <button class="r" type="button" data-v="reels/r22.mp4" aria-label="서울 대회의 익숙한 얼굴들 / Familiar faces at Seoul"><img src="reels/r22.webp" alt="서울 대회의 익숙한 얼굴들" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r21.mp4" aria-label="인천 티켓 일정 / Incheon ticket dates"><img src="reels/r21.webp" alt="인천 티켓 일정" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r20.mp4" aria-label="하이록스 봉사자 모집 / Race crew wanted"><img src="reels/r20.webp" alt="하이록스 봉사자 모집" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r18.mp4" aria-label="티켓팅 곧 시작 / Ticketing opens soon"><img src="reels/r18.webp" alt="티켓팅 곧 시작" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r17.mp4" aria-label="HYROX 2027 인천 / HYROX 2027 Incheon"><img src="reels/r17.webp" alt="HYROX 2027 인천" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r16.mp4" aria-label="우승자 vs 딱 중간 / Winner vs median"><img src="reels/r16.webp" alt="우승자 vs 딱 중간" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r15.mp4" aria-label="Division별 TOP 10 / Top 10 by Division"><img src="reels/r15.webp" alt="Division별 TOP 10" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r14.mp4" aria-label="레이스 결과, 중간과 비교 / Your result vs the median"><img src="reels/r14.webp" alt="레이스 결과, 중간과 비교" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r13.mp4" aria-label="더블 규칙 / Doubles rules"><img src="reels/r13.webp" alt="더블 규칙" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r12.mp4" hidden aria-label="스테이션 안의 페널티 / Penalties inside stations"><img src="reels/r12.webp" alt="스테이션 안의 페널티" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r11.mp4" hidden aria-label="기록 재는 법 / How to track your race"><img src="reels/r11.webp" alt="기록 재는 법" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r10.mp4" hidden aria-label="레이스 스케줄 / Race schedule"><img src="reels/r10.webp" alt="레이스 스케줄" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r09.mp4" hidden aria-label="킨텍스 가는 법 / Getting to KINTEX"><img src="reels/r09.webp" alt="킨텍스 가는 법" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r08.mp4" hidden aria-label="지도 위의 페널티 / Penalties on the map"><img src="reels/r08.webp" alt="지도 위의 페널티" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r07.mp4" hidden aria-label="대회 당일 동선 / Race-day route"><img src="reels/r07.webp" alt="대회 당일 동선" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r06.mp4" hidden aria-label="서울 풀코스 한 번에 / The Seoul course"><img src="reels/r06.webp" alt="서울 풀코스 한 번에" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r05.mp4" hidden aria-label="하이록스, 올림픽 가나? / HYROX and the Olympics"><img src="reels/r05.webp" alt="하이록스, 올림픽 가나?" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r04.mp4" hidden aria-label="서울 체크인 / Seoul check-in"><img src="reels/r04.webp" alt="서울 체크인" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r03.mp4" hidden aria-label="2분 페널티 / The 2-minute penalty"><img src="reels/r03.webp" alt="2분 페널티" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r02.mp4" hidden aria-label="내 맘대로 트레이닝 / Build your own training"><img src="reels/r02.webp" alt="내 맘대로 트레이닝" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+      <button class="r" type="button" data-v="reels/r01.mp4" hidden aria-label="워치로 풀 시뮬레이션 / Full sim on the watch"><img src="reels/r01.webp" alt="워치로 풀 시뮬레이션" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
+    </div>
+    <p class="more"><button class="ghost" type="button" id="reelsMore"><span class="ko">더 보기</span><span class="en">Show more</span></button></p>
+  </div>
+</section>
+
 <section class="ink" id="contact">
   <div class="in">
     <p class="eyebrow"><span class="ko">문의 · 요청</span><span class="en">Contact · Requests</span></p>
@@ -852,6 +905,23 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
   window.addEventListener('hashchange', req);
   if (mq) { if (mq.addEventListener) mq.addEventListener('change', apply); else if (mq.addListener) mq.addListener(apply); }
   apply();
+})();
+</script>
+<script>
+(function(){
+  var g=document.querySelector('.rgrid'); if(!g) return;
+  g.addEventListener('click',function(ev){
+    var b=ev.target.closest('.r'); if(!b) return;
+    var v=b.querySelector('video');
+    if(v){ if(v.paused) v.play(); else v.pause(); return; }
+    g.querySelectorAll('video').forEach(function(o){o.pause();});
+    v=document.createElement('video'); v.src=b.getAttribute('data-v'); v.playsInline=true; v.setAttribute('playsinline','');
+    v.preload='auto'; v.poster=b.querySelector('img').src;
+    v.addEventListener('play',function(){g.querySelectorAll('video').forEach(function(o){if(o!==v)o.pause();});});
+    b.appendChild(v); b.classList.add('on'); v.play();
+  });
+  var m=document.getElementById('reelsMore');
+  if(m) m.addEventListener('click',function(){g.querySelectorAll('.r[hidden]').forEach(function(x){x.hidden=false;}); m.parentNode.remove();});
 })();
 </script>
 </body>
