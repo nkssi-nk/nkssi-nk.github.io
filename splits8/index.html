@@ -345,21 +345,33 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
 .light.reels .ghost{color:var(--fg-l);border-color:var(--sub-l)}
 .light.reels .rgrid .r{background:#e4e4dc}
 @media (max-width:600px){.rgrid{gap:2px;margin-left:calc(-1*var(--gutter));margin-right:calc(-1*var(--gutter))}}
+/* 사이트 메뉴 + 따라다니는 목차 (모든 페이지 공통) */
+.snav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 53px);z-index:19;background:rgba(0,0,0,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid #2b2b26}
+.snav-in{max-width:1080px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.snav nav{display:flex;gap:6px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}.snav nav::-webkit-scrollbar{display:none}
+.snav .site{display:none}
+.snav .site a{flex:1 0 auto;text-align:center;padding:12px 8px 10px;font-size:14px;font-weight:700;color:#a3a399;text-decoration:none;border-bottom:2px solid transparent}
+.snav .site a[aria-current]{color:#fff;border-bottom-color:#ffe600}
+.snav .secs{padding:8px 0}.snav .secs:empty{display:none}
+.snav .secs a,.snav .secs button{flex:none;padding:6px 13px;border-radius:999px;border:0;background:none;font:inherit;font-size:13.5px;font-weight:600;line-height:1.3;color:#a3a399;text-decoration:none;cursor:pointer}
+.snav .secs .on{color:#000;background:#f6f6f1}
+.snav .secs a:focus-visible,.snav .secs button:focus-visible,.snav .site a:focus-visible{outline:2px solid #ffe600;outline-offset:-2px}
+.nav .nav-links a[aria-current]{color:#fff}
+section[id]{scroll-margin-top:108px}
+@media (max-width:820px){.nav{position:static!important}.nav .nav-links{display:none!important}.navpill{display:none!important}.snav{top:env(safe-area-inset-top,0px)}.snav .site{display:flex;border-bottom:1px solid #1c1c19}}
+.snav .secs{position:relative}
 </style>
 </head>
 <body>
 <div class="nav">
   <div class="nav-in">
     <a class="logo" href="#top"><img class="logoimg" src="img/logo.png" alt="SPLITS8" width="108" height="20"></a>
-    <nav class="nav-links" aria-label="Sections">
-      <a href="#features"><span class="ko">기능</span><span class="en">Features</span></a>
-      <a data-hx href="hyrox.html"><span class="ko">하이록스 가이드</span><span class="en">HYROX guide</span></a>
-      <a class="opt2" href="#pft">PFT</a>
-      <a class="opt2" href="#friends"><span class="ko">친구</span><span class="en">Friends</span></a>
-      <a class="opt" href="#how"><span class="ko">사용법</span><span class="en">How to use</span></a>
-      <a class="opt" href="#new"><span class="ko">새 기능</span><span class="en">What's new</span></a>
-      <a class="opt3" href="#contact"><span class="ko">문의</span><span class="en">Contact</span></a>
-      <a href="android.html"><span class="ko">안드로이드 베타</span><span class="en">Android beta</span></a>
+    <nav class="nav-links" aria-label="사이트 메뉴">
+      <a href="#top" aria-current="page"><span class="ko">앱 소개</span><span class="en">App</span></a>
+      <a data-hx href="hyrox.html"><span class="ko">가이드</span><span class="en">Guide</span></a>
+      <a href="recap.html"><span class="ko">내 기록</span><span class="en">My race</span></a>
+      <a class="ko" href="news.html">소식</a><a class="en" href="hyrox-en.html#news">News</a>
+      <a href="android.html"><span class="ko">안드로이드</span><span class="en">Android</span></a>
     </nav>
     <div class="nav-right">
       <a class="navpill" data-hx href="hyrox.html"><span class="ko">하이록스</span><span class="en">HYROX</span></a>
@@ -368,6 +380,17 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     </div>
   </div>
 </div>
+
+<div class="snav" id="snav"><div class="snav-in">
+    <nav class="site" aria-label="사이트 메뉴">
+      <a href="#top" aria-current="page"><span class="ko">앱 소개</span><span class="en">App</span></a>
+      <a data-hx href="hyrox.html"><span class="ko">가이드</span><span class="en">Guide</span></a>
+      <a href="recap.html"><span class="ko">내 기록</span><span class="en">My race</span></a>
+      <a class="ko" href="news.html">소식</a><a class="en" href="hyrox-en.html#news">News</a>
+      <a href="android.html"><span class="ko">안드로이드</span><span class="en">Android</span></a>
+    </nav>
+    <nav class="secs" aria-label="이 페이지 목차"><a href="#features"><span class="ko">기능</span><span class="en">Features</span></a><a href="#screen"><span class="ko">화면</span><span class="en">Screen</span></a><a href="#pft"><span class="ko">PFT</span><span class="en">PFT</span></a><a href="#friends"><span class="ko">친구</span><span class="en">Friends</span></a><a href="#share"><span class="ko">공유</span><span class="en">Share</span></a><a href="#how"><span class="ko">사용법</span><span class="en">How to use</span></a><a href="#new"><span class="ko">새 기능</span><span class="en">What's new</span></a><a href="#contact"><span class="ko">문의</span><span class="en">Contact</span></a></nav>
+</div></div>
 
 <section class="hero" id="top">
   <div class="in">
@@ -755,43 +778,6 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
   </div>
 </section>
 
-<section class="light reels" id="reels">
-  <div class="in">
-    <div class="head">
-      <div>
-        <p class="eyebrow"><span class="ko">인스타그램 릴스</span><span class="en">Instagram Reels</span></p>
-        <h2><span class="ko">대회 정보,<br>1분이면 됩니다.</span><span class="en">Race info<br>in a minute.</span></h2>
-      </div>
-      <a class="ig" href="https://www.instagram.com/splits8_official/" target="_blank" rel="noopener">@splits8_official →</a>
-    </div>
-    <p class="lead sub"><span class="ko">인스타그램에 올린 영상을 모았습니다. 누르면 바로 재생돼요.</span><span class="en">Our Instagram reels in one place. Tap to play. Captions are in Korean.</span></p>
-    <div class="rgrid">
-      <button class="r" type="button" data-v="reels/r22.mp4" aria-label="서울 대회의 익숙한 얼굴들 / Familiar faces at Seoul"><img src="reels/r22.webp" alt="서울 대회의 익숙한 얼굴들" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r21.mp4" aria-label="인천 티켓 일정 / Incheon ticket dates"><img src="reels/r21.webp" alt="인천 티켓 일정" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r20.mp4" aria-label="하이록스 봉사자 모집 / Race crew wanted"><img src="reels/r20.webp" alt="하이록스 봉사자 모집" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r18.mp4" aria-label="티켓팅 곧 시작 / Ticketing opens soon"><img src="reels/r18.webp" alt="티켓팅 곧 시작" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r17.mp4" aria-label="HYROX 2027 인천 / HYROX 2027 Incheon"><img src="reels/r17.webp" alt="HYROX 2027 인천" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r16.mp4" aria-label="우승자 vs 딱 중간 / Winner vs median"><img src="reels/r16.webp" alt="우승자 vs 딱 중간" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r15.mp4" aria-label="Division별 TOP 10 / Top 10 by Division"><img src="reels/r15.webp" alt="Division별 TOP 10" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r14.mp4" aria-label="레이스 결과, 중간과 비교 / Your result vs the median"><img src="reels/r14.webp" alt="레이스 결과, 중간과 비교" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r13.mp4" aria-label="더블 규칙 / Doubles rules"><img src="reels/r13.webp" alt="더블 규칙" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r12.mp4" hidden aria-label="스테이션 안의 페널티 / Penalties inside stations"><img src="reels/r12.webp" alt="스테이션 안의 페널티" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r11.mp4" hidden aria-label="기록 재는 법 / How to track your race"><img src="reels/r11.webp" alt="기록 재는 법" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r10.mp4" hidden aria-label="레이스 스케줄 / Race schedule"><img src="reels/r10.webp" alt="레이스 스케줄" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r09.mp4" hidden aria-label="킨텍스 가는 법 / Getting to KINTEX"><img src="reels/r09.webp" alt="킨텍스 가는 법" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r08.mp4" hidden aria-label="지도 위의 페널티 / Penalties on the map"><img src="reels/r08.webp" alt="지도 위의 페널티" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r07.mp4" hidden aria-label="대회 당일 동선 / Race-day route"><img src="reels/r07.webp" alt="대회 당일 동선" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r06.mp4" hidden aria-label="서울 풀코스 한 번에 / The Seoul course"><img src="reels/r06.webp" alt="서울 풀코스 한 번에" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r05.mp4" hidden aria-label="하이록스, 올림픽 가나? / HYROX and the Olympics"><img src="reels/r05.webp" alt="하이록스, 올림픽 가나?" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r04.mp4" hidden aria-label="서울 체크인 / Seoul check-in"><img src="reels/r04.webp" alt="서울 체크인" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r03.mp4" hidden aria-label="2분 페널티 / The 2-minute penalty"><img src="reels/r03.webp" alt="2분 페널티" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r02.mp4" hidden aria-label="내 맘대로 트레이닝 / Build your own training"><img src="reels/r02.webp" alt="내 맘대로 트레이닝" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-      <button class="r" type="button" data-v="reels/r01.mp4" hidden aria-label="워치로 풀 시뮬레이션 / Full sim on the watch"><img src="reels/r01.webp" alt="워치로 풀 시뮬레이션" width="360" height="640" loading="lazy"><svg class="pi" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M8 5.5v13l10.5-6.5z"/></svg></button>
-    </div>
-    <p class="more"><button class="ghost" type="button" id="reelsMore"><span class="ko">더 보기</span><span class="en">Show more</span></button></p>
-  </div>
-</section>
-
 <section class="ink" id="contact">
   <div class="in">
     <p class="eyebrow"><span class="ko">문의 · 요청</span><span class="en">Contact · Requests</span></p>
@@ -836,11 +822,11 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
     </ul></div>
     <div><p class="sm-h"><span class="ko">하이록스 가이드</span><span class="en">HYROX guide</span></p><ul>
       <li><a class="ko" href="hyrox.html#what">하이록스란</a><a class="en" href="hyrox-en.html#what">What is HYROX</a></li>
-      <li><a class="ko" href="hyrox.html#calc">내 기록 분석</a><a class="en" href="hyrox-en.html#calc">Analyze my time</a></li>
-      <li><a class="ko" href="hyrox.html#pacer">구간 목표</a><a class="en" href="hyrox-en.html#pacer">Split targets</a></li>
-      <li><a class="ko" href="hyrox.html#news">하이록스 소식</a><a class="en" href="hyrox-en.html#news">HYROX news</a></li>
-      <li><a class="ko" href="hyrox.html#calendar">대회 일정</a><a class="en" href="hyrox-en.html#calendar">Race calendar</a></li>
-      <li><a class="ko" href="hyrox.html#board">게시판</a><a class="en" href="hyrox-en.html#board">Board</a></li>
+      <li><a class="ko" href="recap.html">내 기록 분석</a><a class="en" href="hyrox-en.html#calc">Analyze my time</a></li>
+      <li><a class="ko" href="recap.html">구간 목표</a><a class="en" href="hyrox-en.html#pacer">Split targets</a></li>
+      <li><a class="ko" href="news.html">하이록스 소식</a><a class="en" href="hyrox-en.html#news">HYROX news</a></li>
+      <li><a class="ko" href="news.html#calendar">대회 일정</a><a class="en" href="hyrox-en.html#calendar">Race calendar</a></li>
+      <li><a class="ko" href="news.html#board">게시판</a><a class="en" href="hyrox-en.html#board">Board</a></li>
     </ul></div>
     <div><p class="sm-h"><span class="ko">지원</span><span class="en">Support</span></p><ul>
       <li><a href="#contact"><span class="ko">문의</span><span class="en">Contact</span></a></li>
@@ -971,6 +957,13 @@ html.fx body > section:not(.hero):not(.is-focus) { opacity: .35; filter: graysca
   var m=document.getElementById('reelsMore');
   if(m) m.addEventListener('click',function(){g.querySelectorAll('.r[hidden]').forEach(function(x){x.hidden=false;}); m.parentNode.remove();});
 })();
+</script>
+<script>
+(function(){var sn=document.querySelector('.snav .secs');if(!sn)return;var as=[].slice.call(sn.querySelectorAll('a[href^="#"]'));if(!as.length)return;
+var ss=as.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+function upd(){var cur=0;ss.forEach(function(s,i){if(s&&s.getBoundingClientRect().top<=114)cur=i;});
+as.forEach(function(a,i){var on=i===cur;if(on!==a.classList.contains('on')){a.classList.toggle('on',on);if(on)sn.scrollTo({left:a.offsetLeft-sn.clientWidth/2+a.offsetWidth/2,behavior:'smooth'});}});}
+addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();})();
 </script>
 </body>
 </html>
