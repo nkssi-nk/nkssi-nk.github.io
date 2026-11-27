@@ -621,20 +621,24 @@ section[id]{scroll-margin-top:108px}
   });
 
   // 이미지로 넣기 — 공식 결과 화면 (Running 1~8 · 종목 · Roxzone Time · Overall Time). 기기 안에서만 읽음
-  var KEYS = [/ski\s*-?\s*erg/i, /sled\s*push/i, /sled\s*pull/i, /burpee/i, /\brow(ing)?\b/i, /farmer/i, /lunge/i, /wall\s*-?\s*ball/i];
+  // 영어 원문 + 브라우저 자동 번역(한글) 이름 둘 다
+  var KEYS = [/ski\s*-?\s*erg|스키/i, /sled\s*push|밀기|푸시|푸쉬/i, /sled\s*pull|(썰매|슬레드|스레드)\s*(당기기|끌기|풀)|당기기/i, /burpee|버피/i,
+              /\brow(ing)?\b|로잉|로우|조정|노\s*젓|(^|\s)(행|열|줄)(\s|$)/i, /farmer|파머|농부/i, /lunge|런지/i, /wall\s*-?\s*ball|월\s*볼|벽\s*(공|볼)/i];
+  var RUN_N = /\brun(?:ning)?\s*([1-8])\b|(?:달리기|러닝|런닝|실행\s*중?|주행)\s*([1-8])(?!\d)/i, RUN_W = /\brun(?:ning)?\b|달리기|러닝|런닝|실행/i,
+      ROX = /rox\s*zone|[록락]스\s*존/i, TOTAL = /(overall|finish|final|total)\s*time|^total\b|(전체|총|최종|완주|종합)\s*(시간|기록)/i;
   function times(line) {
     var l = line.replace(/\s*:\s*/g, ':').replace(/[\dOolI|:]{3,}/g, function (w) { return /\d/.test(w) && /:/.test(w) ? w.replace(/[Oo]/g, '0').replace(/[lI|]/g, '1') : w; });
     return (l.match(/(?:\d{1,2}:)?\d{1,2}:\d{2}(?:\.\d+)?/g) || []).map(function (t) { var p = t.split(':').map(parseFloat); return Math.round(p.length === 3 ? p[0] * 3600 + p[1] * 60 + p[2] : p[0] * 60 + p[1]); }).filter(function (v) { return v >= 10; });
   }
   function ocrParse(text) {
     var lines = text.split(/\n+/).map(function (x) { return x.trim(); }).filter(Boolean), o = { st: {}, runs: {} }, all = [];
-    for (var i = 0; i < lines.length; i++) { var l = lines[i], ts = times(l); all = all.concat(ts);
+    for (var i = 0; i < lines.length; i++) { var l = lines[i].replace(/([가-힣])\s+(?=[가-힣])/g, '$1'), ts = times(l); all = all.concat(ts);
       if (!ts.length && i + 1 < lines.length) ts = times(lines[i + 1]); if (!ts.length) continue;
-      var rm = l.match(/\brun(?:ning)?\s*([1-8])\b/i); if (rm) { if (!o.runs[rm[1] - 1]) o.runs[rm[1] - 1] = ts[0]; continue; }
-      if (/rox\s*zone/i.test(l)) { if (!o.rox) o.rox = ts[0]; continue; }
-      if (/\brun(?:ning)?\b/i.test(l)) continue;
+      var rm = l.match(RUN_N); if (rm) { var rn = +(rm[1] || rm[2]); if (!o.runs[rn - 1]) o.runs[rn - 1] = ts[0]; continue; }
+      if (ROX.test(l)) { if (!o.rox) o.rox = ts[0]; continue; }
+      if (RUN_W.test(l)) continue;
       for (var k = 0; k < 8; k++) if (KEYS[k].test(l)) { if (!o.st[k]) o.st[k] = ts[0]; break; }
-      if (/(overall|finish|final|total)\s*time|^total\b/i.test(l)) o.total = Math.max(o.total || 0, Math.max.apply(null, ts)); }
+      if (TOTAL.test(l)) o.total = Math.max(o.total || 0, Math.max.apply(null, ts)); }
     if (!o.total) { var big = all.filter(function (v) { return v >= 40 * 60 && v <= 4 * 3600; }); if (big.length) o.total = Math.max.apply(null, big); }
     return o;
   }
@@ -649,7 +653,7 @@ section[id]{scroll-margin-top:108px}
   function say(t, c) { var e = $('ocrs'); e.textContent = t; e.className = 'msg small ' + (c || 'sub'); }
   $('ocrb').addEventListener('click', function () { $('ocrf').click(); });
   $('ocrf').addEventListener('change', function () { var f = this.files && this.files[0], me = this; if (!f) return; $('ocrb').disabled = true; say('글자 읽는 프로그램을 불러오는 중… (처음 한 번, 몇 초)');
-    loadLib().then(function () { return Tesseract.recognize(f, 'eng', { logger: function (m) { if (m.status === 'recognizing text') say('이미지를 읽는 중… ' + Math.round(m.progress * 100) + '%'); } }); })
+    loadLib().then(function () { return Tesseract.recognize(f, 'kor+eng', { logger: function (m) { if (m.status === 'recognizing text') say('이미지를 읽는 중… ' + Math.round(m.progress * 100) + '%'); } }); })
       .then(function (res) { var n = ocrFill(ocrParse(res.data.text)); if (n) say('이미지에서 ' + n + '칸을 채웠어요. 숫자가 맞는지 확인하고 리캡 만들기를 눌러 주세요.', 'good'); else say('이 이미지에서 구간 시간을 못 찾았어요. 더 선명한 이미지로 다시 하거나 직접 넣어 주세요.', 'bad'); })
       .catch(function () { say('글자 읽는 프로그램을 못 불러왔어요. 인터넷 연결을 확인하고 다시 해 주세요.', 'bad'); })
       .then(function () { $('ocrb').disabled = false; me.value = ''; }); });
