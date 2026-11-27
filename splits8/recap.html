@@ -180,8 +180,9 @@ section[id]{scroll-margin-top:108px}
     <div class="seg" id="mode"><button type="button" data-v="rec" aria-pressed="true">기록이 있어요</button><button type="button" data-v="svy" aria-pressed="false">기록이 없어요</button><button type="button" data-v="pac" aria-pressed="false">목표 구간표만</button></div>
 
     <div id="frec" style="display:flex;flex-direction:column;gap:14px">
+      <div class="g2"><div class="f"><label for="course">대회</label><select id="course"><option value="seoul26">HYROX 서울 2026</option><option value="other">다른 대회 · 시뮬레이션</option></select></div>
       <div class="f"><label for="dv">Division</label>
-        <select id="dv"><option value="openMen">Open 남자</option><option value="openWomen">Open 여자</option><option value="proMen">Pro 남자</option><option value="proWomen">Pro 여자</option><option value="doublesMen">Doubles 남자</option><option value="doublesWomen">Doubles 여자</option><option value="doublesMixed">Doubles 혼성</option><option value="proDoublesMen">Pro Doubles 남자</option><option value="proDoublesWomen">Pro Doubles 여자</option></select></div>
+        <select id="dv"><option value="openMen">Open 남자</option><option value="openWomen">Open 여자</option><option value="proMen">Pro 남자</option><option value="proWomen">Pro 여자</option><option value="doublesMen">Doubles 남자</option><option value="doublesWomen">Doubles 여자</option><option value="doublesMixed">Doubles 혼성</option><option value="proDoublesMen">Pro Doubles 남자</option><option value="proDoublesWomen">Pro Doubles 여자</option></select></div></div>
       <div><button class="btn line" type="button" id="ocrb">결과 화면 캡처로 한 번에 넣기</button><input type="file" id="ocrf" accept="image/*" hidden>
         <p class="msg sub small" id="ocrs" style="margin-top:8px">사진은 이 기기 안에서만 읽고 어디로도 보내지 않아요.</p></div>
       <label class="chk"><input type="checkbox" id="rsum"> 러닝 8개를 따로 모르면 합계만 넣기</label>
@@ -289,25 +290,43 @@ section[id]{scroll-margin-top:108px}
     var k = total / (8 * r.run + sum(r.st) + r.rox);
     return { run: r.run * k, st: r.st.map(function (v) { return v * k; }), rox: r.rox * k };
   }
+  // 러닝 + 스테이션 시간(=Roxzone 뺀 시간)이 같은 사람들의 구간 중간값. Roxzone 은 대회장마다 길이가 달라 비교에서 뺌
+  function interpWork(tab, work) {
+    var ws = tab.map(function (r) { return 8 * r.run + sum(r.st); }), r;
+    if (work <= ws[0]) r = tab[0]; else if (work >= ws[ws.length - 1]) r = tab[tab.length - 1];
+    else for (var i = 1; i < tab.length; i++) if (work <= ws[i]) { var a = tab[i - 1], b = tab[i], f = (work - ws[i - 1]) / (ws[i] - ws[i - 1]);
+      r = { run: a.run + (b.run - a.run) * f, st: a.st.map(function (v, j) { return v + (b.st[j] - v) * f; }), rox: a.rox + (b.rox - a.rox) * f }; break; }
+    var k = work / (8 * r.run + sum(r.st));
+    return { run: r.run * k, st: r.st.map(function (v) { return v * k; }), rox: r.rox * k };
+  }
+  // 대회별 코스 사정. 서울 2026 은 러닝 1 이 한 바퀴라 다른 러닝보다 짧음 → 러닝 비교 · 처짐 · 제일 빠른 러닝에서 러닝 1 을 뺌
+  var COURSE = { seoul26: { name: 'HYROX 서울 2026', run1Short: true }, other: { name: '', run1Short: false } };
+  // 전 세계 러닝 중간값 (2025/26 개인전): 러닝 2~8 평균 ÷ 8개 평균, 러닝 5~8 평균 ÷ 러닝 2~4 평균
+  var R27 = { m: (2279 / 7) / (2558 / 8), w: (2508 / 7) / (2822 / 8) }, FADE2 = { m: (1345 / 4) / (934 / 3), w: (1473 / 4) / (1035 / 3) };
+  R27.x = (R27.m + R27.w) / 2; FADE2.x = (FADE2.m + FADE2.w) / 2;
   function pct(x, scale) { return Math.round(50 + Math.min(1, Math.abs(x) / scale) * 45); }
 
   // 기록으로 판정
   function analyze(inp) {
-    var stSum = sum(inp.st), runSum = inp.runs ? sum(inp.runs) : inp.runSum, rox = inp.rox, roxKnown = !!rox;
+    var stSum = sum(inp.st), runSum = inp.runs ? sum(inp.runs) : inp.runSum, rox = inp.rox, roxKnown = !!rox, C = COURSE[inp.course] || COURSE.other;
     var total = inp.total || (rox ? runSum + stSum + rox : Math.round((runSum + stSum) / 0.93));
     if (!rox) { rox = total - runSum - stSum; roxKnown = !!inp.total && rox >= 60; }
-    var ex = interp(BENCH[inp.div], total), g = GEN[inp.div];
-    var a1 = (stSum / sum(ex.st)) - (runSum / (8 * ex.run));                                  // + 면 러닝이 강함
-    var a2 = (sum(pick(inp.st, EN)) / sum(pick(ex.st, EN))) - (sum(pick(inp.st, PW)) / sum(pick(ex.st, PW)));  // + 면 힘이 강함
-    var a3 = inp.runs ? (sum(inp.runs.slice(4)) / sum(inp.runs.slice(0, 4))) - FADE[g] : (inp.fade === 'f' ? 0.04 : -0.04);  // + 면 초반형
-    var parts = [{ n: '러닝 (1km 평균)', me: runSum / 8, ex: ex.run, mul: 8 }];
+    var work = runSum + stSum, ex = interpWork(BENCH[inp.div], work), g = GEN[inp.div];
+    var cut1 = !!(C.run1Short && inp.runs);   // 러닝 1 빼고 비교
+    var runMe = cut1 ? sum(inp.runs.slice(1)) / 7 : runSum / 8, runEx = cut1 ? ex.run * R27[g] : ex.run;
+    var a1 = (stSum / sum(ex.st)) - (runMe / runEx);                                                               // + 면 러닝이 강함
+    var a2 = (sum(pick(inp.st, EN)) / sum(pick(ex.st, EN))) - (sum(pick(inp.st, PW)) / sum(pick(ex.st, PW)));      // + 면 힘이 강함
+    var a3 = !inp.runs ? (inp.fade === 'f' ? 0.04 : -0.04)
+      : cut1 ? (sum(inp.runs.slice(4)) / 4) / (sum(inp.runs.slice(1, 4)) / 3) - FADE2[g]                         // + 면 초반형
+      : (sum(inp.runs.slice(4)) / sum(inp.runs.slice(0, 4))) - FADE[g];
+    var parts = [{ n: cut1 ? '러닝 2~8 (1km 평균)' : '러닝 (1km 평균)', me: runSum / 8, ex: ex.run, mul: 8, cmpMe: runMe, cmpEx: runEx, cmpMul: cut1 ? 7 : 8 }];
     ST.forEach(function (s, i) { parts.push({ n: s[1], me: inp.st[i], ex: ex.st[i], mul: 1 }); });
-    if (roxKnown) parts.push({ n: 'Roxzone (1번 평균)', me: rox / 8, ex: ex.rox / 8, mul: 8 });
-    parts.forEach(function (p) { p.dev = p.me / p.ex - 1; p.diff = (p.me - p.ex) * p.mul; });
-    var sorted = parts.slice().sort(function (a, b) { return a.dev - b.dev; });
-    var a4 = roxKnown ? 1 - rox / ex.rox : (inp.trans === 'q' ? 0.1 : -0.1);                 // + 면 전환이 빠름
+    if (roxKnown) parts.push({ n: 'Roxzone (1번 평균)', me: rox / 8, ex: rox / 8, mul: 8, noCmp: true });
+    parts.forEach(function (p) { var m = p.cmpMe || p.me, e = p.cmpEx || p.ex; p.dev = p.noCmp ? 0 : m / e - 1; p.diff = p.noCmp ? 0 : (m - e) * (p.cmpMul || p.mul); });
+    var sorted = parts.filter(function (p) { return !p.noCmp; }).sort(function (a, b) { return a.dev - b.dev; });
+    var a4 = inp.trans === 'q' ? 0.1 : -0.1;   // 전환은 대회장마다 Roxzone 길이가 달라 질문으로
     return { code: (a1 >= 0 ? 'R' : 'S') + (a2 >= 0 ? 'P' : 'E') + (a3 >= 0 ? 'F' : 'L') + (a4 >= 0 ? 'Q' : 'W'), pc: [pct(a1, 0.16), pct(a2, 0.2), pct(a3, 0.08), pct(a4, 0.25)],
-      total: total, runs: inp.runs || null, parts: parts, strong: sorted.slice(0, 2), weak: sorted.slice(-2).reverse(), div: inp.div, survey: false };
+      total: total, work: work, rox: roxKnown ? rox : null, runs: inp.runs || null, course: inp.course, cut1: cut1, parts: parts, strong: sorted.slice(0, 2), weak: sorted.slice(-2).reverse(), div: inp.div, survey: false };
   }
   // 설문으로 예상 (기준 숫자는 SPLITS8 이 정한 어림값)
   function survey(v) {
@@ -330,9 +349,10 @@ section[id]{scroll-margin-top:108px}
   function segsHTML(r) {
     var mx = Math.max.apply(null, r.parts.map(function (p) { return Math.abs(p.dev); })) || 1, S = r.strong.map(function (p) { return p.n; }), W = r.weak.map(function (p) { return p.n; });
     return '<div class="segs"><div class="sg h"><span>구간</span><span style="text-align:right">내 기록</span><span style="text-align:center">빠름 · 느림</span><span style="text-align:right">차이</span></div>' +
-      r.parts.map(function (p) { var fast = p.diff < 0, st = S.indexOf(p.n) >= 0 && fast, wk = W.indexOf(p.n) >= 0 && !fast;
+      r.parts.map(function (p) { var fast = p.diff < 0, st = S.indexOf(p.n) >= 0 && fast, wk = W.indexOf(p.n) >= 0 && !fast, pm = p.cmpMe || p.me;
+        if (p.noCmp) return '<div class="sg"><span class="n">Roxzone</span><span class="t">' + fmt(p.me) + '</span><span class="sub small" style="grid-column:3/5;text-align:right">대회장마다 길이가 달라 비교 안 함</span></div>';
         return '<div class="sg' + (st ? ' strong' : wk ? ' weak' : '') + '"><span class="n">' + p.n.replace(' (1km 평균)', ' /km').replace(' (1번 평균)', '') + (st ? '<small>강점</small>' : wk ? '<small>약점</small>' : '') + '</span>' +
-          '<span class="t">' + fmt(p.me) + '</span><div class="dv"><i class="' + (fast ? 'fast' : 'slow') + '" style="width:' + (Math.abs(p.dev) / mx * 50).toFixed(1) + '%"></i></div>' +
+          '<span class="t">' + fmt(pm) + '</span><div class="dv"><i class="' + (fast ? 'fast' : 'slow') + '" style="width:' + (Math.abs(p.dev) / mx * 50).toFixed(1) + '%"></i></div>' +
           '<span class="d ' + (fast ? 'fast' : 'slow') + '">' + (fast ? '−' : '+') + fmt(Math.abs(p.diff)) + '</span></div>'; }).join('') + '</div>';
   }
 
@@ -400,7 +420,9 @@ section[id]{scroll-margin-top:108px}
         p.fit(race, 90, 520, 84, 900, WH, 900); p.t(DIVN[r.div], 90, 592, 40, 700, G);
         var th = flaps(p, fmt(r.total), 90, 680, 900, 190), y = 680 + th + 110;
         p.t('러닝 8km, 스테이션 8개.', 90, y, 52, 800, WH); p.t('끝까지 해냈어요.', 90, y + 76, 52, 800, WH);
-        var md = MEDIAN[r.div]; if (md) { var d = r.total - md; p.t('전 세계 ' + DIVN[r.div] + ' 중간 기록보다', 90, y + 200, 38, 600, G); p.t(dsec(d) + (d < 0 ? ' 빨랐어요' : ' 느렸어요'), 90, y + 276, 64, 900, d < 0 ? GOOD : WH); } });
+        var md = MEDIAN[r.div]; if (md) { var mx_ = interp(BENCH[r.div], md), mw = 8 * mx_.run + sum(mx_.st), d = r.work - mw;
+          p.t('러닝 + 스테이션만 보면 전 세계 ' + DIVN[r.div] + ' 중간보다', 90, y + 200, 36, 600, G); p.t(dsec(d) + (d < 0 ? ' 빨랐어요' : ' 느렸어요'), 90, y + 276, 64, 900, d < 0 ? GOOD : WH);
+          p.t('Roxzone 은 대회장마다 길이가 달라 뺐어요', 90, y + 340, 30, 600, D); } });
       defs.push(function (p, no, n) { base(p, 'WHERE THE TIME WENT', no, n);
         p.t('시간은', 90, 480, 84, 900, WH); p.t('여기에 썼어요', 90, 580, 84, 900, WH);
         [['러닝 8km', runSum, RUNC], ['스테이션 8개', stSum, Y], ['Roxzone', rox, '#b9b9b0']].forEach(function (a, i) { var y = 780 + i * 260, pc = a[1] / r.total;
@@ -409,18 +431,19 @@ section[id]{scroll-margin-top:108px}
           p.r(90, y + 126, 900, 18, 9, '#1f1f1c'); p.r(90, y + 126, 900 * pc, 18, 9, a[2]); }); });
       var hero = function (cap, title, part, good) { return function (p, no, n) { base(p, cap, no, n);
         p.t(title, 90, 480, 64, 800, G); p.fit(nm(part), 90, 700, 170, 900, Y, 900);
-        p.t(fmt(part.me) + (part.mul === 8 ? (part.n.indexOf('러닝') === 0 ? ' /km' : ' /회') : ''), 90, 860, 110, 900, WH);
+        p.t(fmt(part.cmpMe || part.me) + (part.mul === 8 ? (part.n.indexOf('러닝') === 0 ? ' /km' : ' /회') : ''), 90, 860, 110, 900, WH);
         p.t('같은 시간대로 완주한 사람들보다', 90, 1040, 40, 600, G); p.t(dsec(part.diff) + (part.diff < 0 ? ' 빨랐어요' : ' 느렸어요'), 90, 1130, 84, 900, good ? GOOD : BAD);
         p.t(good ? '이 구간이 당신의 무기예요.' : '여기가 다음 기록의 열쇠예요.', 90, 1300, 46, 700, WH); }; };
       defs.push(hero('BEST SEGMENT', '가장 빛난 구간', r.strong[0], true));
       if (r.weak[0].diff > 0) defs.push(hero('TOUGHEST SEGMENT', '가장 길었던 구간', r.weak[0], false));
       if (r.runs) defs.push(function (p, no, n) { base(p, 'RUN PACE', no, n);
         p.t('러닝 페이스는', 90, 480, 84, 900, WH); p.t('이렇게 흘렀어요', 90, 580, 84, 900, WH);
-        var mn = Math.min.apply(null, r.runs), mx = Math.max.apply(null, r.runs), bw = 84, gp = (900 - bw * 8) / 7, by = 1330;
-        r.runs.forEach(function (v, i) { var h = 160 + 420 * (v - mn) / Math.max(1, mx - mn), x = 90 + i * (bw + gp), col = v === mn ? RUNC : v === mx ? BAD : '#34342f';
+        var rr = r.cut1 ? r.runs.slice(1) : r.runs, mn = Math.min.apply(null, rr), mx = Math.max.apply(null, rr), lo = Math.min.apply(null, r.runs), bw = 84, gp = (900 - bw * 8) / 7, by = 1330;
+        r.runs.forEach(function (v, i) { var h = 160 + 420 * (v - lo) / Math.max(1, mx - lo), x = 90 + i * (bw + gp), skip = r.cut1 && i === 0, col = skip ? '#26261f' : v === mn ? RUNC : v === mx ? BAD : '#34342f';
           p.r(x, by - h, bw, h, 10, col); p.t(fmt(v), x + bw / 2, by - h - 20, 30, 800, v === mn || v === mx ? WH : G, 'center'); p.t(String(i + 1), x + bw / 2, by + 50, 34, 800, D, 'center'); });
-        var fi = r.runs.indexOf(mn) + 1, si = r.runs.indexOf(mx) + 1;
-        p.t('가장 빠른 건 러닝 ' + fi + ', 가장 느린 건 러닝 ' + si + '.', 90, 1480, 42, 700, WH); p.t('둘의 차이는 ' + dsec(mx - mn) + '예요.', 90, 1546, 42, 700, G); });
+        var off = r.cut1 ? 1 : 0, fi = rr.indexOf(mn) + 1 + off, si = rr.indexOf(mx) + 1 + off;
+        p.t('가장 빠른 건 러닝 ' + fi + ', 가장 느린 건 러닝 ' + si + '.', 90, 1480, 42, 700, WH);
+        p.t(r.cut1 ? '러닝 1 은 한 바퀴 코스라 빼고 봤어요. 차이 ' + dsec(mx - mn) : '둘의 차이는 ' + dsec(mx - mn) + '예요.', 90, 1546, 38, 700, G); });
     }
     defs.push(function (p, no, n) { base(p, r.survey ? '설문으로 본 예상 유형' : 'MY HYROX TYPE', no, n);
       p.t('당신의 유형은', 90, 470, 64, 800, G);
@@ -438,7 +461,9 @@ section[id]{scroll-margin-top:108px}
   }
 
   // ───────── 목표 계획 ─────────
-  function bandOf(r, goal) { var ex = interp(BENCH[r.div], goal); return [ex.run].concat(ex.st, r.parts.length > 9 ? [ex.rox / 8] : []); }
+  function bandOf(r, goal) { var rx = r.rox || (r.total - r.work), ex = interpWork(BENCH[r.div], Math.max(30 * 60, goal - rx)), run = ex.run;
+    if (r.cut1) run = (r.runs[0] + 7 * ex.run * R27[GEN[r.div]]) / 8;   // 서울: 러닝 1 은 내 기록 그대로
+    return [run].concat(ex.st, r.parts.length > 9 ? [r.rox / 8] : []); }
   function autoPlan(r, goal) {   // 목표 기록대 사람들보다 처지는 구간부터 줄이기. 이미 빠른 구간은 그대로
     var band = bandOf(r, goal), cur = r.parts.map(function (p) { return p.me; }), mul = r.parts.map(function (p) { return p.mul; });
     var fixed = r.parts.length > 9 ? 0 : r.total - sum(cur.map(function (v, i) { return v * mul[i]; }));   // Roxzone 을 모르면 그대로 둠
@@ -448,11 +473,11 @@ section[id]{scroll-margin-top:108px}
     return { v: cur.map(function (v, i) { var cut = req[i] * k / mul[i]; return Math.round(v - cut - (left > 0 ? (v - cut) * left / (base0 - tr * k) : 0)); }), band: band, fixed: fixed, goal: goal };
   }
   function planTotal(pl) { return sum(pl.v.map(function (v, i) { return v * (last.parts[i].mul); })) + pl.fixed; }
-  function cuts(r, pl) { return r.parts.map(function (p, i) { return { n: nm(p), d: (p.me - pl.v[i]) * p.mul }; }).filter(function (c) { return c.d >= 1; }).sort(function (a, b) { return b.d - a.d; }); }
+  function cuts(r, pl) { return r.parts.map(function (p, i) { return { n: nm(p).replace('러닝 2~8', '러닝'), d: (p.me - pl.v[i]) * p.mul }; }).filter(function (c) { return c.d >= 1; }).sort(function (a, b) { return b.d - a.d; }); }
   function planHTML(r, pl) {
     var weakN = r.weak.map(function (p) { return p.n; }), tot = planTotal(pl), gap = tot - pl.goal;
     var rows = r.parts.map(function (p, i) { var d = (p.me - pl.v[i]) * p.mul, behind = p.me > pl.band[i] + 0.5;
-      return '<tr class="' + (weakN.indexOf(p.n) >= 0 ? 'weak' : '') + '"><td>' + p.n.replace(' (1km 평균)', ' /km').replace(' (1번 평균)', ' /회') + '</td><td class="now">' + fmt(p.me) + '</td><td class="' + (behind ? 'slow' : 'sub') + '">' + fmt(pl.band[i]) + '</td>' +
+      return '<tr class="' + (weakN.indexOf(p.n) >= 0 ? 'weak' : '') + '"><td>' + p.n.replace('러닝 2~8', '러닝').replace(' (1km 평균)', ' /km').replace(' (1번 평균)', ' /회') + '</td><td class="now">' + fmt(p.me) + '</td><td class="' + (behind ? 'slow' : 'sub') + '">' + fmt(pl.band[i]) + '</td>' +
         '<td><span class="stp"><button type="button" data-i="' + i + '" data-d="-1" aria-label="' + esc(nm(p)) + ' 목표 줄이기">−</button><b>' + fmt(pl.v[i]) + '</b><button type="button" data-i="' + i + '" data-d="1" aria-label="' + esc(nm(p)) + ' 목표 늘리기">+</button></span></td>' +
         '</tr>'; }).join('');
     return '<div class="tbl"><table><tr><th>구간</th><th>지금</th><th>' + fmt(pl.goal) + ' 선수들</th><th>내 목표</th></tr>' + rows + '</table></div>' +
@@ -463,7 +488,11 @@ section[id]{scroll-margin-top:108px}
   function lapsOf(run, st, roxEach) { var a = []; for (var i = 0; i < 8; i++) { a.push(run[i] + roxEach); a.push(st[i]); } return a; }   // 러닝 칸에 이동 시간을 더함
   function myLaps(r) { var rx = r.parts.length > 9 ? r.parts[9].me : Math.max(0, (r.total - r.parts[0].me * 8 - sum(r.parts.slice(1, 9).map(function (p) { return p.me; }))) / 8);
     return lapsOf(r.runs || [0, 0, 0, 0, 0, 0, 0, 0].map(function () { return r.parts[0].me; }), r.parts.slice(1, 9).map(function (p) { return p.me; }), rx); }
-  function benchLaps(div, total) { var ex = interp(BENCH[div], total); return lapsOf([0, 0, 0, 0, 0, 0, 0, 0].map(function () { return ex.run; }), ex.st, ex.rox / 8); }
+  function benchLaps(div, total) {   // 같은 대회장이라 치고 Roxzone 은 내 것, 서울이면 러닝 1 도 내 비율로
+    var r = last, ex = interp(BENCH[div], total), rx = ex.rox / 8;
+    if (r && r.rox) { ex = interpWork(BENCH[div], Math.max(30 * 60, total - r.rox)); rx = r.rox / 8; }
+    var runs = [0, 1, 2, 3, 4, 5, 6, 7].map(function (i) { if (!(r && r.cut1)) return ex.run; var p = ex.run * R27[GEN[div]]; return i === 0 ? r.runs[0] * p / r.parts[0].cmpMe : p; });
+    return lapsOf(runs, ex.st, rx); }
   function planLaps(r, pl) { var k = r.runs ? pl.v[0] / r.parts[0].me : 1, rx = r.parts.length > 9 ? pl.v[9] : pl.fixed / 8;
     return lapsOf((r.runs || [0, 0, 0, 0, 0, 0, 0, 0].map(function () { return pl.v[0]; })).map(function (v) { return r.runs ? v * k : v; }), pl.v.slice(1, 9), rx); }
   var SEGN = ['러닝 1', 'SkiErg', '러닝 2', 'Sled Push', '러닝 3', 'Sled Pull', '러닝 4', 'Burpee BJ', '러닝 5', 'Row', '러닝 6', 'Farmers', '러닝 7', 'Lunges', '러닝 8', 'Wall Balls'];
@@ -529,8 +558,8 @@ section[id]{scroll-margin-top:108px}
       '<p class="tline">' + t[1] + '</p><div class="chips">' + AX.map(function (a, i) { return '<span class="chip">' + a[LEFT[i] === r.code[i] ? 0 : 1] + '</span>'; }).join('') + '</div>' +
       '<div class="axes">' + axesHTML(r) + '</div><p class="tip">' + TIPS[r.code.slice(0, 3)] + '</p><p class="sub">' + TRANS[r.code[3]] + '</p></section>';
     if (!r.survey) {
-      h += '<section class="sec" data-tab="segs"><div class="sech"><h2>구간별로 보면</h2><span class="cap">' + fmt(r.total) + '</span></div>' + segsHTML(r) +
-        '<p class="sub small">완주 시간 ' + fmt(r.total) + ' 로 들어온 사람들의 구간 중간값과 비교했어요. 러닝과 Roxzone 의 차이는 8번을 합친 값이에요.</p></section>';
+      h += '<section class="sec" data-tab="segs"><div class="sech"><h2>구간별로 보면</h2><span class="cap">' + fmt(r.work) + '</span></div>' + segsHTML(r) +
+        '<p class="sub small">러닝과 스테이션을 합친 시간(' + fmt(r.work) + ')이 같은 사람들의 구간 중간값과 비교했어요. Roxzone 은 대회장마다 길이가 달라 뺐어요.' + (r.cut1 ? ' 서울 2026 은 러닝 1 이 한 바퀴라 러닝은 2~8 만 비교했어요.' : '') + '</p></section>';
       h += '<section class="sec" data-tab="goal"><div class="sech"><h2>다음 목표 정하기</h2>' + (w ? '<span class="cap">인천까지 ' + w + '주</span>' : '') + '</div>' +
         '<p class="sub">목표 시간을 넣으면, 그 시간으로 완주한 선수들의 구간 기록과 내 기록을 나란히 보여 줘요. 처지는 구간부터 자동으로 나눠 두었으니 − + 로 직접 고쳐 보세요.</p>' +
         '<div class="g2"><div class="f"><label for="goal">목표 완주 시간</label><input id="goal" inputmode="numeric" value="' + fmt(plan.goal) + '" autocomplete="off"></div><button class="btn line" type="button" id="auto">자동으로 나누기</button></div>' +
@@ -602,13 +631,11 @@ section[id]{scroll-margin-top:108px}
   ['fadeq', 'transq', 'sg', 'q1', 'q2', 'q3'].forEach(function (i) { segs(i); });
   $('rsum').addEventListener('change', function () { var on = this.checked; $('rsbox').hidden = !on; $('qfade').hidden = !on; pairs.classList.toggle('sumonly', on);
     for (var i = 0; i < 8; i++) $('r' + i).parentNode.hidden = on; });
-  function roxq() { $('qtrans').hidden = !!($('rox').value.trim() || $('tot').value.trim()); }
-  $('rox').addEventListener('input', roxq); $('tot').addEventListener('input', roxq); roxq();
   function fail(m) { var e = $('err'); e.textContent = m; e.hidden = false; return null; }
   function readRec() {
     var st = [], runs = [], i, v;
     for (i = 0; i < 8; i++) { v = parse($('s' + i).value); if (!v || v < 30 || v > 1500) return fail(ST[i][1] + ' 시간을 4:30 처럼 넣어 주세요.'); st.push(v); }
-    var inp = { div: $('dv').value, st: st, rox: parse($('rox').value), total: parse($('tot').value), fade: segv('fadeq'), trans: segv('transq') };
+    var inp = { div: $('dv').value, course: $('course').value, st: st, rox: parse($('rox').value), total: parse($('tot').value), fade: segv('fadeq'), trans: segv('transq') };
     if ($('rsum').checked) { v = parse($('rs').value); if (!v || v < 20 * 60 || v > 150 * 60) return fail('러닝 합계를 43:35 처럼 넣어 주세요.'); inp.runSum = v; }
     else { for (i = 0; i < 8; i++) { v = parse($('r' + i).value); if (!v || v < 150 || v > 1200) return fail('러닝 ' + (i + 1) + ' 시간을 5:05 처럼 넣어 주세요.'); runs.push(v); } inp.runs = runs; }
     var s = sum(st) + (inp.runs ? sum(runs) : inp.runSum);
@@ -747,7 +774,7 @@ section[id]{scroll-margin-top:108px}
       .then(function () { $('ocrb').disabled = false; me.value = ''; }); });
 
   // 처음 화면: 예시 결과 (Open 남자 1:27:30)
-  var EX = { div: 'openMen', runs: [285, 305, 320, 325, 335, 330, 335, 380], st: [270, 170, 280, 340, 290, 125, 330, 440], rox: 390 };
+  var EX = { div: 'openMen', course: 'other', trans: 'q', runs: [285, 305, 320, 325, 335, 330, 335, 380], st: [270, 170, 280, 340, 290, 125, 330, 440], rox: 390 };
   function boot() { render(analyze(EX), true); }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(boot); else boot();
 })();
