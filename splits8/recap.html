@@ -103,7 +103,7 @@ tr.weak td:first-child{color:var(--yellow)}td.now{color:var(--sub)}td.tg{font-we
 .story img{flex:0 0 100%;width:100%;max-width:100%;box-sizing:border-box;aspect-ratio:9/16;border-radius:14px;border:1px solid var(--line);scroll-snap-align:center;display:block}
 .arw{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:#fff;font:inherit;font-size:30px;line-height:1;padding:0 0 4px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .arw.l{left:10px}.arw.r{right:10px}.arw:disabled{opacity:0;pointer-events:none}.arw:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
-.vbar{display:flex;align-items:center;justify-content:space-between;gap:12px}.vbar .cnt{font-weight:800;font-variant-numeric:tabular-nums;color:var(--sub);font-size:15px}.vbar .btn{flex:1;max-width:260px}
+.vbar{display:flex;align-items:center;justify-content:space-between;gap:12px}.vbar .cnt{font-weight:800;font-variant-numeric:tabular-nums;color:var(--sub);font-size:15px}.vbar .btn{flex:1;max-width:200px;padding-left:10px;padding-right:10px}.vbar .cnt{flex:none}
 .stp{display:inline-flex;align-items:center;gap:6px}.stp b{min-width:42px;text-align:center;font-weight:800}
 .stp button{width:30px;height:30px;border-radius:6px;border:1px solid var(--line);background:var(--tile);color:var(--fg);font:inherit;font-size:18px;font-weight:700;line-height:1;cursor:pointer;padding:0}
 .stp button:active{background:var(--yellow);color:var(--yellow-ink)}.stp button:focus-visible{outline:2px solid var(--yellow)}
@@ -538,6 +538,23 @@ section[id]{scroll-margin-top:108px}
   function saveImg(i) { imgs[i].toBlob(function (b) { var f = new File([b], 'splits8-recap-' + (i + 1) + '.png', { type: 'image/png' });
       if (navigator.canShare && navigator.canShare({ files: [f] })) { navigator.share({ files: [f] }).catch(function () {}); return; }
       var a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = f.name; document.body.appendChild(a); a.click(); a.remove(); }); }
+  function saveAll() {   // 7장을 한 번에: 폰은 공유 창 하나로 (사진에 저장), PC 는 차례로 내려받기
+    Promise.all(imgs.map(function (c, i) { return new Promise(function (ok) { c.toBlob(function (b) { ok(new File([b], 'splits8-recap-' + (i + 1) + '.png', { type: 'image/png' })); }, 'image/png'); }); })).then(function (fs) {
+      if (navigator.canShare && navigator.canShare({ files: fs })) { navigator.share({ files: fs }).catch(function () {}); return; }
+      zipOf(fs).then(function (z) { var a = document.createElement('a'); a.href = URL.createObjectURL(z); a.download = 'splits8-recap.zip'; document.body.appendChild(a); a.click(); a.remove(); }); }); }
+  var CRC = (function () { var t = []; for (var n = 0; n < 256; n++) { var c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function zipOf(fs) {   // PC 는 여러 파일 내려받기가 막히니 압축 없이 묶은 zip 하나로
+    return Promise.all(fs.map(function (f) { return f.arrayBuffer(); })).then(function (bufs) {
+      var parts = [], cen = [], off = 0, enc = new TextEncoder();
+      bufs.forEach(function (b, i) { var d = new Uint8Array(b), nm = enc.encode(fs[i].name), c = 0xFFFFFFFF;
+        for (var j = 0; j < d.length; j++) c = CRC[(c ^ d[j]) & 255] ^ (c >>> 8); c = (c ^ 0xFFFFFFFF) >>> 0;
+        function hd(sig, cen_) { var h = new DataView(new ArrayBuffer(cen_ ? 46 : 30)), p = 0; function u32(v) { h.setUint32(p, v, true); p += 4; } function u16(v) { h.setUint16(p, v, true); p += 2; }
+          u32(sig); if (cen_) u16(20); u16(20); u16(0); u16(0); u16(0); u16(0x21); u32(c); u32(d.length); u32(d.length); u16(nm.length); u16(0);
+          if (cen_) { u16(0); u16(0); u16(0); u32(0); u32(off); } return h.buffer; }
+        cen.push(hd(0x02014b50, true), nm); parts.push(hd(0x04034b50, false), nm, d); off += 30 + nm.length + d.length; });
+      var cs = cen.reduce(function (a, x) { return a + (x.byteLength || x.length); }, 0), e = new DataView(new ArrayBuffer(22));
+      e.setUint32(0, 0x06054b50, true); e.setUint16(8, bufs.length, true); e.setUint16(10, bufs.length, true); e.setUint32(12, cs, true); e.setUint32(16, off, true);
+      return new Blob(parts.concat(cen, [e.buffer]), { type: 'application/zip' }); }); }
   function curSlide() { var el = $('story'), w = el.firstChild ? el.firstChild.getBoundingClientRect().width : 1; return Math.max(0, Math.min(imgs.length - 1, Math.round(el.scrollLeft / w))); }
   function ghostGo() { var r = last, v = $('gop').value, op, name;
     if (v === 'goal') { op = planLaps(r, plan); name = '목표의 나'; }
@@ -551,7 +568,7 @@ section[id]{scroll-margin-top:108px}
     h += '<section class="sec" data-tab="recap"><div class="sech"><h2>' + (r.survey ? '결과 카드' : '나의 레이스 리캡') + '</h2><span class="cap">' + (example ? '예시' : 'Recap') + '</span></div>' +
       (r.survey ? '' : '<div class="f" style="max-width:280px"><label for="race">대회 이름</label><input id="race" value="HYROX 서울 2026" autocomplete="off" style="font-size:17px"></div>') +
       '<div class="viewer"><div class="story" id="story"></div><button class="arw l" type="button" id="prev" aria-label="이전 장">‹</button><button class="arw r" type="button" id="next" aria-label="다음 장">›</button></div>' +
-      '<div class="vbar"><span class="cnt" id="cnt">1 / 7</span><button class="btn" type="button" id="save">이 장 저장</button></div>' +
+      '<div class="vbar"><span class="cnt" id="cnt">1 / 7</span><button class="btn line" type="button" id="save">이 장 저장</button><button class="btn" type="button" id="saveall">모두 저장</button></div>' +
       '<p class="sub small">인스타 스토리 크기예요. 저장이 안 되면 그림을 길게 눌러 저장하세요.</p></section>';
     h += '<section class="result" data-tab="type"><span class="cap">' + (example ? '예시 결과' : r.survey ? '설문으로 본 예상 유형' : '나의 하이록스 유형') + '</span>' +
       '<div class="board" style="--n:' + t[0].length + '" role="img" aria-label="' + esc(t[0]) + '">' + t[0].split('').map(function (c, i) { return '<span class="flap" style="animation-delay:' + (i * 110) + 'ms">' + c + '</span>'; }).join('') + '</div>' +
@@ -578,6 +595,7 @@ section[id]{scroll-margin-top:108px}
     setTabs(r.survey ? [['type', '유형'], ['recap', '카드'], ['pair', '궁합']] : [['recap', '리캡'], ['type', '유형'], ['segs', '구간'], ['goal', '목표'], ['ghost', '고스트'], ['pair', '궁합']]);
     showStory(r);
     $('save').addEventListener('click', function () { saveImg(curSlide()); });
+    $('saveall').addEventListener('click', saveAll);
     function go(d) { var el = $('story'), n = Math.max(0, Math.min(imgs.length - 1, curSlide() + d)); el.scrollTo({ left: n * el.firstChild.getBoundingClientRect().width, behavior: 'smooth' }); }
     function upd() { var i = curSlide(); $('cnt').textContent = (i + 1) + ' / ' + imgs.length; $('prev').disabled = i === 0; $('next').disabled = i === imgs.length - 1; }
     $('prev').addEventListener('click', function () { go(-1); }); $('next').addEventListener('click', function () { go(1); });
